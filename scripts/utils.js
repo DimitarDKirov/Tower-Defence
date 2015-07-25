@@ -59,7 +59,6 @@ window.ui = {
 		
 		$("pages-" + name).style.display = "block";
 		
-		_gaq.push(["_trackPageview", "/" + name]);
 	},
 	panel: function (name) {
 		Array.prototype.slice.call($("control-left").children).forEach(function (elem) {

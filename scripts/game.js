@@ -82,10 +82,10 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
         // map
         ///////////////////////////////////////////////////////////////////////////////
-		canvas.fillStyle = "black";
-		canvas.fillRect(0, 0, 800, 500);
+        canvas.fillStyle = "black";
+        canvas.fillRect(0, 0, 800, 500);
 
-      
+
         var map = game.map.slice(1),
             start = game.map[0];
         /*canvas.lineWidth = 40;
@@ -99,14 +99,14 @@ var game = {
         canvas.lineWidth = 46;
         canvas.strokeStyle = "#7A7572";
 
-		
-/*		var labirintTieImage = new Image();
 
-        labirintTieImage.onload = function() {
-            canvas.drawImage(labirintTieImage, 0, 0, 800, 500);
-        };
+        /*		var labirintTieImage = new Image();
 
-        labirintTieImage.src = 'images/labirint/tile-1-center.jpg';*/
+                labirintTieImage.onload = function() {
+                    canvas.drawImage(labirintTieImage, 0, 0, 800, 500);
+                };
+
+                labirintTieImage.src = 'images/labirint/tile-1-center.jpg';*/
 
 
         canvas.beginPath();
@@ -166,16 +166,30 @@ var game = {
                 //here drowing the creep image
                 //TODO - има някакво премигване, което се получи на чудовищата, трябва да се оправи
 
-/*                var creepImage = new Image();
+                /*                var creepImage = new Image();
 
-                creepImage.onload = function() {
-                    canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 23);
-                };
+                                creepImage.onload = function() {
+                                    canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 23);
+                                };
 
-                creepImage.src = 'images/creeps/4.png';*/
+                                creepImage.src = 'images/creeps/4.png';*/
 
-                canvas.fillStyle = "green";
-				canvas.fillRect(creep.x - 5, creep.y - 5, 15, 15);
+
+                /*                var creep = new Kinetic.Rect({
+                                    x: creep.x - 5,
+                                    y: creep.y - 5,
+                                    width: 19,
+                                    height: 19,
+                                    fill: 'orange'
+                                });
+
+                                layer.add(creep);
+                                stage.add(layer);*/
+
+                canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 23);
+                
+                /*  canvas.fillStyle = "yellow";
+                  canvas.fillRect(creep.x - 5, creep.y - 5, 15, 15);*/
             }
         });
 
