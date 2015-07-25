@@ -164,16 +164,6 @@ var game = {
                 }
 
                 //here drowing the creep image
-                //TODO - има някакво премигване, което се получи на чудовищата, трябва да се оправи
-
-                /*                var creepImage = new Image();
-
-                                creepImage.onload = function() {
-                                    canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 23);
-                                };
-
-                                creepImage.src = 'images/creeps/4.png';*/
-
 
                 /*                var creep = new Kinetic.Rect({
                                     x: creep.x - 5,
@@ -186,8 +176,9 @@ var game = {
                                 layer.add(creep);
                                 stage.add(layer);*/
 
-                canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 23);
+                canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 17);
                 
+                // the original code
                 /*  canvas.fillStyle = "yellow";
                   canvas.fillRect(creep.x - 5, creep.y - 5, 15, 15);*/
             }
