@@ -20,6 +20,7 @@ var game = {
 	kills: 0,
 	cash: 35,
 	selection: false,
+	incommingCreepsCount: 7,
 	
 	tiles: {},
 	
@@ -47,7 +48,9 @@ var game = {
 			game.hpinc = { 10: 1.2, 25: 1.1, 50: 1.06, 100: 1.04, 150: 1.02, 200: 1.01 }[game.wave] || game.hpinc;
 			game.hp *= game.hpinc;
 			
-			for (var i = 1; i <= 10; i++) {
+			game.incommingCreepsCount +=2;
+
+			for (var i = 1; i <= game.incommingCreepsCount; i++) {
 				game.creeps.push({
 					x: -(i * 20) - 10,
 					y: game.map[0].y,
@@ -58,7 +61,7 @@ var game = {
 					hp: game.hp,
 					_hp: game.hp,
 					burning: false,
-					cash: game.wave
+					cash: 1
 				});
 			}
 			

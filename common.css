@@ -16,6 +16,10 @@ a {
 	user-select: none;
 }
 
+h1{
+	font-size: 40px;
+}
+
 body {
 	-moz-box-shadow: 0 0 10px #000;
 	-webkit-box-shadow: 0 0 10px #000;
