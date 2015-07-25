@@ -40,17 +40,17 @@ function Model() {
 ///////////////////////////////////////////////////////////////////////////////
 // Turrets
 ///////////////////////////////////////////////////////////////////////////////
-    this._turrets = {};
+    this.turrets = {};
 
-    this._turrets.upgrades = [25, 40, 75, 150, 250, 400, 500, 700, 900, 1000];
+    this.turrets.upgrades = [25, 40, 75, 150, 250, 400, 500, 700, 900, 1000];
 
-    this._turrets.Laser = new Laser();
+    this.turrets.Laser = new Laser();
 
-    this._turrets.Missile = new Missile();
+    this.turrets.Missile = new Missile();
 
-    this._turrets.Tazer = new Tazer();
+    this.turrets.Tazer = new Tazer();
 
-    this._turrets.Mortar = new Mortar();
+    this.turrets.Mortar = new Mortar();
 
 }
 
