@@ -110,7 +110,8 @@ ui.action.scores = function() {
 };
 
 ui.action.build = function(type) {
-    var tdata = Defs.turrets[type];
+    var model = new Model();
+    var tdata = model.turrets[type];
     var turret = {
         x: -1000,
         y: -1000,
@@ -138,10 +139,11 @@ ui.action.build = function(type) {
 };
 
 ui.action.upgrade = function(stat) {
+    var model = new Model();
     var turret = game.selection.turret;
     var levels = turret.levels;
     var level = levels[stat];
-    var cost = Defs.turrets.upgrades[level];
+    var cost = model.turrets.upgrades[level];
 
     if (game.selection.status === "selected" && cost && game.cash - cost >= 0) {
         levels[stat] ++;
@@ -203,9 +205,10 @@ ui.action.refresh = function() {
     ui.cash.textContent = game.cash;
 
     if (game.selection) {
+        var model = new Model();
         var turret = game.selection.turret;
         var levels = turret.levels;
-        var costs = Defs.turrets.upgrades;
+        var costs = model.turrets.upgrades;
 
         ["Damage", "Rate", "Range"].forEach(function(proper) {
             var id = proper.toLowerCase();
@@ -381,8 +384,9 @@ $("control-pause").addEventListener("click", function(evt) {
 // Init
 ///////////////////////////////////////////////////////////////////////////////
 ui.bind("click", $("pages-start-maps").children, function(evt) {
+    var model = new Model();
     var name = this.textContent;
-    game.map = Defs.maps[name];
+    game.map = model.maps[name];
     game.map.name = name;
 
     game.map.map(function(p) {
