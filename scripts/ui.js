@@ -236,6 +236,16 @@ ui.action.deselect = function () {
 ///////////////////////////////////////////////////////////////////////////////
 var canvas = $("pages-canvas").getContext("2d");
 
+//изнесох тук инициализирането на бекграунд фона, тъй като на предишното място не искаше да застане най-отзад. Вероятно с Кинетик js и лейърите в него може да го върнем обратно при метода за рисуване на картите в game.js
+  var backgroundImage = new Image();
+
+        backgroundImage.onload = function() {
+            canvas.drawImage(backgroundImage, 0, 0, 800, 500);
+        };
+
+        backgroundImage.src = 'images/background/stars.png';
+
+
 $("pages-canvas").addEventListener("mousemove", function (evt) {
 	var selection = game.selection;
 	var turret = selection.turret;
