@@ -20,7 +20,9 @@ var game = {
 	kills: 0,
 	cash: 35,
 	selection: false,
+
 	incommingCreepsCount: 7,
+	creepsOffsetPosition: 19,
 	
 	tiles: {},
 	
@@ -33,7 +35,6 @@ var game = {
 			game._tick = Date.now();
 			game._ticks = game.ticks;
 		}
-		
 		
 		///////////////////////////////////////////////////////////////////////////////
 		// wave
@@ -49,10 +50,11 @@ var game = {
 			game.hp *= game.hpinc;
 			
 			game.incommingCreepsCount +=2;
+			game.creepsOffsetPosition +=1;
 
 			for (var i = 1; i <= game.incommingCreepsCount; i++) {
 				game.creeps.push({
-					x: -(i * 20) - 10,
+					x: -(i * game.creepsOffsetPosition) - 10,
 					y: game.map[0].y,
 					offset: Math.rand(14),
 					nextpoint: 0,
