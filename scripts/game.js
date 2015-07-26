@@ -82,14 +82,21 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
         // map
         ///////////////////////////////////////////////////////////////////////////////
-        canvas.fillStyle = "black";
-        canvas.fillRect(0, 0, 800, 500);
+        /*        canvas.fillStyle = "black";
+                canvas.fillRect(0, 0, 800, 500);*/
+
+
+
+        canvas.drawImage(backgroundImage, 0, 0, 800, 500);
+
+
+
 
 
         var map = game.map.slice(1),
             start = game.map[0];
         /*canvas.lineWidth = 40;
-		canvas.strokeStyle = "blue";*/
+        canvas.strokeStyle = "blue";*/
         canvas.beginPath();
         canvas.moveTo(start.x, start.y);
         map.forEach(function(cur, i) {
@@ -97,10 +104,10 @@ var game = {
         });
         canvas.stroke();
         canvas.lineWidth = 46;
-        canvas.strokeStyle = "#7A7572";
+        canvas.strokeStyle = "rgba(255, 255, 255, 0.0)"
 
 
-        /*		var labirintTieImage = new Image();
+        /*      var labirintTieImage = new Image();
 
                 labirintTieImage.onload = function() {
                     canvas.drawImage(labirintTieImage, 0, 0, 800, 500);
@@ -177,7 +184,7 @@ var game = {
                                 stage.add(layer);*/
 
                 canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 17);
-                
+
                 // the original code
                 /*  canvas.fillStyle = "yellow";
                   canvas.fillRect(creep.x - 5, creep.y - 5, 15, 15);*/

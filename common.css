@@ -292,6 +292,6 @@ ul {
     padding: 0 10px;
 }
 
-#creepImageId{
+#creepImageId, #backgroundImageId{
     display: none;
 }

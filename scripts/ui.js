@@ -250,7 +250,8 @@ ui.action.deselect = function() {
 // Canvas
 ///////////////////////////////////////////////////////////////////////////////
 var canvas = $("pages-canvas").getContext("2d");
-
+/*var canvasBackground = $("background-canvas").getContext("2d");
+ */
 /*var stage = new Kinetic.Stage({
     container: "pages-canvas",
     width: 800,
@@ -258,7 +259,10 @@ var canvas = $("pages-canvas").getContext("2d");
 });
 
 var layer = new Kinetic.Layer();*/
-    var creepImage = document.getElementById("creepImageId");
+
+var creepImage = document.getElementById("creepImageId");
+var backgroundImage = document.getElementById("backgroundImageId");
+
 
 
 
