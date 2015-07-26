@@ -261,13 +261,15 @@ var canvas = $("pages-canvas").getContext("2d");
 var layer = new Kinetic.Layer();*/
 
 var creepImage = document.getElementById("creepImageId");
+var creepImg = new Image();
+creepImg.src = 'images/creeps/creep.png';
 
 var backgroundImage1 = document.getElementById("backgroundImageId1");
 var backgroundImage2 = document.getElementById("backgroundImageId2");
 var backgroundImage3 = document.getElementById("backgroundImageId3");
 
-
-
+//to make blasts
+var boom = [];
 
 $("pages-canvas").addEventListener("mousemove", function(evt) {
     var selection = game.selection;

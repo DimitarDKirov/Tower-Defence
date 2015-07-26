@@ -138,6 +138,7 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
         // creeps
         ///////////////////////////////////////////////////////////////////////////////
+
         game.creeps.forEach(function(creep, i, a) {
             var _hp = creep.hp;
             var burning = creep.burning;
@@ -151,12 +152,18 @@ var game = {
                 if (_hp > 0) {
                     burning.kills++;
                 }
-                creep.creepFrameCount = 7;
-                console.log('boom');
                 game.kills++;
                 game.cash += creep.cash;
+                //create a blast
+                boom.push({
+                    x: creep.x,
+                    y: creep.y,
+                    frame: 7
+                });
+                //canvas.drawImage(creepImg, 7 * 46, 0, 46, 46, creep.x - 10, creep.y - 10, 46, 46);
                 
                 delete a[i];
+
 
                 ui.action.refresh();
             } else if (creep.nextpoint === game.map.length) {
@@ -188,19 +195,11 @@ var game = {
                     rotation += 0.2;
 
                 }
-                var creepImg = new Image();
-                creepImg.src = 'images/creeps/creep.png';
-                console.log('frame is ' + creep.creepFrameCount)
+               // console.log('frame is ' + creep.creepFrameCount)
                 if (creep.creepFrameCount >= 0 && creep.creepFrameCount < 6) {
                     creep.creepFrameCount++;
                 }
-                else if (creep.frameCount >= 7 && creep.frameCount < 16) {
-                    creep.creepFrameCount++;
-                }
-                else if (creep.frameCount === 14) {
-                    delete a[i];
-                }
-                else if (creep.frameCount !== 7) {
+                else {
                     creep.creepFrameCount = 0;
                 }
 
@@ -216,11 +215,11 @@ var game = {
 
                                 layer.add(creep);
                                 stage.add(layer);*/
-                canvas.save();
+                //canvas.save();
                 //canvas.translate(10, 10);
                // canvas.rotate(0.2);
                 canvas.drawImage(creepImg, creep.creepFrameCount * 46, 0, 46, 46, creep.x - 10, creep.y - 10, 46, 46);
-                canvas.restore();
+                //canvas.restore();
                 //canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 17);
 
                 // the original code
@@ -228,6 +227,20 @@ var game = {
                   canvas.fillRect(creep.x - 5, creep.y - 5, 15, 15);*/
             }
         });
+
+        /// blasts
+        if (boom.length > 0) {
+            var j,
+                len = boom.length;
+            console.log('booms are ' + len);
+            for (j = 0; j < len; j += 1) {
+                canvas.drawImage(creepImg, boom[j].frame * 46, 0, 46, 46, boom[j].x - 10, boom[j].y - 10, 46, 46);
+                boom[j].frame += 1;
+                if (boom[j].frame > 16) {
+                    boom.splice(j, 1);
+                }
+            }
+        }
 
 
         ///////////////////////////////////////////////////////////////////////////////
