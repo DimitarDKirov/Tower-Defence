@@ -86,8 +86,17 @@ var game = {
                 canvas.fillRect(0, 0, 800, 500);*/
 
 
+        //TODO - Extrackt this in method
+        if (game.map.name == 'Loopy') {
+            canvas.drawImage(backgroundImage1, 0, 0, 800, 500);
 
-        canvas.drawImage(backgroundImage, 0, 0, 800, 500);
+        } else if (game.map.name == 'Backtrack') {
+            canvas.drawImage(backgroundImage2, 0, 0, 800, 500);
+
+        } else if (game.map.name == 'Dash') {
+            canvas.drawImage(backgroundImage3, 0, 0, 800, 500);
+
+        }
 
 
 
@@ -95,6 +104,7 @@ var game = {
 
         var map = game.map.slice(1),
             start = game.map[0];
+
         /*canvas.lineWidth = 40;
         canvas.strokeStyle = "blue";*/
         canvas.beginPath();

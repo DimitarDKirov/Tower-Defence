@@ -261,7 +261,10 @@ var canvas = $("pages-canvas").getContext("2d");
 var layer = new Kinetic.Layer();*/
 
 var creepImage = document.getElementById("creepImageId");
-var backgroundImage = document.getElementById("backgroundImageId");
+
+var backgroundImage1 = document.getElementById("backgroundImageId1");
+var backgroundImage2 = document.getElementById("backgroundImageId2");
+var backgroundImage3 = document.getElementById("backgroundImageId3");
 
 
 
