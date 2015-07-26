@@ -281,8 +281,8 @@ $("pages-canvas").addEventListener("mousemove", function(evt) {
         turret.y = (ty * 5) - 2.5;
         selection.placeable = tx >= 3 && tx <= 158 && ty >= 3 && ty <= 98;
 
-        for (var i = 5; i--;) {
-            for (var ii = 5; ii--;) {
+        for (var i = 8; i--;) {
+            for (var ii = 8; ii--;) {
                 if (game.tiles[(tx + i - 2) + "," + (ty + ii - 2)]) {
                     selection.placeable = false;
                     return;

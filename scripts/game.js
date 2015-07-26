@@ -62,10 +62,11 @@ var game = {
 
             for (var i = 1; i <= game.incommingCreepsCount; i++) {
                 game.creeps.push({
-                    x: -(i * 20) - 10,
+                    x: -(i * 46) - 10,
                     y: game.map[0].y,
-                    offset: Math.rand(18),
+                    offset: Math.rand(9),
                     nextpoint: 0,
+                    creepFrameCount: 0,
                     speed: 1,
                     slowfor: 0,
                     hp: game.hp,
@@ -109,7 +110,7 @@ var game = {
             canvas.lineTo(cur.x, cur.y);
         });
         canvas.stroke();
-        canvas.lineWidth = 48;
+        canvas.lineWidth = 50;
         // canvas.strokeStyle = "rgba(190, 190, 190, 1.0)";
         canvas.strokeStyle = "black";
 
@@ -143,16 +144,18 @@ var game = {
 
             if (burning) {
                 creep.hp -= 30;
+                
             }
 
             if (creep.hp <= 0) {
                 if (_hp > 0) {
                     burning.kills++;
                 }
-
+                creep.creepFrameCount = 7;
+                console.log('boom');
                 game.kills++;
                 game.cash += creep.cash;
-
+                
                 delete a[i];
 
                 ui.action.refresh();
@@ -172,12 +175,33 @@ var game = {
                 var waypoint = game.map[creep.nextpoint];
                 var hue = (creep.speed < 1 || burning) ? (burning ? (creep.speed < 1 ? 300 : 33) : 240) : 0;
                 var sat = 100 * (creep.hp / creep._hp);
+                var rotation = 0;
+
 
                 if (Math.move(creep, {
-                        x: waypoint.x - 7 + creep.offset,
-                        y: waypoint.y - 7 + creep.offset
-                    }, creep.speed)) {
+                        x: waypoint.x - 20 + creep.offset,
+                        y: waypoint.y - 20 + creep.offset
+                }, creep.speed)) {
+                    
+                    var currY = creep.y;
                     creep.nextpoint++;
+                    rotation += 0.2;
+
+                }
+                var creepImg = new Image();
+                creepImg.src = 'images/creeps/creep.png';
+                console.log('frame is ' + creep.creepFrameCount)
+                if (creep.creepFrameCount >= 0 && creep.creepFrameCount < 6) {
+                    creep.creepFrameCount++;
+                }
+                else if (creep.frameCount >= 7 && creep.frameCount < 16) {
+                    creep.creepFrameCount++;
+                }
+                else if (creep.frameCount === 14) {
+                    delete a[i];
+                }
+                else if (creep.frameCount !== 7) {
+                    creep.creepFrameCount = 0;
                 }
 
                 //here drowing the creep image
@@ -192,8 +216,12 @@ var game = {
 
                                 layer.add(creep);
                                 stage.add(layer);*/
-
-                canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 17);
+                canvas.save();
+                //canvas.translate(10, 10);
+               // canvas.rotate(0.2);
+                canvas.drawImage(creepImg, creep.creepFrameCount * 46, 0, 46, 46, creep.x - 10, creep.y - 10, 46, 46);
+                canvas.restore();
+                //canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 17);
 
                 // the original code
                 /*  canvas.fillStyle = "yellow";
