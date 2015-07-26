@@ -96,6 +96,7 @@ function Laser() {
                 canvas.moveTo(turret.x, turret.y);
                 canvas.lineTo(creep.x, creep.y);
                 canvas.stroke();
+
             }, until: 6
         });
     };

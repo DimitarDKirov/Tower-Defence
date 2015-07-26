@@ -98,10 +98,6 @@ var game = {
 
         }
 
-
-
-
-
         var map = game.map.slice(1),
             start = game.map[0];
 
@@ -113,8 +109,10 @@ var game = {
             canvas.lineTo(cur.x, cur.y);
         });
         canvas.stroke();
-        canvas.lineWidth = 46;
-        canvas.strokeStyle = "rgba(255, 255, 255, 0.0)"
+        canvas.lineWidth = 48;
+        canvas.strokeStyle = "rgba(190, 190, 190, 1.0)";
+
+
 
 
         /*      var labirintTieImage = new Image();
