@@ -80,7 +80,7 @@ function Laser() {
             turret.kills++;
         }
 
-        if (turret.levels.full && Math.rand(9) === 0) {
+        if (turret.levels.full && GetRandom(9) === 0) {
             var start = game.map[0];
             creep.x = start.x;
             creep.y = start.y;
@@ -121,7 +121,7 @@ function Missile() {
     ];
     this.cell = 0,
         this.shoot = function (creeps) {
-            var creep = creeps[Math.rand(creeps.length - 1)];
+            var creep = creeps[GetRandom(creeps.length - 1)];
             var cell = this.cell % 4;
             var missile = {x: this.x + (cell % 2 === 0 ? -5 : 5), y: this.y + (cell < 2 ? -5 : 5)};
             var turret = this;
@@ -134,16 +134,16 @@ function Missile() {
                         });
 
                         if (creeps.length) {
-                            creep = creeps[Math.rand(creeps.length - 1)];
+                            creep = creeps[GetRandom(creeps.length - 1)];
                         } else {
                             return false;
                         }
                     }
 
-                    if (Math.move(missile, creep, 3)) {
+                    if (MoveObject(missile, creep, 3)) {
                         if (turret.levels.full) {
                             game.creeps.forEach(function (c) {
-                                if (Math.inRadius(creep, c, 20)) {
+                                if (IsInRange(creep, c, 20)) {
                                     var _hp = c.hp;
                                     if ((c.hp -= turret.damage) <= 0 && _hp > 0) {
                                         turret.kills++;
@@ -258,9 +258,9 @@ function Mortar() {
 
         game.run.push({
             what: function () {
-                if (Math.move(shell, target, 1.5)) {
+                if (MoveObject(shell, target, 1.5)) {
                     game.creeps.forEach(function (creep) {
-                        if (Math.inRadius(creep, target, radius)) {
+                        if (IsInRange(creep, target, radius)) {
                             var _hp = creep.hp;
 
                             if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
