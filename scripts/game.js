@@ -110,7 +110,9 @@ var game = {
         });
         canvas.stroke();
         canvas.lineWidth = 48;
-        canvas.strokeStyle = "rgba(190, 190, 190, 1.0)";
+        // canvas.strokeStyle = "rgba(190, 190, 190, 1.0)";
+        canvas.strokeStyle = "black";
+
 
 
 
