@@ -112,8 +112,9 @@ var game = {
         canvas.stroke();
         canvas.lineWidth = 50;
         // canvas.strokeStyle = "rgba(190, 190, 190, 1.0)";
-        canvas.strokeStyle = "black";
-
+        //canvas.strokeStyle = "black";
+        var pat = canvas.createPattern(floorPat, "repeat");
+        canvas.strokeStyle = pat;
 
 
 

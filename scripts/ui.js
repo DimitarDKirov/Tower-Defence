@@ -271,6 +271,10 @@ var backgroundImage3 = document.getElementById("backgroundImageId3");
 //to make blasts
 var boom = [];
 
+//for the map path 
+var floorPat = new Image();
+floorPat.src = 'images/labirint/stars2.jpg';
+
 $("pages-canvas").addEventListener("mousemove", function(evt) {
     var selection = game.selection;
     var turret = selection.turret;
