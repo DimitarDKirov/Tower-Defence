@@ -66,7 +66,7 @@ var game = {
                     y: game.map[0].y,
                     offset: GetRandom(9),
                     nextpoint: 0,
-                    creepFrameCount: 0,
+                    creepFrame: 0,
                     speed: 1,
                     rotation: 0,
                     slowfor: 0,
@@ -221,16 +221,17 @@ var game = {
                     } else {
                         creep.rotation = 0;
                     }
-
-                    ///left like this till I fix
-                    //creep.rotation = 0;
                 }
                 // console.log('frame is ' + creep.creepFrameCount)
-                if (creep.creepFrameCount >= 0 && creep.creepFrameCount < 6) {
-                    creep.creepFrameCount++;
-                } else {
-                    creep.creepFrameCount = 0;
+                if (game.ticks % 5 === 0) {
+                    console.log(game.ticks);
+                    if (creep.creepFrame >= 0 && creep.creepFrame < 6) {
+                        creep.creepFrame++;
+                    } else {
+                        creep.creepFrame = 0;
+                    }
                 }
+                
 
                 //here drowing the creep image
 
@@ -248,7 +249,7 @@ var game = {
                 canvas.translate(creep.x - 23, creep.y - 23);
                 // console.log('rotation is ' + creep.rotation)
                 canvas.rotate(creep.rotation);
-                canvas.drawImage(creepImg, creep.creepFrameCount * 46, 0, 46, 46, -23, -23, 46, 46);
+                canvas.drawImage(creepImg, creep.creepFrame * 46, 0, 46, 46, -23, -23, 46, 46);
                 canvas.restore();
                 //canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 17);
 
@@ -266,7 +267,9 @@ var game = {
             for (j = 0; j < len; j += 1) {
                 if (boom[j] !== undefined) {
                     canvas.drawImage(creepImg, boom[j].frame * 46, 0, 46, 46, boom[j].x - 46, boom[j].y - 46, 46, 46);
-                    boom[j].frame += 1;
+                    if (game.ticks % 3 === 0) {
+                        boom[j].frame += 1;
+                    }
                     if (boom[j].frame > 16) {
                         boom.splice(j, 1);
                     }
