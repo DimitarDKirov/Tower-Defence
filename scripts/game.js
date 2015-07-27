@@ -140,7 +140,7 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
         // creeps
         ///////////////////////////////////////////////////////////////////////////////
-
+        var currY;
         game.creeps.forEach(function(creep, i, a) {
             var _hp = creep.hp;
             var burning = creep.burning;
@@ -162,7 +162,6 @@ var game = {
                     y: creep.y,
                     frame: 7
                 });
-                //canvas.drawImage(creepImg, 7 * 46, 0, 46, 46, creep.x - 10, creep.y - 10, 46, 46);
                 
                 delete a[i];
 
@@ -180,34 +179,41 @@ var game = {
                 if (--creep.slowfor <= 0) {
                     creep.speed = 1;
                 }
-
                 var waypoint = game.map[creep.nextpoint];
                 var hue = (creep.speed < 1 || burning) ? (burning ? (creep.speed < 1 ? 300 : 33) : 240) : 0;
                 var sat = 100 * (creep.hp / creep._hp);
+                //currY = waypoint.y;
 
                 if (MoveObject(creep, {
                         x: waypoint.x + 18 + creep.offset,
                         y: waypoint.y + 18 + creep.offset
                 }, creep.speed)) {
-                    //var currY = waypoint.y;
                     creep.nextpoint+=1;
-                    //need these to rotate the creep, not workin yet ------ bozhana
-                    //console.log('current y2 ' + currY);
-                    //console.log('new y ' + nextpoint.y);
-                    /*
-                    if (waypoint.y > currY) {
-                        creep.rotation = 1.570796326795;
-                    }
+                    //rotate the creep to follow the path
+                    if (game.map[creep.nextpoint] !== undefined) {
+                        currY = game.map[creep.nextpoint].y;
+                        currX = game.map[creep.nextpoint].x;
 
-                    else if (waypoint.y < currY) {
-                        creep.rotation = -1.570796326795;
+                        if (currY > waypoint.y) {
+                            creep.rotation = 1.570796326795;
+                        }
+
+                        else if (currY < waypoint.y) {
+                            creep.rotation = -1.570796326795;
+                        }
+                        else if (currX < waypoint.x) {
+                            creep.rotation = 3.14;
+                        }
+                        else {
+                            creep.rotation = 0;
+                        }
                     }
                     else {
                         creep.rotation = 0;
                     }
-                    */
+                    
                     ///left like this till I fix
-                    creep.rotation = 0;
+                    //creep.rotation = 0;
                 }
                // console.log('frame is ' + creep.creepFrameCount)
                 if (creep.creepFrameCount >= 0 && creep.creepFrameCount < 6) {
