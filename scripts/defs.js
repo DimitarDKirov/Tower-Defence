@@ -89,8 +89,14 @@ function Laser() {
 
         game.run.push({
             what: function () {
+                
+                canvas.beginPath();
+                var flash = document.getElementById("flash");
+                canvas.drawImage(flash, creep.x-46, creep.y-46);
+                canvas.fill();
+
                 canvas.lineCap = "round";
-                canvas.lineWidth = 2;
+                canvas.lineWidth = 5;
                 canvas.strokeStyle = "#EE82EE";
                 canvas.shadowColor = "#EE82EE";
                 canvas.shadowBlur = 30;
