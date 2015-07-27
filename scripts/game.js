@@ -68,7 +68,7 @@ var game = {
                     nextpoint: 0,
                     creepFrameCount: 0,
                     speed: 1,
-                    rotation : 0,
+                    rotation: 0,
                     slowfor: 0,
                     hp: game.hp,
                     _hp: game.hp,
@@ -84,49 +84,64 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
         // map
         ///////////////////////////////////////////////////////////////////////////////
-        /*        canvas.fillStyle = "black";
-                canvas.fillRect(0, 0, 800, 500);*/
 
 
-        //TODO - Extrackt this in method
+
+        //TODO - Extrackt this in method!!!!!!!!
         if (game.map.name == 'Loopy') {
             canvas.drawImage(backgroundImage1, 0, 0, 800, 500);
+
+            canvas.drawImage(backgroundImage1, 0, 0, 800, 500);
+
+            var map = game.map.slice(1),
+                start = game.map[0];
+
+            canvas.beginPath();
+            canvas.moveTo(start.x, start.y);
+            map.forEach(function(cur, i) {
+                canvas.lineTo(cur.x, cur.y);
+            });
+            canvas.stroke();
+            canvas.lineWidth = 50;
+
+            var pat = canvas.createPattern(floorPatternMap1, "repeat");
+            canvas.strokeStyle = pat;
+
 
         } else if (game.map.name == 'Backtrack') {
             canvas.drawImage(backgroundImage2, 0, 0, 800, 500);
 
+            var map = game.map.slice(1),
+                start = game.map[0];
+
+            canvas.beginPath();
+            canvas.moveTo(start.x, start.y);
+            map.forEach(function(cur, i) {
+                canvas.lineTo(cur.x, cur.y);
+            });
+            canvas.stroke();
+            canvas.lineWidth = 50;
+
+            var pat = canvas.createPattern(floorPatternMap2, "repeat");
+            canvas.strokeStyle = pat;
+
         } else if (game.map.name == 'Dash') {
             canvas.drawImage(backgroundImage3, 0, 0, 800, 500);
 
+            var map = game.map.slice(1),
+                start = game.map[0];
+
+            canvas.beginPath();
+            canvas.moveTo(start.x, start.y);
+            map.forEach(function(cur, i) {
+                canvas.lineTo(cur.x, cur.y);
+            });
+            canvas.stroke();
+            canvas.lineWidth = 50;
+
+            var pat = canvas.createPattern(floorPatternMap3, "repeat");
+            canvas.strokeStyle = pat;
         }
-
-        var map = game.map.slice(1),
-            start = game.map[0];
-
-        /*canvas.lineWidth = 40;
-        canvas.strokeStyle = "blue";*/
-        canvas.beginPath();
-        canvas.moveTo(start.x, start.y);
-        map.forEach(function(cur, i) {
-            canvas.lineTo(cur.x, cur.y);
-        });
-        canvas.stroke();
-        canvas.lineWidth = 50;
-        // canvas.strokeStyle = "rgba(190, 190, 190, 1.0)";
-        //canvas.strokeStyle = "black";
-        var pat = canvas.createPattern(floorPat, "repeat");
-        canvas.strokeStyle = pat;
-
-
-
-
-        /*      var labirintTieImage = new Image();
-
-                labirintTieImage.onload = function() {
-                    canvas.drawImage(labirintTieImage, 0, 0, 800, 500);
-                };
-
-                labirintTieImage.src = 'images/labirint/tile-1-center.jpg';*/
 
 
         canvas.beginPath();
@@ -147,7 +162,7 @@ var game = {
 
             if (burning) {
                 creep.hp -= 30;
-                
+
             }
 
             if (creep.hp <= 0) {
@@ -162,7 +177,7 @@ var game = {
                     y: creep.y,
                     frame: 7
                 });
-                
+
                 delete a[i];
 
 
@@ -187,8 +202,8 @@ var game = {
                 if (MoveObject(creep, {
                         x: waypoint.x + 18 + creep.offset,
                         y: waypoint.y + 18 + creep.offset
-                }, creep.speed)) {
-                    creep.nextpoint+=1;
+                    }, creep.speed)) {
+                    creep.nextpoint += 1;
                     //rotate the creep to follow the path
                     if (game.map[creep.nextpoint] !== undefined) {
                         currY = game.map[creep.nextpoint].y;
@@ -196,30 +211,24 @@ var game = {
 
                         if (currY > waypoint.y) {
                             creep.rotation = 1.570796326795;
-                        }
-
-                        else if (currY < waypoint.y) {
+                        } else if (currY < waypoint.y) {
                             creep.rotation = -1.570796326795;
-                        }
-                        else if (currX < waypoint.x) {
+                        } else if (currX < waypoint.x) {
                             creep.rotation = 3.14;
-                        }
-                        else {
+                        } else {
                             creep.rotation = 0;
                         }
-                    }
-                    else {
+                    } else {
                         creep.rotation = 0;
                     }
-                    
+
                     ///left like this till I fix
                     //creep.rotation = 0;
                 }
-               // console.log('frame is ' + creep.creepFrameCount)
+                // console.log('frame is ' + creep.creepFrameCount)
                 if (creep.creepFrameCount >= 0 && creep.creepFrameCount < 6) {
                     creep.creepFrameCount++;
-                }
-                else {
+                } else {
                     creep.creepFrameCount = 0;
                 }
 
@@ -236,8 +245,8 @@ var game = {
                                 layer.add(creep);
                                 stage.add(layer);*/
                 canvas.save();
-                canvas.translate(creep.x-23, creep.y-23);
-               // console.log('rotation is ' + creep.rotation)
+                canvas.translate(creep.x - 23, creep.y - 23);
+                // console.log('rotation is ' + creep.rotation)
                 canvas.rotate(creep.rotation);
                 canvas.drawImage(creepImg, creep.creepFrameCount * 46, 0, 46, 46, -23, -23, 46, 46);
                 canvas.restore();

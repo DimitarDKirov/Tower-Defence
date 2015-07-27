@@ -272,8 +272,14 @@ var backgroundImage3 = document.getElementById("backgroundImageId3");
 var boom = [];
 
 //for the map path 
-var floorPat = new Image();
-floorPat.src = 'images/labirint/stars2.jpg';
+var floorPatternMap1 = new Image();
+floorPatternMap1.src = 'images/labirint/map1-snow-floor.jpg';
+
+var floorPatternMap2 = new Image();
+floorPatternMap2.src = 'images/labirint/map2-space-floor.jpg';
+
+var floorPatternMap3 = new Image();
+floorPatternMap3.src = 'images/labirint/map3-desert-floor.jpg';
 
 $("pages-canvas").addEventListener("mousemove", function(evt) {
     var selection = game.selection;
