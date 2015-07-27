@@ -262,12 +262,14 @@ var game = {
         if (boom.length > 0) {
             var j,
                 len = boom.length;
-            console.log('booms are ' + len);
+
             for (j = 0; j < len; j += 1) {
-                canvas.drawImage(creepImg, boom[j].frame * 46, 0, 46, 46, boom[j].x - 46, boom[j].y - 46, 46, 46);
-                boom[j].frame += 1;
-                if (boom[j].frame > 16) {
-                    boom.splice(j, 1);
+                if (boom[j] !== undefined) {
+                    canvas.drawImage(creepImg, boom[j].frame * 46, 0, 46, 46, boom[j].x - 46, boom[j].y - 46, 46, 46);
+                    boom[j].frame += 1;
+                    if (boom[j].frame > 16) {
+                        boom.splice(j, 1);
+                    }
                 }
             }
         }
