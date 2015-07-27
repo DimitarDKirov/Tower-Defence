@@ -261,10 +261,23 @@ var canvas = $("pages-canvas").getContext("2d");
 var layer = new Kinetic.Layer();*/
 
 var creepImage = document.getElementById("creepImageId");
-var creepImg = new Image();
-creepImg.src = 'images/creeps/creep.png';
-var lightningImg = new Image();
-lightningImg.src = 'images/effects/lightning.png';
+var creepImg = document.getElementById("creep1b");
+var creep1b = document.getElementById("creep1b");
+var creep2b = document.getElementById("creep2b");
+var creep3b = document.getElementById("creep3b");
+var creep1g = document.getElementById("creep1g");
+var creep1g = document.getElementById("creep1g");
+var creep2g = document.getElementById("creep2g");
+var creep3g = document.getElementById("creep3g");
+var creep1r = document.getElementById("creep1r");
+var creep2r = document.getElementById("creep2r");
+var creep3r = document.getElementById("creep3r");
+var creep1y = document.getElementById("creep1y");
+var creep2y = document.getElementById("creep2y");
+var creep3y = document.getElementById("creep3y");
+var lightningImg = document.getElementById("lightning");
+var expl1 = document.getElementById("expl1");
+var expl2 = document.getElementById("expl2");
 
 var backgroundImage1 = document.getElementById("backgroundImageId1");
 var backgroundImage2 = document.getElementById("backgroundImageId2");
