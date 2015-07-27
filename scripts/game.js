@@ -224,7 +224,6 @@ var game = {
                 }
                 // console.log('frame is ' + creep.creepFrameCount)
                 if (game.ticks % 5 === 0) {
-                    console.log(game.ticks);
                     if (creep.creepFrame >= 0 && creep.creepFrame < 6) {
                         creep.creepFrame++;
                     } else {
