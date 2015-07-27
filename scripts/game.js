@@ -64,7 +64,7 @@ var game = {
                 game.creeps.push({
                     x: -(i * 46) - 10,
                     y: game.map[0].y,
-                    offset: Math.rand(9),
+                    offset: GetRandom(9),
                     nextpoint: 0,
                     creepFrameCount: 0,
                     speed: 1,
@@ -185,9 +185,9 @@ var game = {
                 var hue = (creep.speed < 1 || burning) ? (burning ? (creep.speed < 1 ? 300 : 33) : 240) : 0;
                 var sat = 100 * (creep.hp / creep._hp);
 
-                if (Math.move(creep, {
-                        x: waypoint.x + 18 + creep.offset,
-                        y: waypoint.y + 18 + creep.offset
+                if (MoveObject(creep, {
+                        x: waypoint.x - 18 + creep.offset,
+                        y: waypoint.y - 18 + creep.offset
                 }, creep.speed)) {
                     //var currY = waypoint.y;
                     creep.nextpoint+=1;
@@ -261,7 +261,7 @@ var game = {
         game.turrets.forEach(function(turret) {
             if (turret.lastshot + turret.rate <= game.ticks) {
                 var creeps = game.creeps.filter(function(creep) {
-                    return Math.inRadius(creep, turret, turret.range);
+                    return IsInRange(creep, turret, turret.range);
                 });
 
                 if (creeps.length > 0) {
