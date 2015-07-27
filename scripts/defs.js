@@ -96,15 +96,17 @@ function Laser() {
                 canvas.fill();
 
                 canvas.lineCap = "round";
-                canvas.lineWidth = 5;
+                canvas.lineWidth = 3;
                 canvas.strokeStyle = "#EE82EE";
                 canvas.shadowColor = "#EE82EE";
-                canvas.shadowBlur = 30;
+                canvas.save;
+                canvas.shadowBlur = 20;
                 canvas.beginPath();
                 canvas.moveTo(turret.x + 7, turret.y - 5);
                 canvas.lineTo(creep.x - 23, creep.y - 23);
                 canvas.stroke();
                 canvas.shadowColor = 'rgba(0,0,0,0)';
+                canvas.restore;
 
             }, until: 6
         });
@@ -229,16 +231,20 @@ function Tazer() {
 
         game.run.push({
             what: function () {
+
+                canvas.drawImage(lightningImg, creep.x - 46, creep.y - 46);
                 canvas.lineCap = "round";
                 canvas.lineWidth = 2;
                 canvas.strokeStyle = "#fff";
                 canvas.shadowColor = "#fff";
+                canvas.save;
                 canvas.shadowBlur = 30;
                 canvas.beginPath();
                 canvas.moveTo(turret.x + 10, turret.y);
                 canvas.lineTo(creep.x - 23, creep.y - 23);
                 canvas.stroke();
                 canvas.shadowColor = 'rgba(0,0,0,0)';
+                canvas.restore;
             }, until: 6
         });
     }
