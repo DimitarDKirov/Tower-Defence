@@ -18,7 +18,7 @@ var game = {
     turrets: [],
     spent: 0,
     kills: 0,
-    cash: 35,
+    cash: 135,
     selection: false,
 
     //добавянето на тези две променливи подобряват баланса (тези и други помощни коментари после ще ги изтрием от финания проект)
@@ -179,9 +179,9 @@ var game = {
                 boom.push({
                     x: creep.x,
                     y: creep.y,
+                    color: creep.color,
                     frame: 7
                 });
-
                 delete a[i];
 
 
@@ -300,7 +300,6 @@ var game = {
                                 stage.add(layer);*/
                 canvas.save();
                 canvas.translate(creep.x - 23, creep.y - 23);
-                 console.log('color is ' + creep.color)
                 canvas.rotate(creep.rotation);
                 canvas.drawImage(creepImg, creep.creepFrame * 46, 0, 46, 46, -23, -23, 46, 46);
                 canvas.restore();
@@ -311,6 +310,10 @@ var game = {
                   canvas.fillRect(creep.x - 5, creep.y - 5, 15, 15);*/
             }
         });
+        ////Swithc for the creep image
+        var creepImg;
+
+        
 
         /// blasts
         if (boom.length > 0) {
@@ -318,6 +321,16 @@ var game = {
                 len = boom.length;
 
             for (j = 0; j < len; j += 1) {
+
+                switch (game.map.name) {
+                    case 'Dash':
+                        creepImg = creep1y;
+                        break;
+                    default:
+                        creepImg = creep1b;
+                        break;
+                }
+
                 if (boom[j] !== undefined) {
                     canvas.drawImage(creepImg, boom[j].frame * 46, 0, 46, 46, boom[j].x - 46, boom[j].y - 46, 46, 46);
                     if (game.ticks % 3 === 0) {
@@ -325,6 +338,43 @@ var game = {
                     }
                     if (boom[j].frame > 16) {
                         boom.splice(j, 1);
+                    }
+                }
+            }
+        }
+        //missle
+        if (boom1.length > 0) {
+            var j,
+                len = boom1.length;
+
+            for (j = 0; j < len; j += 1) {
+
+                if (boom1[j] !== undefined) {
+                    canvas.drawImage(expl1, boom1[j].frame * 64, 0, 64, 64, boom1[j].x - 55, boom1[j].y - 55, 64, 64);
+                    if (game.ticks % 3 === 0) {
+                        boom1[j].frame += 1;
+                    }
+                    if (boom1[j].frame > 16) {
+                        boom1.splice(j, 1);
+                    }
+                }
+            }
+        }
+
+        //mortar
+        if (boom2.length > 0) {
+            var j,
+                len = boom2.length;
+
+            for (j = 0; j < len; j += 1) {
+
+                if (boom2[j] !== undefined) {
+                    canvas.drawImage(expl2, boom2[j].frame * 128, 0, 128, 128, boom2[j].x - 80, boom2[j].y - 60, 128, 128);
+                    if (game.ticks % 3 === 0) {
+                        boom2[j].frame += 1;
+                    }
+                    if (boom2[j].frame > 16) {
+                        boom2.splice(j, 1);
                     }
                 }
             }

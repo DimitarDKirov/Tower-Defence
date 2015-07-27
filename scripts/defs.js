@@ -174,6 +174,11 @@ function Missile() {
                         } else {
                             var _hp = creep.hp;
                             if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
+                                boom1.push({
+                                    x: creep.x,
+                                    y: creep.y,
+                                    frame: 0
+                                });
                                 turret.kills++;
                             }
                         }
@@ -183,7 +188,7 @@ function Missile() {
 
                         canvas.beginPath();
                         var smallRocket = document.getElementById("missle-bomb");
-                        canvas.drawImage(smallRocket, missile.x - 2, missile.y - 2);
+                        canvas.drawImage(smallRocket, missile.x - 20, missile.y - 20);
                         canvas.fill();
 
                         // canvas.fillStyle = "#FFF";
@@ -299,8 +304,14 @@ function Mortar() {
                             // canvas.moveTo(target.x, target.y);
                             // canvas.arc(target.x, target.y, radius, 0, Math.PI * 2, true);
 
-                            var mortarFlame = document.getElementById("mortar-flame");
-                            canvas.drawImage(mortarFlame, target.x - 42, target.y - 50);
+                            //var mortarFlame = document.getElementById("mortar-flame");
+                            //canvas.drawImage(mortarFlame, target.x - 42, target.y - 50);
+
+                            boom2.push({
+                                x: target.x,
+                                y: target.y,
+                                frame: 0
+                            });
 
                             canvas.fill();
                         }, until: 3

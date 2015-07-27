@@ -285,6 +285,8 @@ var backgroundImage3 = document.getElementById("backgroundImageId3");
 
 //to make blasts
 var boom = [];
+var boom1 = [];
+var boom2 = [];
 
 //for the map path 
 var floorPatternMap1 = new Image();
