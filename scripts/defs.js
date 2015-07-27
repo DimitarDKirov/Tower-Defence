@@ -172,8 +172,14 @@ function Missile() {
 
                         return false;
                     } else {
-                        canvas.fillStyle = "#FFF";
-                        canvas.fillRect(missile.x - 2, missile.y - 2, 4, 4);
+                        
+                        canvas.beginPath();
+                        var smallRocket = document.getElementById("missle-bomb");
+                        canvas.drawImage(smallRocket, missile.x - 2, missile.y - 2);
+                        canvas.fill();
+
+                        // canvas.fillStyle = "#FFF";
+                        // canvas.fillRect(missile.x - 2, missile.y - 2, 4, 4);
                     }
                 }, until: Infinity
             });
@@ -233,7 +239,7 @@ function Tazer() {
 }
 
 function Mortar() {
-    this.cost = 60;
+    this.cost = 0;
     this.damage = 50;
     this.rate = 120;
     this.range = 200;
@@ -259,6 +265,7 @@ function Mortar() {
         game.run.push({
             what: function () {
                 if (MoveObject(shell, target, 1.5)) {
+
                     game.creeps.forEach(function (creep) {
                         if (IsInRange(creep, target, radius)) {
                             var _hp = creep.hp;
@@ -272,7 +279,7 @@ function Mortar() {
                             }
                         }
                     });
-                    console.log(radius);
+
                     game.run.push({
                         what: function () {
                             // canvas.fillStyle = "#FF0";
@@ -288,9 +295,15 @@ function Mortar() {
                     });
 
                     return false;
-                } else {
-                    canvas.fillStyle = "#808080";
-                    canvas.fillRect(shell.x - 3, shell.y - 3, 6, 6);
+                } else {    
+
+                    canvas.beginPath();
+                    var smallRocket = document.getElementById("bomb");
+                    canvas.drawImage(smallRocket, shell.x - 3, shell.y - 3);
+                    canvas.fill();
+                        
+                    // canvas.fillStyle = "#808080";
+                    // canvas.fillRect(shell.x - 3, shell.y - 3, 6, 6);
                 }
             }, until: Infinity
         });
