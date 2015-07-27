@@ -298,7 +298,7 @@ var game = {
         if (selection) {
             canvas.beginPath();
             canvas.fillStyle = selection.status === "selected" || selection.placeable ? "rgba(255, 255, 255, .3)" : "rgba(255, 0, 0, .3)";
-            canvas.arc(turret.x, turret.y, turret.range, 0, Math.PI * 2, true);
+            canvas.arc(turret.x + 8, turret.y + 8, turret.range, 0, Math.PI * 2, true);
             canvas.fill();
 
             canvas.drawImage(turret.img, turret.x - 12.5, turret.y - 12.5);
