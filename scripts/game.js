@@ -186,14 +186,15 @@ var game = {
                 var sat = 100 * (creep.hp / creep._hp);
 
                 if (MoveObject(creep, {
-                        x: waypoint.x - 18 + creep.offset,
-                        y: waypoint.y - 18 + creep.offset
+                        x: waypoint.x + 18 + creep.offset,
+                        y: waypoint.y + 18 + creep.offset
                 }, creep.speed)) {
                     //var currY = waypoint.y;
                     creep.nextpoint+=1;
                     //need these to rotate the creep, not workin yet ------ bozhana
                     //console.log('current y2 ' + currY);
                     //console.log('new y ' + nextpoint.y);
+                    /*
                     if (waypoint.y > currY) {
                         creep.rotation = 1.570796326795;
                     }
@@ -204,7 +205,9 @@ var game = {
                     else {
                         creep.rotation = 0;
                     }
-
+                    */
+                    ///left like this till I fix
+                    creep.rotation = 0;
                 }
                // console.log('frame is ' + creep.creepFrameCount)
                 if (creep.creepFrameCount >= 0 && creep.creepFrameCount < 6) {
