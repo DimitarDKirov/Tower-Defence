@@ -95,7 +95,7 @@ function Laser() {
                 canvas.shadowColor = "#EE82EE";
                 canvas.shadowBlur = 30;
                 canvas.beginPath();
-                canvas.moveTo(turret.x + 10, turret.y);
+                canvas.moveTo(turret.x + 7, turret.y - 5);
                 canvas.lineTo(creep.x - 23, creep.y - 23);
                 canvas.stroke();
                 canvas.shadowColor = 'rgba(0,0,0,0)';
@@ -254,8 +254,8 @@ function Mortar() {
         var turret = this;
         var target = {x: creep.x / 1, y: creep.y / 1};
         var shell = {x: turret.x / 1, y: turret.y / 1};
-        var radius = 25 + (turret.damage / 150);
-
+        // var radius = 25 + (turret.damage / 150);
+        var radius = 25;    //Why splash radius depends by damage of turret (upgrades)?
         game.run.push({
             what: function () {
                 if (MoveObject(shell, target, 1.5)) {
@@ -272,13 +272,17 @@ function Mortar() {
                             }
                         }
                     });
-
+                    console.log(radius);
                     game.run.push({
                         what: function () {
-                            canvas.fillStyle = "#FF0";
+                            // canvas.fillStyle = "#FF0";
                             canvas.beginPath();
-                            canvas.moveTo(target.x, target.y);
-                            canvas.arc(target.x, target.y, radius, 0, Math.PI * 2, true);
+                            // canvas.moveTo(target.x, target.y);
+                            // canvas.arc(target.x, target.y, radius, 0, Math.PI * 2, true);
+
+                            var mortarFlame = document.getElementById("mortar-flame");
+                            canvas.drawImage(mortarFlame, target.x - 42, target.y - 50);
+
                             canvas.fill();
                         }, until: 3
                     });
