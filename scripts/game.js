@@ -68,6 +68,7 @@ var game = {
                     nextpoint: 0,
                     creepFrameCount: 0,
                     speed: 1,
+                    rotation : 0,
                     slowfor: 0,
                     hp: game.hp,
                     _hp: game.hp,
@@ -183,17 +184,26 @@ var game = {
                 var waypoint = game.map[creep.nextpoint];
                 var hue = (creep.speed < 1 || burning) ? (burning ? (creep.speed < 1 ? 300 : 33) : 240) : 0;
                 var sat = 100 * (creep.hp / creep._hp);
-                var rotation = 0;
-
 
                 if (Math.move(creep, {
-                        x: waypoint.x - 20 + creep.offset,
-                        y: waypoint.y - 20 + creep.offset
+                        x: waypoint.x + 18 + creep.offset,
+                        y: waypoint.y + 18 + creep.offset
                 }, creep.speed)) {
-                    
-                    var currY = creep.y;
-                    creep.nextpoint++;
-                    rotation += 0.2;
+                    //var currY = waypoint.y;
+                    creep.nextpoint+=1;
+                    //need these to rotate the creep, not workin yet ------ bozhana
+                    //console.log('current y2 ' + currY);
+                    //console.log('new y ' + nextpoint.y);
+                    if (waypoint.y > currY) {
+                        creep.rotation = 1.570796326795;
+                    }
+
+                    else if (waypoint.y < currY) {
+                        creep.rotation = -1.570796326795;
+                    }
+                    else {
+                        creep.rotation = 0;
+                    }
 
                 }
                // console.log('frame is ' + creep.creepFrameCount)
@@ -216,11 +226,12 @@ var game = {
 
                                 layer.add(creep);
                                 stage.add(layer);*/
-                //canvas.save();
-                //canvas.translate(10, 10);
-               // canvas.rotate(0.2);
-                canvas.drawImage(creepImg, creep.creepFrameCount * 46, 0, 46, 46, creep.x - 10, creep.y - 10, 46, 46);
-                //canvas.restore();
+                canvas.save();
+                canvas.translate(creep.x-23, creep.y-23);
+               // console.log('rotation is ' + creep.rotation)
+                canvas.rotate(creep.rotation);
+                canvas.drawImage(creepImg, creep.creepFrameCount * 46, 0, 46, 46, -23, -23, 46, 46);
+                canvas.restore();
                 //canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 17);
 
                 // the original code
@@ -235,7 +246,7 @@ var game = {
                 len = boom.length;
             console.log('booms are ' + len);
             for (j = 0; j < len; j += 1) {
-                canvas.drawImage(creepImg, boom[j].frame * 46, 0, 46, 46, boom[j].x - 10, boom[j].y - 10, 46, 46);
+                canvas.drawImage(creepImg, boom[j].frame * 46, 0, 46, 46, boom[j].x - 46, boom[j].y - 46, 46, 46);
                 boom[j].frame += 1;
                 if (boom[j].frame > 16) {
                     boom.splice(j, 1);

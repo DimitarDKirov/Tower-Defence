@@ -96,7 +96,7 @@ function Laser() {
                 canvas.shadowBlur = 30;
                 canvas.beginPath();
                 canvas.moveTo(turret.x + 10, turret.y);
-                canvas.lineTo(creep.x+ 10, creep.y+10);
+                canvas.lineTo(creep.x - 23, creep.y - 23);
                 canvas.stroke();
                 canvas.shadowColor = 'rgba(0,0,0,0)';
 
@@ -220,13 +220,13 @@ function Tazer() {
                 canvas.lineCap = "round";
                 canvas.lineWidth = 2;
                 canvas.strokeStyle = "#fff";
-                canvas.shadowColor = "#EE82EE";
+                canvas.shadowColor = "#fff";
                 canvas.shadowBlur = 30;
                 canvas.beginPath();
                 canvas.moveTo(turret.x + 10, turret.y);
-                canvas.lineTo(creep.x + 10, creep.y + 10);
+                canvas.lineTo(creep.x - 23, creep.y - 23);
                 canvas.stroke();
-                canvas.shadowColor = "rgba(0,0,0,0)";
+                canvas.shadowColor = 'rgba(0,0,0,0)';
             }, until: 6
         });
     }
