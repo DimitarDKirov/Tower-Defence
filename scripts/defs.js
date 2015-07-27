@@ -205,7 +205,7 @@ function Tazer() {
         })[0];
         var _hp = creep.hp;
         var turret = this;
-        var speed = 0.9 - (turret.damage / 1000);
+        var speed = 0.6 - (turret.damage / 1000);
         var slowfor = 60 + turret.damage;
 
         if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
