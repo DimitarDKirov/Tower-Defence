@@ -73,6 +73,7 @@ var game = {
                     hp: game.hp,
                     _hp: game.hp,
                     burning: false,
+                    color: Math.ceil(GetRandom(3)),
                     cash: 1
                 });
             }
@@ -155,6 +156,9 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
         // creeps
         ///////////////////////////////////////////////////////////////////////////////
+
+        
+
         var currY;
         game.creeps.forEach(function(creep, i, a) {
             var _hp = creep.hp;
@@ -197,7 +201,6 @@ var game = {
                 var waypoint = game.map[creep.nextpoint];
                 var hue = (creep.speed < 1 || burning) ? (burning ? (creep.speed < 1 ? 300 : 33) : 240) : 0;
                 var sat = 100 * (creep.hp / creep._hp);
-                //currY = waypoint.y;
 
                 if (MoveObject(creep, {
                         x: waypoint.x + 18 + creep.offset,
@@ -231,6 +234,57 @@ var game = {
                     }
                 }
                 
+                ////Swithc for the creep image
+                var creepImg;
+
+                switch (creep.color) {
+                    case 0:
+                        if (game.map.name == 'Dash') {
+                            creepImg = creep3y;
+                        }
+                        else if (game.map.name == 'Loopy') {
+                            creepImg = creep2y;
+                        }
+                        else {
+                            creepImg = creep1y
+                        }
+                        break;
+                    case 1:
+                        if (game.map.name == 'Dash') {
+                            creepImg = creep3b;
+                        }
+                        else if (game.map.name == 'Loopy') {
+                            creepImg = creep2b;
+                        }
+                        else {
+                            creepImg = creep1b;
+                        }
+                        break;
+                    case 2:
+                        if (game.map.name == 'Dash') {
+                            creepImg = creep3g;
+                        }
+                        else if (game.map.name == 'Loopy') {
+                            creepImg = creep2g;
+                        }
+                        else {
+                            creepImg = creep1g;
+                        }
+                        break;
+                    default:
+                        if (game.map.name == 'Dash') {
+                            creepImg = creep3r;
+                        }
+                        else if (game.map.name == 'Loopy') {
+                            creepImg = creep2r;
+                        }
+                        else {
+                            creepImg = creep1r;
+                        }
+                        break;
+                }
+
+
 
                 //here drowing the creep image
 
@@ -246,7 +300,7 @@ var game = {
                                 stage.add(layer);*/
                 canvas.save();
                 canvas.translate(creep.x - 23, creep.y - 23);
-                // console.log('rotation is ' + creep.rotation)
+                 console.log('color is ' + creep.color)
                 canvas.rotate(creep.rotation);
                 canvas.drawImage(creepImg, creep.creepFrame * 46, 0, 46, 46, -23, -23, 46, 46);
                 canvas.restore();
