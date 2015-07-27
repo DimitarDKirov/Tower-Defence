@@ -154,8 +154,7 @@ h2{
     text-align: center;
     color:white;
 }
-
-#pages-start-maps > a > div > img {
+#pages-start-maps > a > img {
     -moz-box-shadow: 0 0 5px #000;
     -webkit-box-shadow: 0 0 5px #000;
     box-shadow: 0 0 5px #000;
@@ -164,15 +163,7 @@ h2{
     width: 80px;
     border:5px solid white ;
     text-align: center;
-    padding: 5px;
 }
-
-#pages-start-maps > a > div :hover {
-    border:5px solid blue;
-}
-
-
-
 #pages-start-info {
     float: right;
     height: 450px;
