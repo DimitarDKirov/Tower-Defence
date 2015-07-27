@@ -172,7 +172,7 @@ function Missile() {
 
                         return false;
                     } else {
-                        
+
                         canvas.beginPath();
                         var smallRocket = document.getElementById("missle-bomb");
                         canvas.drawImage(smallRocket, missile.x - 2, missile.y - 2);
@@ -239,7 +239,7 @@ function Tazer() {
 }
 
 function Mortar() {
-    this.cost = 0;
+    this.cost = 60;
     this.damage = 50;
     this.rate = 120;
     this.range = 200;
