@@ -9,7 +9,10 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
     outline: 0;
     font-size: 100%;
     vertical-align: baseline;
-    background: transparent
+    background: transparent;
+    font-family: 'Seymour One', sans-serif;
+    /*font-family: 'Kurale', serif;*/
+    /*font-family: 'Neucha', cursive;*/
 }
 body {
     line-height: 1
@@ -130,7 +133,13 @@ ul {
     padding: 50px;
     width: 700px;
     background-image: url("images/labirint/stars2.jpg");
+    /*background-color: #00001F;*/
     font-size:14px;
+}
+
+#pages-start h1 {
+    margin:30px;
+    text-align: center;
 }
 
 #pages-start {
@@ -139,10 +148,11 @@ ul {
     padding: 50px;
     width: 700px;
     color: white;
-    font-family: 'Abril Fatface', cursive;
 }
 #pages-start-maps {
     float: left;
+    position: relative;
+    left:50px;
 }
 
 h2{
@@ -163,18 +173,34 @@ h2{
     width: 80px;
     border:5px solid white ;
     text-align: center;
+    position:relative;
+    left:20px;
 }
 #pages-start-info {
     float: right;
     height: 450px;
     text-align: justify;
-    width: 350px;
+    width: 400px;
     color:white;
+    position: relative;
+    left:-75px;
+
 }
+
 #pages-start-links {
     bottom: 5px;
     position: absolute;
 }
+#about,#authors,#hotkeys,#credits,#instructions {
+    display:block;
+    text-align: center;
+    margin:10px;
+}
+#about-text,#authors-text,#hotkeys-text,#credits-text,#instructions-text{
+    display:none;
+    text-align: center;
+}
+
 /*****************************************************************************/
 /* Overlay page
 /*****************************************************************************/

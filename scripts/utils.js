@@ -87,3 +87,51 @@ window.ui = {
         $("control-" + name).style.display = "block";
     }
 };
+
+var about = document.getElementById("about");
+var aboutRecipient = document.getElementById("about-text");
+about.addEventListener("click",function(){
+    aboutRecipient.style.display = 'block';
+},false );
+aboutRecipient.addEventListener("click",function(){
+    aboutRecipient.style.display = 'none';
+},false );
+
+var hotkeys = document.getElementById("hotkeys");
+var hotkeysRecipient = document.getElementById("hotkeys-text");
+hotkeys.addEventListener("click",function(){
+    hotkeysRecipient.style.display = 'block';
+},false );
+hotkeysRecipient.addEventListener("click",function(){
+    hotkeysRecipient.style.display = 'none';
+},false );
+
+var authors = document.getElementById("authors");
+var authorsRecipient = document.getElementById("authors-text");
+authors.addEventListener("click",function(){
+    var recipient = document.getElementById("authors-text");
+    authorsRecipient.style.display = 'block';
+},false );
+authorsRecipient.addEventListener("click",function(){
+    authorsRecipient.style.display = 'none';
+},false );
+
+var credits = document.getElementById("credits");
+var creditsRecipient = document.getElementById("credits-text");
+credits.addEventListener("click",function(){
+    var recipient = document.getElementById("credits-text");
+    creditsRecipient.style.display = 'block';
+},false );
+creditsRecipient.addEventListener("click",function(){
+    creditsRecipient.style.display = 'none';
+},false );
+
+var instructions = document.getElementById("instructions");
+var instructionsRecipient = document.getElementById("instructions-text");
+instructions.addEventListener("click",function(){
+    var recipient = document.getElementById("instructions-text");
+    instructionsRecipient.style.display = 'block';
+},false );
+instructionsRecipient.addEventListener("click",function(){
+    instructionsRecipient.style.display = 'none';
+},false );

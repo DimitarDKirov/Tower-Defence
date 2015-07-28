@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <title>Tower Defense with Canvas</title>
     <link rel="stylesheet" href="common.css">
-    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Seymour+One&subset=latin,cyrillic' rel='stylesheet' type='text/css'> //font-family: 'Seymour One', sans-serif;
+    <link href='http://fonts.googleapis.com/css?family=Kurale&subset=latin,cyrillic' rel='stylesheet' type='text/css'> //font-family: 'Kurale', serif;
+    <link href='http://fonts.googleapis.com/css?family=Neucha&subset=latin,cyrillic' rel='stylesheet' type='text/css'> //font-family: 'Neucha', cursive;
     <script src="libs/kinetic-v5.1.0.js"></script>
 </head>
 
@@ -17,7 +19,7 @@
         <div id="pages-overlay"></div>
 
         <div id="pages-start">
-                    <h1>THE GAME WELCOME SCREEN... TODO: NEED TO BE MORE STYLED</h1>
+                    <h1>Papaya Invincible</h1>
 
             <div id="pages-start-maps">
                 <h2> Pick a map </h2>
@@ -27,54 +29,67 @@
             </div>
 
             <div id="pages-start-info">
-                <p>A fully featured tower defense game built with &lt;canvas&gt;.</p>
+                <h2 id="about"> About</h2>
+                <div id="about-text">
+                    <p>A fully featured tower defense game built with &lt;canvas&gt;.
+                </div>
+                <h2 id="instructions">Instructions</h2>
+                    <div id ="instructions-text">
+                        <p >Build and upgrade turrets (which costs money and increases score) to kill creeps (which generates money and increases score). Experiment with the turrets; each has a special ability when fully upgraded.</p>
+                    </div>
 
-                <h2>Instructions</h2>
-                <p>Build and upgrade turrets (which costs money and increases score) to kill creeps (which generates money and increases score). Experiment with the turrets; each has a special ability when fully upgraded.</p>
+                <h2 id="authors">Authors</h2>
+                <div id="authors-text">
+                   Мирослав Христов <br>
+                    Ангел Ангелов <br>
+                    Димитър Киров <br>
+                    Божана Нешева <br>
+                    Аспарух Христов <br>
+                    Александър Павлов <br>
+                    Борис Кафалиев <br>
+                    Иван Иван <br>
+                    Емилия Механджиева <br>
+                </div>
+                <h2 id="credits">Credits</h2>
+                <div id="credits-text">
+                    http://www.hirefreelanceartist.com/free-tower-defense-graphics.html <br>
+                    http://canvas-td.tkaz.ec/ <br>
+                </div>
+                <h2 id="hotkeys">Hot keys</h2>
+                <div id="hotkeys-text">
+                    <dl>
+                        <dt>1</dt>
+                        <dd>Build Laser / Upgrade damage</dd>
 
-                <h2>Hot keys</h2>
-                <dl>
-                    <dt>
-                        <kbd>1</kbd>
-                    </dt>
-                    <dd>Build Laser / Upgrade damage</dd>
+                        <dt>2
+                        </dt>
+                        <dd>Build Missile / Upgrade rate</dd>
 
-                    <dt>
-                        <kbd>2</kbd>
-                    </dt>
-                    <dd>Build Missile / Upgrade rate</dd>
+                        <dt>3
+                        </dt>
+                        <dd>Build Tazer / Upgrade range</dd>
 
-                    <dt>
-                        <kbd>3</kbd>
-                    </dt>
-                    <dd>Build Tazer / Upgrade range</dd>
+                        <dt>4
+                        </dt>
+                        <dd>Build Mortar / Move</dd>
 
-                    <dt>
-                        <kbd>4</kbd>
-                    </dt>
-                    <dd>Build Mortar / Move</dd>
+                        <dt>*
+                        </dt>
+                        <dd>Sell</dd>
 
-                    <dt>
-                        <kbd>*</kbd>
-                    </dt>
-                    <dd>Sell</dd>
+                        <dt>=
+                        </dt>
+                        <dd>Fast forward</dd>
 
-                    <dt>
-                        <kbd>=</kbd>
-                    </dt>
-                    <dd>Fast forward</dd>
+                        <dt>Esc
+                        </dt>
+                        <dd>Deselect / Cancel / Pause</dd>
 
-                    <dt>
-                        <kbd>Esc</kbd>
-                    </dt>
-                    <dd>Deselect / Cancel / Pause</dd>
-
-                    <dt>
-                        <kbd>Enter</kbd>
-                    </dt>
-                    <dd>Send wave</dd>
-                </dl>
-
+                        <dt>Enter
+                        </dt>
+                        <dd>Send wave</dd>
+                    </dl>
+                </div>
             </div>
         </div>
 
