@@ -90,47 +90,71 @@ window.ui = {
 
 var about = document.getElementById("about");
 var aboutRecipient = document.getElementById("about-text");
+var hotkeys = document.getElementById("hotkeys");
+var hotkeysRecipient = document.getElementById("hotkeys-text");
+var authors = document.getElementById("authors");
+var authorsRecipient = document.getElementById("authors-text");
+var credits = document.getElementById("credits");
+var creditsRecipient = document.getElementById("credits-text");
+var instructions = document.getElementById("instructions");
+var instructionsRecipient = document.getElementById("instructions-text");
+
+
 about.addEventListener("click",function(){
     aboutRecipient.style.display = 'block';
+    hotkeysRecipient.style.display = 'none';
+    authorsRecipient.style.display = 'none';
+    creditsRecipient.style.display = 'none';
+    instructionsRecipient.style.display = 'none';
 },false );
 aboutRecipient.addEventListener("click",function(){
     aboutRecipient.style.display = 'none';
 },false );
 
-var hotkeys = document.getElementById("hotkeys");
-var hotkeysRecipient = document.getElementById("hotkeys-text");
 hotkeys.addEventListener("click",function(){
     hotkeysRecipient.style.display = 'block';
+    aboutRecipient.style.display = 'none';
+    authorsRecipient.style.display = 'none';
+    creditsRecipient.style.display = 'none';
+    instructionsRecipient.style.display = 'none';
 },false );
 hotkeysRecipient.addEventListener("click",function(){
     hotkeysRecipient.style.display = 'none';
 },false );
 
-var authors = document.getElementById("authors");
-var authorsRecipient = document.getElementById("authors-text");
 authors.addEventListener("click",function(){
     var recipient = document.getElementById("authors-text");
     authorsRecipient.style.display = 'block';
+    aboutRecipient.style.display = 'none';
+    hotkeysRecipient.style.display = 'none';
+    creditsRecipient.style.display = 'none';
+    instructionsRecipient.style.display = 'none';
 },false );
 authorsRecipient.addEventListener("click",function(){
     authorsRecipient.style.display = 'none';
 },false );
 
-var credits = document.getElementById("credits");
-var creditsRecipient = document.getElementById("credits-text");
+
 credits.addEventListener("click",function(){
     var recipient = document.getElementById("credits-text");
     creditsRecipient.style.display = 'block';
+    aboutRecipient.style.display = 'none';
+    authorsRecipient.style.display = 'none';
+    hotkeysRecipient.style.display = 'none';
+    instructionsRecipient.style.display = 'none';
 },false );
 creditsRecipient.addEventListener("click",function(){
     creditsRecipient.style.display = 'none';
 },false );
 
-var instructions = document.getElementById("instructions");
-var instructionsRecipient = document.getElementById("instructions-text");
+
 instructions.addEventListener("click",function(){
     var recipient = document.getElementById("instructions-text");
     instructionsRecipient.style.display = 'block';
+    aboutRecipient.style.display = 'none';
+    authorsRecipient.style.display = 'none';
+    creditsRecipient.style.display = 'none';
+    hotkeysRecipient.style.display = 'none';
 },false );
 instructionsRecipient.addEventListener("click",function(){
     instructionsRecipient.style.display = 'none';
