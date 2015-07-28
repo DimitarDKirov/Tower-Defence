@@ -282,7 +282,17 @@ h2{
 /*****************************************************************************/
 /* Control panel
 /*****************************************************************************/
+.status-bar{
+    background-color: transparent;
+    height: 80px;
+    width:80px;
+    font-weight: bold;
+    color:black;
+}
 
+#status-bar >h1 {
+    font-weight: bold;
+}
 #control {
     background-color: #000000 ;
     color: #FFFFFF!important;

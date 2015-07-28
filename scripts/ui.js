@@ -224,10 +224,39 @@ ui.action.refresh = function() {
         document.getElementById("control-manage-sell").innerHTML = "Sell<br>$" + Math.round(turret.cost * 0.7);
 
         document.getElementById("control-manage-stats").innerHTML = turret.kills + " kills<br>" + (((turret.kills / game.kills) || 0) * 100).toFixed(2) + "% of &sum;";
+
+
+        var cost = turret.cost;
+        var statusName;
+        switch (cost) {
+            case 15:
+                statusName = "Laser";
+                break;
+            case 25:
+                statusName = "Missile";
+                break;
+            case 25:
+                statusName = "Tazer";
+                break;
+            case 25:
+                statusName = "Mortar";
+                break;
+        }
+
+        var statusBox = document.createElement("div");
+        $(statusBox).html("Turret type: "+statusName+"<br> Damage :"+turret.damage+"<br> Rate :"+turret.rate+"<br> Range :"+turret.range);
+        $(statusBox).attr("class","status-bar");
+        $(statusBox).attr("id","status-bar");
+        $(statusBox).css({top: 200, left: 200, position:'absolute'});
+        document.body.appendChild(statusBox);
+
     }
 };
 
 ui.action.deselect = function() {
+
+    var removee = document.getElementById("status-bar");
+    removee.remove();
     if (game.selection.status === "moving") {
         var turret = game.selection.turret;
         game.turrets[turret.id] = turret;
@@ -245,7 +274,6 @@ ui.action.deselect = function() {
     }
 
     game.selection = false;
-
     ui.panel("turrets");
 };
 
