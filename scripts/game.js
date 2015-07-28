@@ -60,6 +60,8 @@ var game = {
             game.incommingCreepsCount += 2;
             game.creepsOffsetPosition += 2;
 
+
+
             for (var i = 1; i <= game.incommingCreepsCount; i++) {
                 game.creeps.push({
                     x: -(i * 46) - 10,
@@ -74,7 +76,9 @@ var game = {
                     _hp: game.hp,
                     burning: false,
                     color: Math.ceil(GetRandom(3)),
-                    cash: 1
+                    // cash: Math.round(Math.pow(1.1, game.wave)),
+                    cash: Math.round(1 + game.wave * 0.3),
+                    // cash: 1,
                 });
             }
 
