@@ -466,6 +466,8 @@ var game = {
         }
 
         Element("control-score-text").textContent = text;
+        Element("control-score-tweet").setAttribute("href",
+            "https://twitter.com/?status=" + window.encodeURIComponent("I scored " + text + " on " + map + " in #canvastd http://canvas-td.tkaz.ec/"));
         
 
         ui.panel("score");
