@@ -21,16 +21,18 @@ var game = {
     cash: 35,
     selection: false,
 
-    //добавянето на тези две променливи подобряват баланса (тези и други помощни коментари после ще ги изтрием от финания проект)
+   
     incommingCreepsCount: 7,
     creepsOffsetPosition: 20,
 
     tiles: {},
 
     tick: function() {
+
         ///////////////////////////////////////////////////////////////////////////////
         // fps
         ///////////////////////////////////////////////////////////////////////////////
+
         if (game.ticks - game._ticks === 60) {
             ui.fps.textContent = Math.round(60000 / (Date.now() - game._tick));
             game._tick = Date.now();
@@ -40,6 +42,7 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
         // wave
         ///////////////////////////////////////////////////////////////////////////////
+
         if ((game.ticks - game._wave) % 30 === 29) {
             ui.timer.style.opacity = 1 - (((game.ticks - game._wave) / 60) * 0.05);
         }
@@ -229,7 +232,7 @@ var game = {
                         creep.rotation = 0;
                     }
                 }
-                // console.log('frame is ' + creep.creepFrameCount)
+                
                 if (game.ticks % 5 === 0) {
                     if (creep.creepFrame >= 0 && creep.creepFrame < 6) {
                         creep.creepFrame++;
@@ -237,8 +240,7 @@ var game = {
                         creep.creepFrame = 0;
                     }
                 }
-                
-                ////Swithc for the creep image
+
                 var creepImg;
 
                 switch (creep.color) {
@@ -290,36 +292,19 @@ var game = {
 
 
 
-                //here drowing the creep image
-
-                /*                var creep = new Kinetic.Rect({
-                                    x: creep.x - 5,
-                                    y: creep.y - 5,
-                                    width: 19,
-                                    height: 19,
-                                    fill: 'orange'
-                                });
-
-                                layer.add(creep);
-                                stage.add(layer);*/
+                
                 canvas.save();
                 canvas.translate(creep.x - 23, creep.y - 23);
                 canvas.rotate(creep.rotation);
                 canvas.drawImage(creepImg, creep.creepFrame * 46, 0, 46, 46, -23, -23, 46, 46);
                 canvas.restore();
-                //canvas.drawImage(creepImage, creep.x - 5, creep.y - 5, 23, 17);
-
-                // the original code
-                /*  canvas.fillStyle = "yellow";
-                  canvas.fillRect(creep.x - 5, creep.y - 5, 15, 15);*/
+                
             }
         });
-        ////Swithc for the creep image
         var creepImg;
 
-        
-
         /// blasts
+
         if (boom.length > 0) {
             var j,
                 len = boom.length;
@@ -347,6 +332,7 @@ var game = {
             }
         }
         //missle
+
         if (boom1.length > 0) {
             var j,
                 len = boom1.length;
@@ -366,6 +352,7 @@ var game = {
         }
 
         //mortar
+
         if (boom2.length > 0) {
             var j,
                 len = boom2.length;
@@ -388,6 +375,7 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
         // turrets
         ///////////////////////////////////////////////////////////////////////////////
+
         game.turrets.forEach(function(turret) {
             if (turret.lastshot + turret.rate <= game.ticks) {
                 var creeps = game.creeps.filter(function(creep) {
@@ -418,6 +406,7 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
         // finish
         ///////////////////////////////////////////////////////////////////////////////
+        
         game.run.forEach(function(something, i, a) {
             if (something.what() === false || --something.until === 0) {
                 delete a[i];
@@ -465,13 +454,13 @@ var game = {
             ui.action.scores();
         }
 
-        Element("control-score-text").textContent = text;
-        Element("control-score-tweet").setAttribute("href",
+        document.getElementById("control-score-text").textContent = text;
+        document.getElementById("control-score-tweet").setAttribute("href",
             "https://twitter.com/?status=" + window.encodeURIComponent("I scored " + text + " on " + map + " in #canvastd http://canvas-td.tkaz.ec/"));
         
 
         ui.panel("score");
-        Element("pages-overlay").style.display = "block";
+        document.getElementById("pages-overlay").style.display = "block";
 
         _gaq.push(["_trackEvent", "Game", "End", map]);
         _gaq.push(["_trackEvent", "Game", "Creeps killed", map, kills]);

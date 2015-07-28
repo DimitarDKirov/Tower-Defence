@@ -1,25 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////
-// Math
-///////////////////////////////////////////////////////////////////////////////
-//refactor - stabdalone functions
-//Math.inRadius = function (target, obj, rad) {
-//	return (obj.x - target.x)*(obj.x - target.x) + (obj.y - target.y)*(obj.y - target.y) < rad*rad;
-//};
 
-//Math.move = function(obj, target, speed) {
-//    var distx = target.x - obj.x;
-//    var disty = target.y - obj.y;
-//    var angle = Math.atan2(disty, distx);
-//
-//    obj.x += speed * Math.cos(angle);
-//    obj.y += speed * Math.sin(angle);
-//
-//    return (distx < 0 ? -distx : distx) + (disty < 0 ? -disty : disty) < 2;
-//};
-
-//Math.rand = function(max) {
- //   return Math.floor(Math.random() * (max + 1));
-//};
 
 function IsInRange(targetPoint, sourcePoint, radius) {
     var distance = (sourcePoint.x - targetPoint.x) * (sourcePoint.x - targetPoint.x) + (sourcePoint.y - targetPoint.y) * (sourcePoint.y - targetPoint.y);
@@ -43,17 +22,16 @@ function GetRandom(maxNumber){
 ///////////////////////////////////////////////////////////////////////////////
 // Elements
 ///////////////////////////////////////////////////////////////////////////////
-//var $ = function(id) {
 function Element(id){
     return document.getElementById(id);
 };
 
 window.ui = {
-    timer: Element("control-timer"),
-    cash: Element("control-cash"),
-    lives: Element("control-lives"),
-    wave: Element("control-wave"),
-    fps: Element("control-fps"),
+    timer: document.getElementById("control-timer"),
+    cash: document.getElementById("control-cash"),
+    lives: document.getElementById("control-lives"),
+    wave: document.getElementById("control-wave"),
+    fps: document.getElementById("control-fps"),
 
     nav: ["start"],
     action: {},
@@ -71,21 +49,21 @@ window.ui = {
             return;
         }
 
-        Array.prototype.slice.call(Element("pages").children).forEach(function(elem) {
+        Array.prototype.slice.call(document.getElementById("pages").children).forEach(function(elem) {
             if (elem.id !== "pages-overlay") {
                 elem.style.display = "none";
             }
         });
 
-        Element("pages-" + name).style.display = "block";
+        document.getElementById("pages-" + name).style.display = "block";
 
     },
     panel: function(name) {
-        Array.prototype.slice.call(Element("control-left").children).forEach(function(elem) {
+        Array.prototype.slice.call(document.getElementById("control-left").children).forEach(function(elem) {
             elem.style.display = "none";
         });
 
-        Element("control-" + name).style.display = "block";
+        document.getElementById("control-" + name).style.display = "block";
     }
 };
 

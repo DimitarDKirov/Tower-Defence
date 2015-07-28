@@ -201,8 +201,7 @@ function Missile() {
                         canvas.drawImage(smallRocket, missile.x - 20, missile.y - 20);
                         canvas.fill();
 
-                        // canvas.fillStyle = "#FFF";
-                        // canvas.fillRect(missile.x - 2, missile.y - 2, 4, 4);
+                        
                     }
                 }, until: Infinity
             });
@@ -297,8 +296,8 @@ function Mortar() {
         var turret = this;
         var target = {x: creep.x / 1, y: creep.y / 1};
         var shell = {x: turret.x / 1, y: turret.y / 1};
-        // var radius = 25 + (turret.damage / 150);
-        var radius = 25;    //Why splash radius depends by damage of turret (upgrades)?
+        
+        var radius = 25;    /
         game.run.push({
             what: function () {
                 if (MoveObject(shell, target, 1.5)) {
@@ -319,14 +318,7 @@ function Mortar() {
 
                     game.run.push({
                         what: function () {
-                            // canvas.fillStyle = "#FF0";
                             canvas.beginPath();
-                            // canvas.moveTo(target.x, target.y);
-                            // canvas.arc(target.x, target.y, radius, 0, Math.PI * 2, true);
-
-                            //var mortarFlame = document.getElementById("mortar-flame");
-                            //canvas.drawImage(mortarFlame, target.x - 42, target.y - 50);
-
                             boom2.push({
                                 x: target.x,
                                 y: target.y,
@@ -345,8 +337,7 @@ function Mortar() {
                     canvas.drawImage(smallRocket, shell.x - 3, shell.y - 3);
                     canvas.fill();
                         
-                    // canvas.fillStyle = "#808080";
-                    // canvas.fillRect(shell.x - 3, shell.y - 3, 6, 6);
+                    
                 }
             }, until: Infinity
         });
