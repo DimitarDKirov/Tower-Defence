@@ -10,7 +10,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
-    font-family: 'Seymour One', sans-serif;
+/*    font-family: 'Seymour One', sans-serif;*/
     /*font-family: 'Kurale', serif;*/
     /*font-family: 'Neucha', cursive;*/
 }
@@ -199,6 +199,11 @@ h2{
 #about-text,#authors-text,#hotkeys-text,#credits-text,#instructions-text{
     display:none;
     text-align: center;
+}
+
+#credit-list {
+	list-style-type: square;
+	text-align: left;
 }
 
 /*****************************************************************************/
