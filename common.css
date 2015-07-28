@@ -372,3 +372,22 @@ h2{
 .hidden-images img {
 	display: none;
 }
+html {
+	background: url(images/wallpapers/stars.jpg) no-repeat center;
+	background-size: cover;
+	text-align: center;
+}
+.loopy {
+	background: url(images/wallpapers/loopy.jpg) no-repeat center;
+	background-size: cover;
+}
+
+.backtrack {
+	background: url(images/wallpapers/space.jpg) no-repeat center;
+	background-size: cover;
+}
+
+.dash {
+	background: url(images/wallpapers/dash3.jpg) no-repeat center;
+	background-size: cover;
+}

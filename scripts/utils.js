@@ -55,7 +55,6 @@ window.ui = {
                 elem.style.display = "none";
             }
         });
-
         document.getElementById("pages-" + name).style.display = "block";
 
     },
@@ -67,6 +66,17 @@ window.ui = {
         document.getElementById("control-" + name).style.display = "block";
     }
 };
+$('#loopy').click(function () {
+    $(this).parents('html').addClass('loopy');
+});
+
+$('#backtrack').click(function () {
+    $(this).parents('html').addClass('backtrack');
+});
+
+$('#dash').click(function () {
+    $(this).parents('html').addClass('dash');
+});
 
 var about = document.getElementById("about");
 var aboutRecipient = document.getElementById("about-text");
