@@ -43,9 +43,9 @@ var game = {
         // wave
         ///////////////////////////////////////////////////////////////////////////////
 
-        if ((game.ticks - game._wave) % 30 === 29) {
-            ui.timer.style.opacity = 1 - (((game.ticks - game._wave) / 60) * 0.05);
-        }
+        //if ((game.ticks - game._wave) % 30 === 29) {
+        //    ui.timer.style.opacity = 1 - (((game.ticks - game._wave) / 60) * 0.05);
+        //}
 
         if (game._wave + 1200 === game.ticks) {
             ui.wave.textContent = ++game.wave;

@@ -398,7 +398,8 @@ document.getElementById("control-timer").addEventListener("click", function(evt)
 
 document.getElementById("control-fast").addEventListener("click", function(evt) {
     if (!game.paused) {
-        this.style.backgroundColor = (game.fast = !game.fast) ? "#97D164" : "#85ADE6";
+        game.fast = !game.fast;
+        //this.style.backgroundColor = (game.fast = !game.fast) ? "#000000" : "#000000";
         game.pause();
         game.start();
     }
@@ -492,3 +493,9 @@ ui.handletweets = function(data) {
 };
 
 ui.action.scores();
+
+$(document ).ready(function() {
+    $('#control-fast').click(function(){
+       $(this).toggleClass('control-fast-up');
+    });
+});
