@@ -462,8 +462,7 @@ var game = {
         }
 
         $("control-score-text").textContent = text;
-        $("control-score-tweet").setAttribute("href",
-            "https://twitter.com/?status=" + window.encodeURIComponent("I scored " + text + " on " + map + " in #canvastd http://canvas-td.tkaz.ec/"));
+        
 
         ui.panel("score");
         $("pages-overlay").style.display = "block";

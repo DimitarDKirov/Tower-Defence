@@ -278,7 +278,8 @@ h2{
 /*****************************************************************************/
 
 #control {
-    background-color: #DDD;
+    background-color: #000000 ;
+    color: #FFFFFF!important;
     font-size: 10px;
     height: 44px;
     margin-top: 500px;
