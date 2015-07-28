@@ -42,7 +42,7 @@ function Model() {
 ///////////////////////////////////////////////////////////////////////////////
     this.turrets = {};
 
-    this.turrets.upgrades = [25, 40, 75, 150, 250, 400, 500, 700, 900, 1000];
+    this.turrets.upgrades = [25, 40, 75, 150, 250, 400, 500, 700, 900, 1000, 1200, 1400, 1600, 1800, 2000];
 
     this.turrets.Laser = new Laser();
 
@@ -69,7 +69,12 @@ function Laser() {
         {damage: 200, rate: 26, range: 120},
         {damage: 400, rate: 25, range: 130},
         {damage: 600, rate: 24, range: 140},
-        {damage: 1000, rate: 22, range: 160}
+        {damage: 800, rate: 22, range: 150},
+        {damage: 1000, rate: 21, range: 160},
+        {damage: 1200, rate: 20, range: 170},
+        {damage: 1500, rate: 18, range: 180},
+        {damage: 1800, rate: 16, range: 190},
+        {damage: 2100, rate: 14, range: 200},
     ];
     this.shoot = function (creeps) {
         var creep = creeps[0];
@@ -128,7 +133,12 @@ function Missile() {
         {damage: 320, rate: 40, range: 160},
         {damage: 450, rate: 38, range: 170},
         {damage: 600, rate: 36, range: 180},
-        {damage: 800, rate: 33, range: 200}
+        {damage: 700, rate: 33, range: 190},
+        {damage: 800, rate: 32, range: 200},
+        {damage: 900, rate: 31, range: 210},
+        {damage: 1000, rate: 30, range: 220},
+        {damage: 1200, rate: 28, range: 230},
+        {damage: 1400, rate: 26, range: 240},
     ];
     this.cell = 0,
         this.shoot = function (creeps) {
@@ -216,7 +226,12 @@ function Tazer() {
         {damage: 200, rate: 28, range: 80},
         {damage: 300, rate: 27, range: 85},
         {damage: 400, rate: 26, range: 90},
-        {damage: 500, rate: 24, range: 100}
+        {damage: 500, rate: 24, range: 100},
+        {damage: 600, rate: 23, range: 105},
+        {damage: 700, rate: 22, range: 110},
+        {damage: 800, rate: 21, range: 115},
+        {damage: 900, rate: 20, range: 120},
+        {damage: 1000, rate: 18, range: 125}
     ];
     this.shoot = function (creeps) {
         var creep = creeps.sort(function (a, b) {
@@ -270,7 +285,12 @@ function Mortar() {
         {damage: 800, rate: 88, range: 235},
         {damage: 1000, rate: 84, range: 240},
         {damage: 1200, rate: 80, range: 245},
-        {damage: 1500, rate: 75, range: 250}
+        {damage: 1400, rate: 75, range: 250},
+        {damage: 1600, rate: 71, range: 250},
+        {damage: 1900, rate: 66, range: 255},
+        {damage: 2200, rate: 60, range: 260},
+        {damage: 2600, rate: 52, range: 265},
+        {damage: 3000, rate: 45, range: 280},
     ];
     this.shoot = function (creeps) {
         var creep = creeps[0];
