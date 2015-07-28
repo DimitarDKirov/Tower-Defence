@@ -111,7 +111,8 @@ ui.action.scores = function() {
 };
 
 ui.action.build = function(type) {
-    var model = new Model();
+    //var model = new Model();
+    var model = new GameUnit();
     var tdata = model.turrets[type];
     var turret = {
         x: -1000,
@@ -140,7 +141,8 @@ ui.action.build = function(type) {
 };
 
 ui.action.upgrade = function(stat) {
-    var model = new Model();
+    //var model = new Model();
+    var model = new GameUnit();
     var turret = game.selection.turret;
     var levels = turret.levels;
     var level = levels[stat];
@@ -206,7 +208,8 @@ ui.action.refresh = function() {
     ui.cash.textContent = game.cash;
 
     if (game.selection) {
-        var model = new Model();
+        //var model = new Model();
+        var model = new GameUnit();
         var turret = game.selection.turret;
         var levels = turret.levels;
         var costs = model.turrets.upgrades;
@@ -415,7 +418,8 @@ document.getElementById("control-pause").addEventListener("click", function(evt)
 ///////////////////////////////////////////////////////////////////////////////
 
 ui.bind("click", document.getElementById("pages-start-maps").children, function(evt) {
-    var model = new Model();
+    //var model = new Model();
+    var model = new GameUnit();
     var name = this.textContent;
     game.map = model.maps[name];
     game.map.name = name;
