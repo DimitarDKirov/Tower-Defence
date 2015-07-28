@@ -297,7 +297,7 @@ function Mortar() {
         var target = {x: creep.x / 1, y: creep.y / 1};
         var shell = {x: turret.x / 1, y: turret.y / 1};
         
-        var radius = 25;    /
+        var radius = 25;    
         game.run.push({
             what: function () {
                 if (MoveObject(shell, target, 1.5)) {

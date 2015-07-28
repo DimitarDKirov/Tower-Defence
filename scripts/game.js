@@ -214,7 +214,6 @@ var game = {
                         y: waypoint.y + 18 + creep.offset
                     }, creep.speed)) {
                     creep.nextpoint += 1;
-                    //rotate the creep to follow the path
                     if (game.map[creep.nextpoint] !== undefined) {
                         currY = game.map[creep.nextpoint].y;
                         currX = game.map[creep.nextpoint].x;
