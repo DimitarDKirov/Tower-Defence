@@ -134,7 +134,8 @@ ul {
     width: 700px;
     background-image: url("images/labirint/stars2.jpg");
     /*background-color: #00001F;*/
-    font-size:14px;
+    font-size:16px;
+    font-family: Tahoma, sans-serif
 }
 
 #pages-start h1 {
@@ -174,7 +175,7 @@ h2{
     border:5px solid white ;
     text-align: center;
     position:relative;
-    left:20px;
+    left:5px;
 }
 #pages-start-info {
     float: right;
