@@ -59,7 +59,7 @@ ui.handleshortcuts = function(evt) {
                 }
             case 187:
                 {
-                    $("control-fast").click();
+                    Element("control-fast").click();
                     break;
                 }
             case 27:
@@ -67,7 +67,7 @@ ui.handleshortcuts = function(evt) {
                     if (game.selection) {
                         ui.action.deselect();
                     } else {
-                        $("control-pause").click();
+                        Element("control-pause").click();
                     }
                     break;
                 }
@@ -79,7 +79,7 @@ ui.handleshortcuts = function(evt) {
         }
     } else {
         if (evt.keyCode === 27) {
-            $("control-pause").click();
+            Element("control-pause").click();
         }
     }
 };
@@ -105,7 +105,7 @@ ui.action.scores = function() {
                 '</li>';
         });
 
-        $("pages-scores-local-" + map.toLowerCase()).innerHTML = out;
+        Element("pages-scores-local-" + map.toLowerCase()).innerHTML = out;
     }
 };
 
@@ -214,12 +214,12 @@ ui.action.refresh = function() {
             var id = proper.toLowerCase();
             var level = levels[id];
             var cost = costs[level] || "";
-            $("control-manage-" + id).innerHTML = proper + " (" + level + ")<br>" + (cost && "$" + cost);
+            Element("control-manage-" + id).innerHTML = proper + " (" + level + ")<br>" + (cost && "$" + cost);
         });
 
-        $("control-manage-sell").innerHTML = "Sell<br>$" + Math.round(turret.cost * 0.7);
+        Element("control-manage-sell").innerHTML = "Sell<br>$" + Math.round(turret.cost * 0.7);
 
-        $("control-manage-stats").innerHTML = turret.kills + " kills<br>" + (((turret.kills / game.kills) || 0) * 100).toFixed(2) + "% of &sum;";
+        Element("control-manage-stats").innerHTML = turret.kills + " kills<br>" + (((turret.kills / game.kills) || 0) * 100).toFixed(2) + "% of &sum;";
     }
 };
 
@@ -249,7 +249,7 @@ ui.action.deselect = function() {
 ///////////////////////////////////////////////////////////////////////////////
 // Canvas
 ///////////////////////////////////////////////////////////////////////////////
-var canvas = $("pages-canvas").getContext("2d");
+var canvas = Element("pages-canvas").getContext("2d");
 /*var canvasBackground = $("background-canvas").getContext("2d");
  */
 /*var stage = new Kinetic.Stage({
@@ -298,7 +298,7 @@ floorPatternMap2.src = 'images/labirint/map2-space-floor.jpg';
 var floorPatternMap3 = new Image();
 floorPatternMap3.src = 'images/labirint/map3-desert-floor.jpg';
 
-$("pages-canvas").addEventListener("mousemove", function(evt) {
+Element("pages-canvas").addEventListener("mousemove", function(evt) {
     var selection = game.selection;
     var turret = selection.turret;
 
@@ -321,7 +321,7 @@ $("pages-canvas").addEventListener("mousemove", function(evt) {
     }
 }, false);
 
-$("pages-canvas").addEventListener("click", function(evt) {
+Element("pages-canvas").addEventListener("click", function(evt) {
     var selection = game.selection;
     var turret = selection.turret;
     var tile = game.tiles[Math.ceil((evt.pageX - this.offsetLeft) / 5) + "," + Math.ceil((evt.pageY - this.offsetTop) / 5)];
@@ -377,19 +377,19 @@ $("pages-canvas").addEventListener("click", function(evt) {
 ///////////////////////////////////////////////////////////////////////////////
 // Control panel
 ///////////////////////////////////////////////////////////////////////////////
-$("control").addEventListener("click", function(evt) {
+Element("control").addEventListener("click", function(evt) {
     if (evt.target.id === "control") {
         ui.action.deselect();
     }
 }, false);
 
-ui.bind("click", $("control-turrets").children, function(evt) {
+ui.bind("click", Element("control-turrets").children, function(evt) {
     if (!game.paused) {
         ui.action.build(this.getAttribute("data-name"));
     }
 });
 
-ui.bind("click", $("control-manage").getElementsByTagName("a"), function(evt) {
+ui.bind("click", Element("control-manage").getElementsByTagName("a"), function(evt) {
     var action = evt.target.id.split("-")[2];
 
     if (!game.paused) {
@@ -397,13 +397,13 @@ ui.bind("click", $("control-manage").getElementsByTagName("a"), function(evt) {
     }
 });
 
-$("control-timer").addEventListener("click", function(evt) {
+Element("control-timer").addEventListener("click", function(evt) {
     if (!game.paused) {
         game._wave = game.ticks - 1200;
     }
 }, false);
 
-$("control-fast").addEventListener("click", function(evt) {
+Element("control-fast").addEventListener("click", function(evt) {
     if (!game.paused) {
         this.style.backgroundColor = (game.fast = !game.fast) ? "#97D164" : "#85ADE6";
         game.pause();
@@ -411,7 +411,7 @@ $("control-fast").addEventListener("click", function(evt) {
     }
 }, false);
 
-$("control-pause").addEventListener("click", function(evt) {
+Element("control-pause").addEventListener("click", function(evt) {
     this.textContent = game.paused ? (game.start(), "Pause") : (game.pause(), "Start");
 }, false);
 
@@ -419,7 +419,7 @@ $("control-pause").addEventListener("click", function(evt) {
 ///////////////////////////////////////////////////////////////////////////////
 // Init
 ///////////////////////////////////////////////////////////////////////////////
-ui.bind("click", $("pages-start-maps").children, function(evt) {
+ui.bind("click", Element("pages-start-maps").children, function(evt) {
     var model = new Model();
     var name = this.textContent;
     game.map = model.maps[name];
@@ -475,9 +475,9 @@ ui.bind("click", $("pages-start-maps").children, function(evt) {
 
 ui.handletweets = function(data) {
     var maps = {
-        loopy: $("pages-scores-twitter-loopy"),
-        backtrack: $("pages-scores-twitter-backtrack"),
-        dash: $("pages-scores-twitter-dash")
+        loopy: Element("pages-scores-twitter-loopy"),
+        backtrack: Element("pages-scores-twitter-backtrack"),
+        dash: Element("pages-scores-twitter-dash")
     };
 
     data.results.forEach(function(tweet) {

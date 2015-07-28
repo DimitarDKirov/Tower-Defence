@@ -43,16 +43,17 @@ function GetRandom(maxNumber){
 ///////////////////////////////////////////////////////////////////////////////
 // Elements
 ///////////////////////////////////////////////////////////////////////////////
-var $ = function(id) {
+//var $ = function(id) {
+function Element(id){
     return document.getElementById(id);
 };
 
 window.ui = {
-    timer: $("control-timer"),
-    cash: $("control-cash"),
-    lives: $("control-lives"),
-    wave: $("control-wave"),
-    fps: $("control-fps"),
+    timer: Element("control-timer"),
+    cash: Element("control-cash"),
+    lives: Element("control-lives"),
+    wave: Element("control-wave"),
+    fps: Element("control-fps"),
 
     nav: ["start"],
     action: {},
@@ -70,21 +71,21 @@ window.ui = {
             return;
         }
 
-        Array.prototype.slice.call($("pages").children).forEach(function(elem) {
+        Array.prototype.slice.call(Element("pages").children).forEach(function(elem) {
             if (elem.id !== "pages-overlay") {
                 elem.style.display = "none";
             }
         });
 
-        $("pages-" + name).style.display = "block";
+        Element("pages-" + name).style.display = "block";
 
     },
     panel: function(name) {
-        Array.prototype.slice.call($("control-left").children).forEach(function(elem) {
+        Array.prototype.slice.call(Element("control-left").children).forEach(function(elem) {
             elem.style.display = "none";
         });
 
-        $("control-" + name).style.display = "block";
+        Element("control-" + name).style.display = "block";
     }
 };
 

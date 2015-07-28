@@ -465,11 +465,11 @@ var game = {
             ui.action.scores();
         }
 
-        $("control-score-text").textContent = text;
+        Element("control-score-text").textContent = text;
         
 
         ui.panel("score");
-        $("pages-overlay").style.display = "block";
+        Element("pages-overlay").style.display = "block";
 
         _gaq.push(["_trackEvent", "Game", "End", map]);
         _gaq.push(["_trackEvent", "Game", "Creeps killed", map, kills]);
