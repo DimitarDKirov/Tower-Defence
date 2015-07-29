@@ -409,6 +409,30 @@ html {
 	left: 50%;
 	margin-left: -250px;
 }
+@-webkit-keyframes appear {
+  0%, 50%        {
+  opacity: 0;
+  }
+  100% {
+  opacity: 1;
+  }
+}
+@-moz-keyframes appear {
+  0%, 50%        {
+  opacity: 0;
+  }
+  100% {
+  opacity: 1;
+  }
+}
+@-o-keyframes appear {
+  0%, 50%        {
+  opacity: 0;
+  }
+  100% {
+  opacity: 1;
+  }
+}
 @keyframes appear {
   0%, 50%        {
   opacity: 0;
@@ -444,6 +468,48 @@ html {
     fill: rgba(200,200,200,0.7);
  }
  
+@-webkit-keyframes sparkle {
+  0%        {
+  stroke: #fff;
+  }
+  30%       {
+  stroke: #5feaff;
+  }
+  60%       {
+  stroke: #000;
+  }
+  100% {
+  stroke: #fff;
+  }
+}
+@-moz-keyframes sparkle {
+  0%        {
+  stroke: #fff;
+  }
+  30%       {
+  stroke: #5feaff;
+  }
+  60%       {
+  stroke: #000;
+  }
+  100% {
+  stroke: #fff;
+  }
+}
+@-o-keyframes sparkle {
+  0%        {
+  stroke: #fff;
+  }
+  30%       {
+  stroke: #5feaff;
+  }
+  60%       {
+  stroke: #000;
+  }
+  100% {
+  stroke: #fff;
+  }
+}
 @keyframes sparkle {
   0%        {
   stroke: #fff;
@@ -469,3 +535,18 @@ html {
 #logo path:nth-child(4){animation-delay: .8s}
 #logo path:nth-child(5){animation-delay: 1s}
 #logo path:nth-child(6){animation-delay: 1.2s}
+
+#control-score {
+	background: rgba(0,0,0,0.8);
+	font-size: 16px;
+	position: absolute;
+	top: 90px;
+	left: 50%;
+	margin-left: -220px;
+	width: 400px;
+	padding: 50px 20px;
+	border-radius: 15px;
+}
+#control-score a {
+	color: #00f0ff;
+}

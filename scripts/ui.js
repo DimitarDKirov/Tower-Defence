@@ -637,3 +637,21 @@ var rerun = function () {
     init();
     draw();
 };
+
+var gameOver = function () {
+    var canvasGameOver = document.getElementById("gameOver");
+    var ctx = canvasGameOver.getContext("2d");
+    ctx.font = "40px Nosifer";
+    var gradient = ctx.createLinearGradient(0, 0, 50, 200);
+    gradient.addColorStop("0", "#ae1a0a");
+    gradient.addColorStop("0.08", "#fff");
+    gradient.addColorStop("0.2", "#f6967c");
+    gradient.addColorStop("0.5", "#f31700");
+    gradient.addColorStop("1.0", "#ff4a37");
+    ctx.save();
+    ctx.fillStyle = gradient;
+    ctx.translate(30, 20);
+    ctx.rotate(-Math.PI / 50);
+    ctx.fillText("Game Over", 10, 50);
+    ctx.restore();
+}();
