@@ -132,7 +132,7 @@ var Laser = (function() {
         Turret.call(this, COST, DAMAGE, RATE, RANGE, UPGRADES);
     }
 
-    Laser.prototype = Turret;
+    Laser.prototype = Object.create(Turret);
 
     //this.shoot = function (creeps) {
     Laser.prototype.shoot = function(creeps) {
@@ -226,11 +226,11 @@ var Missile=(function(){
     	Turret.call(this,COST, DAMAGE, RATE, RANGE, UPGRADES);
     	this.cell=0;
 	}
-	Missile.prototype = Turret;
+	Missile.prototype = Object.create(Turret);
 
     //this.cell = 0,
     //    this.shoot = function (creeps) {
-    Missile.prototype.shoot = function() {
+    Missile.prototype.shoot = function(creeps) {
     	var creep = creeps[GetRandom(creeps.length - 1)],
         	cell = this.cell % 4,
         	missile = {
@@ -351,10 +351,10 @@ var Tazer = (function(){
     	Turret.call(this, COST, DAMAGE, RATE, RANGE, UPGRADES);
 	}
 
-	Tazer.prototype = Turret;
+	Tazer.prototype = Object.create(Turret);
 
     //this.shoot = function (creeps) {
-    Tazer.prototype.shoott = function(creeps){
+    Tazer.prototype.shoot = function(creeps){
         var creep = creeps.sort(function (a, b) {
             return b.speed - a.speed;
         })[0],
@@ -415,6 +415,7 @@ var Mortar = (function(){
         	{damage: 2600, rate: 52, range: 265},
         	{damage: 3000, rate: 45, range: 280},
 	    ];
+
 	function Mortar() {
     //this.cost = 60;
     //this.damage = 50;
@@ -441,7 +442,7 @@ var Mortar = (function(){
 		Turret.call(this, COST, DAMAGE, RATE, RANGE, UPGRADES);
 	}
 
-	Mortar.prototype = Turret;
+	Mortar.prototype = Object.create(Turret);
 
     //this.shoot = function (creeps) {
     Mortar.prototype.shoot = function(creeps){
