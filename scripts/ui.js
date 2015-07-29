@@ -256,7 +256,9 @@ ui.action.refresh = function() {
 ui.action.deselect = function() {
 
     var removee = document.getElementById("status-bar");
-    removee.remove();
+    if (removee != undefined){
+        removee.remove();
+    }
     if (game.selection.status === "moving") {
         var turret = game.selection.turret;
         game.turrets[turret.id] = turret;
@@ -409,6 +411,7 @@ document.getElementById("control").addEventListener("click", function(evt) {
 
 ui.bind("click", document.getElementById("control-turrets").children, function(evt) {
     if (!game.paused) {
+        $(this).fadeTo('fast',0).fadeTo('fast',1).fadeTo('fast',0).fadeTo('fast',1);
         ui.action.build(this.getAttribute("data-name"));
     }
 });
@@ -554,3 +557,10 @@ $(document ).ready(function() {
        $(this).toggleClass('control-fast-up');
     });
 });
+
+$(document ).ready(function() {
+    $('#control-timer').click(function(){
+        $(this).fadeTo('fast',0).fadeTo('fast',1).fadeTo('fast',0).fadeTo('fast',1)
+    });
+});
+
