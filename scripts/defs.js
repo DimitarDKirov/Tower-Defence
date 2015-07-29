@@ -81,7 +81,7 @@ function Laser() {
         var turret = this;
 
         if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
-            turret.kills++;
+            turret.kills+=1;
         }
 
         if (turret.levels.full && GetRandom(9) === 0) {
@@ -103,14 +103,14 @@ function Laser() {
                 canvas.lineWidth = 3;
                 canvas.strokeStyle = "#EE82EE";
                 canvas.shadowColor = "#EE82EE";
-                canvas.save;
+                canvas.save();
                 canvas.shadowBlur = 20;
                 canvas.beginPath();
                 canvas.moveTo(turret.x + 7, turret.y - 5);
                 canvas.lineTo(creep.x - 23, creep.y - 23);
                 canvas.stroke();
                 canvas.shadowColor = 'rgba(0,0,0,0)';
-                canvas.restore;
+                canvas.restore();
 
             }, until: 6
         });
@@ -166,7 +166,7 @@ function Missile() {
                                 if (IsInRange(creep, c, 20)) {
                                     var _hp = c.hp;
                                     if ((c.hp -= turret.damage) <= 0 && _hp > 0) {
-                                        turret.kills++;
+                                        turret.kills+=1;
                                     }
                                 }
                             });
@@ -188,7 +188,7 @@ function Missile() {
                                     y: creep.y,
                                     frame: 0
                                 });
-                                turret.kills++;
+                                turret.kills+=1;
                             }
                         }
 
@@ -199,14 +199,13 @@ function Missile() {
                         var smallRocket = document.getElementById("missle-bomb");
                         canvas.drawImage(smallRocket, missile.x - 20, missile.y - 20);
                         canvas.fill();
-
                         
                     }
                 }, until: Infinity
             });
 
-            turret.cell++;
-        }
+            turret.cell+=1;
+        };
 }
 
 function Tazer() {
@@ -234,14 +233,14 @@ function Tazer() {
     this.shoot = function (creeps) {
         var creep = creeps.sort(function (a, b) {
             return b.speed - a.speed;
-        })[0];
-        var _hp = creep.hp;
-        var turret = this;
-        var speed = 0.6 - (turret.damage / 1000);
-        var slowfor = 60 + turret.damage;
+        })[0],
+            _hp = creep.hp,
+            turret = this,
+            speed = 0.6 - (turret.damage / 1000),
+            slowfor = 60 + turret.damage;
 
         if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
-            turret.kills++;
+            turret.kills+=1;
         }
 
         creep.speed = creep.speed > speed ? speed : creep.speed;
@@ -255,17 +254,17 @@ function Tazer() {
                 canvas.lineWidth = 2;
                 canvas.strokeStyle = "#fff";
                 canvas.shadowColor = "#fff";
-                canvas.save;
+                canvas.save();
                 canvas.shadowBlur = 30;
                 canvas.beginPath();
                 canvas.moveTo(turret.x + 10, turret.y);
                 canvas.lineTo(creep.x - 23, creep.y - 23);
                 canvas.stroke();
                 canvas.shadowColor = 'rgba(0,0,0,0)';
-                canvas.restore;
+                canvas.restore();
             }, until: 6
         });
-    }
+    };
 }
 
 function Mortar() {
@@ -306,7 +305,7 @@ function Mortar() {
                             var _hp = creep.hp;
 
                             if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
-                                turret.kills++;
+                                turret.kills+=1;
                             }
 
                             if (turret.levels.full && !creep.burning) {
@@ -335,12 +334,11 @@ function Mortar() {
                     var smallRocket = document.getElementById("bomb");
                     canvas.drawImage(smallRocket, shell.x - 3, shell.y - 3);
                     canvas.fill();
-                        
                     
                 }
             }, until: Infinity
         });
-    }
+    };
 }
 
 

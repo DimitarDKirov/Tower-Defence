@@ -21,14 +21,13 @@ var game = {
     cash: 35,
     selection: false,
 
-   
     incommingCreepsCount: 7,
     creepsOffsetPosition: 20,
 
     tiles: {},
 
     tick: function() {
-
+        var i;
         ///////////////////////////////////////////////////////////////////////////////
         // fps
         ///////////////////////////////////////////////////////////////////////////////
@@ -63,9 +62,7 @@ var game = {
             game.incommingCreepsCount += 2;
             game.creepsOffsetPosition += 2;
 
-
-
-            for (var i = 1; i <= game.incommingCreepsCount; i++) {
+            for (i = 1; i <= game.incommingCreepsCount; i+=1) {
                 game.creeps.push({
                     x: -(i * 46) - 10,
                     y: game.map[0].y,
@@ -80,7 +77,7 @@ var game = {
                     burning: false,
                     color: Math.ceil(GetRandom(3)),
                     // cash: Math.round(Math.pow(1.1, game.wave)),
-                    cash: Math.round(1 + game.wave * 0.3),
+                    cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
                     // cash: 1,
                 });
             }
@@ -88,12 +85,9 @@ var game = {
             game._wave = game.ticks;
         }
 
-
         ///////////////////////////////////////////////////////////////////////////////
         // map
         ///////////////////////////////////////////////////////////////////////////////
-
-
 
         //TODO - Extrackt this in method!!!!!!!!
         if (game.map.name == 'Loopy') {
@@ -151,7 +145,6 @@ var game = {
             canvas.strokeStyle = pat;
         }
 
-
         canvas.beginPath();
         canvas.moveTo(start.x, start.y);
         map.forEach(function(cur, i) {
@@ -159,12 +152,9 @@ var game = {
         });
         canvas.stroke();
 
-
         ///////////////////////////////////////////////////////////////////////////////
         // creeps
         ///////////////////////////////////////////////////////////////////////////////
-
-        
 
         var currY;
         game.creeps.forEach(function(creep, i, a) {
@@ -190,7 +180,6 @@ var game = {
                     frame: 7
                 });
                 delete a[i];
-
 
                 ui.action.refresh();
             } else if (creep.nextpoint === game.map.length) {
@@ -251,7 +240,7 @@ var game = {
                             creepImg = creep2y;
                         }
                         else {
-                            creepImg = creep1y
+                            creepImg = creep1y;
                         }
                         break;
                     case 1:
@@ -289,9 +278,6 @@ var game = {
                         break;
                 }
 
-
-
-                
                 canvas.save();
                 canvas.translate(creep.x - 23, creep.y - 23);
                 canvas.rotate(creep.rotation);
@@ -370,7 +356,6 @@ var game = {
             }
         }
 
-
         ///////////////////////////////////////////////////////////////////////////////
         // turrets
         ///////////////////////////////////////////////////////////////////////////////
@@ -401,7 +386,6 @@ var game = {
             canvas.drawImage(turret.img, turret.x - 12.5, turret.y - 12.5);
         }
 
-
         ///////////////////////////////////////////////////////////////////////////////
         // finish
         ///////////////////////////////////////////////////////////////////////////////
@@ -430,13 +414,13 @@ var game = {
         document.removeEventListener("keydown", ui.handleshortcuts, false);
         window.removeEventListener("beforeunload", ui.handleunload, false);
 
-        var map = game.map.name;
-        var kills = game.kills;
-        var spent = game.spent;
-        var score = kills * spent;
-        var text = score + " (" + kills + " kills, $" + spent + " spent)";
-        var top = JSON.parse(localStorage.scores || '{"Loopy":[],"Backtrack":[],"Dash":[]}');
-        var topmap = top[map];
+        var map = game.map.name,
+            kills = game.kills,
+            spent = game.spent,
+            score = kills * spent,
+            text = score + " (" + kills + " kills, $" + spent + " spent)",
+            top = JSON.parse(localStorage.scores || '{"Loopy":[],"Backtrack":[],"Dash":[]}'),
+            topmap = top[map];
 
         if (score > (topmap.length === 5 && topmap[4].score)) {
             topmap.splice(4, 1);
@@ -457,7 +441,6 @@ var game = {
         document.getElementById("control-score-tweet").setAttribute("href",
             "https://twitter.com/?status=" + window.encodeURIComponent("I scored " + text + " on " + map + " in #canvastd http://canvas-td.tkaz.ec/"));
         
-
         ui.panel("score");
         document.getElementById("pages-overlay").style.display = "block";
     }
