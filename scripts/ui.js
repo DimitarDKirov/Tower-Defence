@@ -449,7 +449,7 @@ document.getElementById("control-pause").addEventListener("click", function(evt)
         circle.setAttribute('cx',400);
         circle.setAttribute('cy',250);
         circle.setAttribute('r',100);
-        circle.setAttribute('fill','rgba(50,50,50,0.3)');
+        circle.setAttribute('fill','rgba(50,50,50,0.7)');
         svg.appendChild(circle);
         var triangle = document.createElementNS(svgNS, 'path');
         triangle.setAttribute('d','M 350 200 v 100 l 120 -50 z');
