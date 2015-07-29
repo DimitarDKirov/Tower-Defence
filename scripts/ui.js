@@ -226,30 +226,42 @@ ui.action.refresh = function() {
         document.getElementById("control-manage-stats").innerHTML = turret.kills + " kills<br>" + (((turret.kills / game.kills) || 0) * 100).toFixed(2) + "% of &sum;";
 
 
-        var cost = turret.cost;
-        var statusName;
-        switch (cost) {
-            case 15:
-                statusName = "Laser";
-                break;
-            case 25:
-                statusName = "Missile";
-                break;
-            case 25:
-                statusName = "Tazer";
-                break;
-            case 25:
-                statusName = "Mortar";
-                break;
+
+        //TODO fix position
+        var checkup = document.getElementById("status-bar");
+        if (checkup == undefined) {
+
+
+            var cost = turret.cost;
+            var statusName;
+            switch (cost) {
+                case 15:
+                    statusName = "Laser";
+                    break;
+                case 25:
+                    statusName = "Missile";
+                    break;
+                case 25:
+                    statusName = "Tazer";
+                    break;
+                case 25:
+                    statusName = "Mortar";
+                    break;
+            }
+
+            var canv = document.getElementById("pages-canvas");
+            var measurements = canv.getBoundingClientRect();
+            var statusBox = document.createElement("div");
+            $(statusBox).html("Turret type: " + statusName + "<br> Damage :" + turret.damage + "<br> Rate :" + turret.rate + "<br> Range :" + turret.range);
+            $(statusBox).attr("class", "status-bar");
+            $(statusBox).attr("id", "status-bar");
+            $(statusBox).css({
+                top: measurements.top + turret.y - 50,
+                left: measurements.left + turret.y - 30,
+                position: 'absolute'
+            });
+            document.body.appendChild(statusBox);
         }
-
-        var statusBox = document.createElement("div");
-        $(statusBox).html("Turret type: "+statusName+"<br> Damage :"+turret.damage+"<br> Rate :"+turret.rate+"<br> Range :"+turret.range);
-        $(statusBox).attr("class","status-bar");
-        $(statusBox).attr("id","status-bar");
-        $(statusBox).css({top: 200, left: 200, position:'absolute'});
-        document.body.appendChild(statusBox);
-
     }
 };
 

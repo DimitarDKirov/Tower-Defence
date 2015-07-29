@@ -10,9 +10,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
-/*    font-family: 'Seymour One', sans-serif;*/
-    /*font-family: 'Kurale', serif;*/
-    /*font-family: 'Neucha', cursive;*/
+    font-family: Tahoma, sans-serif;
 }
 body {
     line-height: 1
@@ -77,7 +75,7 @@ input, select {
 a {
     -moz-user-select: none;
     -webkit-user-select: none;
-    color: #00F;
+    color: white;
     cursor: pointer;
     text-decoration: none;
     user-select: none;
@@ -282,11 +280,10 @@ h2{
 /* Control panel
 /*****************************************************************************/
 .status-bar{
-    background-color: transparent;
-    height: 80px;
-    width:80px;
-    font-weight: bold;
-    color:black;
+    background-image: url("images/menu/stats-background.png");
+    height: 75px;
+    width:75px;
+    color:white;
 }
 
 #status-bar >h1 {
@@ -296,10 +293,11 @@ h2{
     background-color: #000000 ;
     color: #FFFFFF!important;
     font-size: 10px;
-    height: 44px;
+    height: 50px;
     margin-top: 500px;
     padding: 4px 6px 2px 6px;
     width: 788px;
+    font-size: 110%;
 }
 #control-left {
     float: left;
@@ -319,12 +317,14 @@ h2{
 }
 
 #control-manage > a, #control-manage-stats {
-    border: 1px solid #00F;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
     float: left;
     height: 30px;
     margin: 5px;
     text-align: center;
     width: 75px;
+    color:white !important;
 }
 #control-manage-stats {
     border-color: #000;
