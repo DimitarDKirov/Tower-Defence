@@ -97,66 +97,8 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
         // map
         ///////////////////////////////////////////////////////////////////////////////
-
-        //TODO - Extrackt this in method!!!!!!!!
-        if (game.map.name == 'Loopy') {
-            canvas.drawImage(backgroundImage1, 0, 0, 800, 500);
-
-            map = game.map.slice(1);
-            start = game.map[0];
-
-            canvas.beginPath();
-            canvas.moveTo(start.x, start.y);
-            map.forEach(function(cur, i) {
-                canvas.lineTo(cur.x, cur.y);
-            });
-            canvas.stroke();
-            canvas.lineWidth = 50;
-
-            createPattern = canvas.createPattern(floorPatternMap1, "repeat");
-            canvas.strokeStyle = createPattern;
-
-        } else if (game.map.name == 'Backtrack') {
-            canvas.drawImage(backgroundImage2, 0, 0, 800, 500);
-
-            map = game.map.slice(1);
-            start = game.map[0];
-
-            canvas.beginPath();
-            canvas.moveTo(start.x, start.y);
-            map.forEach(function(cur, i) {
-                canvas.lineTo(cur.x, cur.y);
-            });
-            canvas.stroke();
-            canvas.lineWidth = 50;
-
-            createPattern = canvas.createPattern(floorPatternMap2, "repeat");
-            canvas.strokeStyle = createPattern;
-
-        } else if (game.map.name == 'Dash') {
-            canvas.drawImage(backgroundImage3, 0, 0, 800, 500);
-
-            map = game.map.slice(1);
-            start = game.map[0];
-
-            canvas.beginPath();
-            canvas.moveTo(start.x, start.y);
-            map.forEach(function(cur, i) {
-                canvas.lineTo(cur.x, cur.y);
-            });
-            canvas.stroke();
-            canvas.lineWidth = 50;
-
-            createPattern = canvas.createPattern(floorPatternMap3, "repeat");
-            canvas.strokeStyle = createPattern;
-        }
-
-        canvas.beginPath();
-        canvas.moveTo(start.x, start.y);
-        map.forEach(function(cur, i) {
-            canvas.lineTo(cur.x, cur.y);
-        });
-        canvas.stroke();
+        
+        update.map(game.map.name);
 
         ///////////////////////////////////////////////////////////////////////////////
         // creeps

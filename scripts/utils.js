@@ -1,4 +1,68 @@
+var update = {
+    map: function(map){
+        var createPattern,
+            start;
+            
+        if (map == 'Loopy') {
+            canvas.drawImage(backgroundImage1, 0, 0, 800, 500);
 
+            map = game.map.slice(1);
+            start = game.map[0];
+
+            canvas.beginPath();
+            canvas.moveTo(start.x, start.y);
+            map.forEach(function(cur, i) {
+                canvas.lineTo(cur.x, cur.y);
+            });
+            canvas.stroke();
+            canvas.lineWidth = 50;
+
+            createPattern = canvas.createPattern(floorPatternMap1, "repeat");
+            canvas.strokeStyle = createPattern;
+
+        } else if (map == 'Backtrack') {
+            canvas.drawImage(backgroundImage2, 0, 0, 800, 500);
+
+            map = game.map.slice(1);
+            start = game.map[0];
+
+            canvas.beginPath();
+            canvas.moveTo(start.x, start.y);
+            map.forEach(function(cur, i) {
+                canvas.lineTo(cur.x, cur.y);
+            });
+            canvas.stroke();
+            canvas.lineWidth = 50;
+
+            createPattern = canvas.createPattern(floorPatternMap2, "repeat");
+            canvas.strokeStyle = createPattern;
+
+        } else if (map == 'Dash') {
+            canvas.drawImage(backgroundImage3, 0, 0, 800, 500);
+
+            map = game.map.slice(1);
+            start = game.map[0];
+
+            canvas.beginPath();
+            canvas.moveTo(start.x, start.y);
+            map.forEach(function(cur, i) {
+                canvas.lineTo(cur.x, cur.y);
+            });
+            canvas.stroke();
+            canvas.lineWidth = 50;
+
+            createPattern = canvas.createPattern(floorPatternMap3, "repeat");
+            canvas.strokeStyle = createPattern;
+        }
+
+        canvas.beginPath();
+        canvas.moveTo(start.x, start.y);
+        map.forEach(function(cur, i) {
+            canvas.lineTo(cur.x, cur.y);
+        });
+        canvas.stroke();
+    }
+}
 
 function IsInRange(targetPoint, sourcePoint, radius) {
     var distance = (sourcePoint.x - targetPoint.x) * (sourcePoint.x - targetPoint.x) + (sourcePoint.y - targetPoint.y) * (sourcePoint.y - targetPoint.y);
