@@ -228,7 +228,6 @@ ui.action.refresh = function() {
 
         document.getElementById("control-manage-stats").innerHTML = turret.kills + " kills<br>" + (((turret.kills / game.kills) || 0) * 100).toFixed(2) + "% of &sum;";
 
-        //TODO fix position
         var checkup = document.getElementById("status-bar");
 
         if (checkup == undefined) {
@@ -252,15 +251,16 @@ ui.action.refresh = function() {
             }
 
             var canvas = document.getElementById("pages-canvas"),
-                measurements = canvas.getBoundingClientRect(),
-                statusBox = document.createElement("div");
+                statusBox = document.createElement("div"),
+                startY = canvas.offsetTop,
+                startX = canvas.offsetLeft;
 
             $(statusBox).html("Turret type: " + statusName + "<br> Damage :" + turret.damage + "<br> Rate :" + turret.rate + "<br> Range :" + turret.range);
             $(statusBox).attr("class", "status-bar");
             $(statusBox).attr("id", "status-bar");
             $(statusBox).css({
-                top: measurements.top + turret.y - 50,
-                left: measurements.left + turret.x - 90,
+                top: startY + turret.y - 75,
+                left: startX + turret.x + 25,
                 position: 'absolute'
             });
             document.body.appendChild(statusBox);
