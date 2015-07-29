@@ -135,7 +135,7 @@ ul {
 #pages-start {
     display: block;
     height: 450px;
-    padding: 0 50px 50px 50px;
+    padding: 0 50px 100px 50px;
     width: 700px;
     color: white;
 	background: url("images/wallpapers/start.jpg") no-repeat center -158px #000;
@@ -146,7 +146,7 @@ ul {
     float: left;
     position: relative;
     left:50px;
-	margin-top: 240px;
+	margin-top: 220px;
 }
 
 h2{
@@ -178,7 +178,7 @@ h2{
     color:white;
     position: relative;
     left:-75px;
-	margin-top: 240px;
+	margin-top: 220px;
 
 }
 #pages-start-info h2 {
