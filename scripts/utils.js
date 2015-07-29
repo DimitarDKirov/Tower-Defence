@@ -217,3 +217,4 @@ instructions.addEventListener("click",function(){
 instructionsRecipient.addEventListener("click",function(){
     instructionsRecipient.style.display = 'none';
 },false );
+

@@ -473,6 +473,7 @@ document.getElementById("control-fast").addEventListener("click", function(evt) 
 
 document.getElementById("control-pause").addEventListener("click", function(evt) {
     this.textContent = game.paused ? (game.start(), "Pause") : (game.pause(), "Start");
+    $(this).toggleClass('control-unpause');
 	var circle, triangle, child,
 		svgBase= document.getElementById('svg-conrainer');
         baseHeight=canvas.canvas.height,
