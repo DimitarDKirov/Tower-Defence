@@ -460,12 +460,5 @@ var game = {
 
         ui.panel("score");
         document.getElementById("pages-overlay").style.display = "block";
-
-        _gaq.push(["_trackEvent", "Game", "End", map]);
-        _gaq.push(["_trackEvent", "Game", "Creeps killed", map, kills]);
-        _gaq.push(["_trackEvent", "Game", "Money spent", map, spent]);
-        _gaq.push(["_trackEvent", "Game", "Money available", map, game.cash]);
-        _gaq.push(["_trackEvent", "Game", "Turrets placed", map, game.turrets.length]);
-        _gaq.push(["_trackEvent", "Game", "Last FPS", map, Number(ui.fps.textContent)]);
     }
 };
