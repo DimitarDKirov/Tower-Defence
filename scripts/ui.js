@@ -638,7 +638,7 @@ var rerun = function () {
     draw();
 };
 
-var gameOver = function () {
+function drawgameOver () {
     var canvasGameOver = document.getElementById("gameOver");
     var ctx = canvasGameOver.getContext("2d");
     ctx.font = "40px Nosifer";
@@ -654,4 +654,7 @@ var gameOver = function () {
     ctx.rotate(-Math.PI / 50);
     ctx.fillText("Game Over", 10, 50);
     ctx.restore();
-}();
+};
+$(function () {
+    drawgameOver()
+});
