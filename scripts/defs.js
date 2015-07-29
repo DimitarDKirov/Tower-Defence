@@ -88,7 +88,7 @@ function Laser() {
             var start = game.map[0];
             creep.x = start.x;
             creep.y = start.y;
-            creep.nextpoint = 0;
+            creep.nextPoint = 0;
         }
 
         game.run.push({
@@ -141,10 +141,10 @@ function Missile() {
     ];
     this.cell = 0,
         this.shoot = function (creeps) {
-            var creep = creeps[GetRandom(creeps.length - 1)];
-            var cell = this.cell % 4;
-            var missile = {x: this.x + (cell % 2 === 0 ? -5 : 5), y: this.y + (cell < 2 ? -5 : 5)};
-            var turret = this;
+            var creep = creeps[GetRandom(creeps.length - 1)],
+                cell = this.cell % 4,
+                missile = {x: this.x + (cell % 2 === 0 ? -5 : 5), y: this.y + (cell < 2 ? -5 : 5)},
+                turret = this;
 
             game.run.push({
                 what: function () {
@@ -290,19 +290,22 @@ function Mortar() {
         {damage: 3000, rate: 45, range: 280},
     ];
     this.shoot = function (creeps) {
-        var creep = creeps[0];
-        var turret = this;
-        var target = {x: creep.x / 1, y: creep.y / 1};
-        var shell = {x: turret.x / 1, y: turret.y / 1};
-        
-        var radius = 25;    
+        var creep = creeps[0],
+            turret = this,
+            target = {x: creep.x / 1, y: creep.y / 1},
+            shell = {x: turret.x / 1, y: turret.y / 1},
+            radius = 25;    
+
         game.run.push({
             what: function () {
+                var smallRocket;
+
                 if (MoveObject(shell, target, 1.5)) {
 
                     game.creeps.forEach(function (creep) {
+                        var _hp;
                         if (IsInRange(creep, target, radius)) {
-                            var _hp = creep.hp;
+                            _hp = creep.hp;
 
                             if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
                                 turret.kills+=1;
@@ -331,7 +334,7 @@ function Mortar() {
                 } else {    
 
                     canvas.beginPath();
-                    var smallRocket = document.getElementById("bomb");
+                    smallRocket = document.getElementById("bomb");
                     canvas.drawImage(smallRocket, shell.x - 3, shell.y - 3);
                     canvas.fill();
                     

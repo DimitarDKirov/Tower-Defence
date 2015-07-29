@@ -60,7 +60,7 @@ ui.handleshortcuts = function(evt) {
             case 187:
                 {
                     document.getElementById("control-fast").click();
-                    break;
+                    // break;
                 }
             case 27:
                 {

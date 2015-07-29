@@ -382,9 +382,6 @@ h2{
     padding: 0 10px;
 }
 
-/*#creepImageId, #backgroundImageId1, #backgroundImageId2, #backgroundImageId3, #mortar-flame, #bomb, #missle-bomb, #flash{
-    display: none;
-}*/
 .hidden-images img {
 	display: none;
 }

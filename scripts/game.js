@@ -35,7 +35,10 @@ var game = {
             len,
             selection,
             turret,
-            creepImg;
+            creepImg,
+            currentPositionX,
+            currentPositionY;
+            
         ///////////////////////////////////////////////////////////////////////////////
         // fps
         ///////////////////////////////////////////////////////////////////////////////
@@ -75,7 +78,7 @@ var game = {
                     x: -(i * 46) - 10,
                     y: game.map[0].y,
                     offset: GetRandom(9),
-                    nextpoint: 0,
+                    nextPoint: 0,
                     creepFrame: 0,
                     speed: 1,
                     rotation: 0,
@@ -84,9 +87,7 @@ var game = {
                     _hp: game.hp,
                     burning: false,
                     color: Math.ceil(GetRandom(3)),
-                    // cash: Math.round(Math.pow(1.1, game.wave)),
                     cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
-                    // cash: 1,
                 });
             }
 
@@ -99,8 +100,6 @@ var game = {
 
         //TODO - Extrackt this in method!!!!!!!!
         if (game.map.name == 'Loopy') {
-            canvas.drawImage(backgroundImage1, 0, 0, 800, 500);
-
             canvas.drawImage(backgroundImage1, 0, 0, 800, 500);
 
             map = game.map.slice(1);
@@ -163,7 +162,7 @@ var game = {
         // creeps
         ///////////////////////////////////////////////////////////////////////////////
 
-        var currY;
+
         game.creeps.forEach(function(creep, i, a) {
             var _hp = creep.hp;
             var burning = creep.burning;
@@ -189,19 +188,19 @@ var game = {
                 delete a[i];
 
                 ui.action.refresh();
-            } else if (creep.nextpoint === game.map.length) {
+            } else if (creep.nextPoint === game.map.length) {
                 delete a[i];
 
-                ui.lives.textContent = --game.lives;
+                ui.lives.textContent = game.lives-=1;
 
-                if (!game.lives) {
+                if (game.lives <= 0) {
                     game.end();
                 }
             } else {
                 if (--creep.slowfor <= 0) {
                     creep.speed = 1;
                 }
-                var waypoint = game.map[creep.nextpoint],
+                var waypoint = game.map[creep.nextPoint],
                     hue = (creep.speed < 1 || burning) ? (burning ? (creep.speed < 1 ? 300 : 33) : 240) : 0,
                     sat = 100 * (creep.hp / creep._hp);
 
@@ -209,17 +208,17 @@ var game = {
                         x: waypoint.x + 18 + creep.offset,
                         y: waypoint.y + 18 + creep.offset
                     }, creep.speed)) {
-                    creep.nextpoint += 1;
+                    creep.nextPoint += 1;
 
-                    if (game.map[creep.nextpoint] !== undefined) {
-                        currY = game.map[creep.nextpoint].y;
-                        currX = game.map[creep.nextpoint].x;
+                    if (game.map[creep.nextPoint] !== undefined) {
+                        currentPositionY = game.map[creep.nextPoint].y;
+                        currentPositionX = game.map[creep.nextPoint].x;
 
-                        if (currY > waypoint.y) {
+                        if (currentPositionY > waypoint.y) {
                             creep.rotation = 1.570796326795;
-                        } else if (currY < waypoint.y) {
+                        } else if (currentPositionY < waypoint.y) {
                             creep.rotation = -1.570796326795;
-                        } else if (currX < waypoint.x) {
+                        } else if (currentPositionX < waypoint.x) {
                             creep.rotation = 3.14;
                         } else {
                             creep.rotation = 0;
