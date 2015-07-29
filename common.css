@@ -437,7 +437,16 @@ html {
     background-color: rgba(100,100,100,0.6);
     display: none
 }
-
+#svg-conrainer #pauseCircle{
+    fill: rgba(50,50,50,0.7);
+}
+#svg-conrainer #arrow{
+    fill: rgba(150,150,150,0.7);
+ }
+#svg-conrainer #arrow:hover{
+    fill: rgba(200,200,200,0.7);
+ }
+ 
 @keyframes sparkle {
   0%        {
   stroke: #fff;
