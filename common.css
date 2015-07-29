@@ -127,17 +127,6 @@ ul {
 /* Start page
 /*****************************************************************************/
 
-#pages-start {
-    display: block;
-    height: 450px;
-    padding: 50px;
-    width: 700px;
-    background-image: url("images/labirint/stars2.jpg");
-    /*background-color: #00001F;*/
-    font-size:16px;
-    font-family: Tahoma, sans-serif
-}
-
 #pages-start h1 {
     margin:30px;
     text-align: center;
@@ -146,14 +135,18 @@ ul {
 #pages-start {
     display: block;
     height: 450px;
-    padding: 50px;
+    padding: 0 50px 50px 50px;
     width: 700px;
     color: white;
+	background: url("images/wallpapers/start.jpg") no-repeat center -158px #000;
+	background-size: 101% auto;
+	font-family: Tahoma, sans-serif;
 }
 #pages-start-maps {
     float: left;
     position: relative;
     left:50px;
+	margin-top: 240px;
 }
 
 h2{
@@ -185,10 +178,14 @@ h2{
     color:white;
     position: relative;
     left:-75px;
+	margin-top: 240px;
 
 }
 #pages-start-info h2 {
 	cursor: pointer;
+}
+#pages-start-info dl, #pages-start-info ul, #pages-start-info p {
+	font-size: 14px;
 }
 #pages-start-links {
     bottom: 5px;
@@ -405,6 +402,30 @@ html {
 	background: url(images/wallpapers/dash3.jpg) no-repeat center;
 	background-size: cover;
 }
+#logo{
+	width: 60%;
+	position: absolute;
+	left: 50%;
+	margin-left: -250px;
+}
+@keyframes appear {
+  0%, 50%        {
+  opacity: 0;
+  }
+  100% {
+  opacity: 1;
+  }
+}
+#logo_img{
+	width: 60%;
+	background: url(images/wallpapers/logo.png) no-repeat 4px 10px;
+	background-size: 475px auto;
+	height: 300px;
+	position: absolute;
+	left: 50%;
+	margin-left: -250px;
+	animation: appear 4s ease;
+}
 
 #svg-conrainer{
     width: 800px;
@@ -412,3 +433,29 @@ html {
     background-color: rgba(100,100,100,0.6);
     display: none
 }
+
+@keyframes sparkle {
+  0%        {
+  stroke: #fff;
+  }
+  30%       {
+  stroke: #5feaff;
+  }
+  60%       {
+  stroke: #000;
+  }
+  100% {
+  stroke: #fff;
+  }
+}
+
+#logo path {
+  animation: sparkle 4s ease infinite;
+  stroke-width: 2;
+}
+#logo path:nth-child(1) {animation-delay: .2s}
+#logo path:nth-child(2) {animation-delay: .4s}
+#logo path:nth-child(3) {animation-delay: .6s}
+#logo path:nth-child(4){animation-delay: .8s}
+#logo path:nth-child(5){animation-delay: 1s}
+#logo path:nth-child(6){animation-delay: 1.2s}
