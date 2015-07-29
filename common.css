@@ -393,3 +393,10 @@ html {
 	background: url(images/wallpapers/dash3.jpg) no-repeat center;
 	background-size: cover;
 }
+
+#svg-conrainer{
+    width: 800px;
+    height: 500px;
+    background-color: rgba(100,100,100,0.6);
+    display: none
+}

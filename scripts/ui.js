@@ -438,6 +438,29 @@ document.getElementById("control-fast").addEventListener("click", function(evt) 
 
 document.getElementById("control-pause").addEventListener("click", function(evt) {
     this.textContent = game.paused ? (game.start(), "Pause") : (game.pause(), "Start");
+	var svg= document.getElementById('svg-conrainer');
+    if(game.paused){
+        svg.style.display='block';
+        var svgNS = 'http://www.w3.org/2000/svg';
+        var circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx',400);
+        circle.setAttribute('cy',250);
+        circle.setAttribute('r',100);
+        circle.setAttribute('fill','rgba(50,50,50,0.3)');
+        svg.appendChild(circle);
+        var triangle = document.createElementNS(svgNS, 'path');
+        triangle.setAttribute('d','M 350 200 v 100 l 120 -50 z');
+        triangle.setAttribute('fill','grey');
+        svg.appendChild(triangle);
+        document.querySelector('path').addEventListener('click',function(){
+            document.getElementById("control-pause").click();
+        });        
+    }else{
+        while(child=svg.firstChild){
+            svg.removeChild(child);
+        }
+        svg.style.display='none';
+    }
 }, false);
 
 
