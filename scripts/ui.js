@@ -253,14 +253,24 @@ ui.action.refresh = function() {
             var canvas = document.getElementById("pages-canvas"),
                 statusBox = document.createElement("div"),
                 startY = canvas.offsetTop,
-                startX = canvas.offsetLeft;
+                startX = canvas.offsetLeft,
+                topOffset = startY + turret.y - 75,
+                leftOffset = startX + turret.x + 25;
+                
+                if (topOffset < startY) {
+                    topOffset = startY + turret.y;
+                }
+                
+                if (leftOffset > canvas.width) {
+                    leftOffset = startX + turret.x - 80;
+                }
 
             $(statusBox).html("Turret type: " + statusName + "<br> Damage :" + turret.damage + "<br> Rate :" + turret.rate + "<br> Range :" + turret.range);
             $(statusBox).attr("class", "status-bar");
             $(statusBox).attr("id", "status-bar");
             $(statusBox).css({
-                top: startY + turret.y - 75,
-                left: startX + turret.x + 25,
+                top: topOffset,
+                left: leftOffset,
                 position: 'absolute'
             });
             document.body.appendChild(statusBox);
