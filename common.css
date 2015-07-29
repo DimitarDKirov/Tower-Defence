@@ -321,9 +321,10 @@ h2{
     border: 1px solid #FFFFFF;
     border-radius: 10px;
     float: left;
-    height: 30px;
+    height: 40px;
     margin: 5px;
     text-align: center;
+    vertical-align: middle;
     width: 75px;
     color:white !important;
 }
