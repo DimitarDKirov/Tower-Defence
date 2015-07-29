@@ -88,16 +88,17 @@ ui.handleunload = function(e) {
     return "A game is currently running, are you sure you want to close it?";
 };
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // Actions
 ///////////////////////////////////////////////////////////////////////////////
 
 ui.action.scores = function() {
-    var list = JSON.parse(localStorage.scores || "{}");
+    var list = JSON.parse(localStorage.scores || "{}"),
+    map,
+    out;
 
-    for (var map in list) {
-        var out = "";
+    for (map in list) {
+        out = "";
 
         list[map].forEach(function(r) {
             out += '<li>' +
@@ -140,11 +141,11 @@ ui.action.build = function(type) {
 };
 
 ui.action.upgrade = function(stat) {
-    var model = new GameUnit();
-    var turret = game.selection.turret;
-    var levels = turret.levels;
-    var level = levels[stat];
-    var cost = model.turrets.upgrades[level];
+    var model = new GameUnit(),
+        turret = game.selection.turret,
+        levels = turret.levels,
+        level = levels[stat],
+        cost = model.turrets.upgrades[level];
 
     if (game.selection.status === "selected" && cost && game.cash - cost >= 0) {
         levels[stat] ++;
@@ -159,7 +160,11 @@ ui.action.upgrade = function(stat) {
 
 ui.action.move = function() {
     if (game.selection.status === "selected" && game.cash - 90 >= 0) {
-        var turret = game.selection.turret;
+        var turret = game.selection.turret,
+            tx = (turret._x + 2.5) / 5,
+            ty = (turret._y + 2.5) / 5,
+            i,
+            ii;
 
         game.selection = {
             status: "moving",
@@ -170,10 +175,9 @@ ui.action.move = function() {
         turret._x = turret.x;
         turret._y = turret.y;
 
-        var tx = (turret._x + 2.5) / 5,
-            ty = (turret._y + 2.5) / 5;
-        for (var i = 5; i--;) {
-            for (var ii = 5; ii--;) {
+        
+        for (i = 5; i--;) {
+            for (ii = 5; ii--;) {
                 game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
             }
         }
@@ -184,12 +188,13 @@ ui.action.move = function() {
 
 ui.action.sell = function() {
     var turret = game.selection.turret,
-        value = Math.round(turret.cost * 0.7);
+        value = Math.round(turret.cost * 0.7),
+        tx = (turret.x + 2.5) / 5,
+        ty = (turret.y + 2.5) / 5;
+
     game.cash += value;
     game.spent -= value;
 
-    var tx = (turret.x + 2.5) / 5,
-        ty = (turret.y + 2.5) / 5;
     for (var i = 5; i--;) {
         for (var ii = 5; ii--;) {
             game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
@@ -207,10 +212,10 @@ ui.action.refresh = function() {
 
     if (game.selection) {
         //var model = new Model();
-        var model = new GameUnit();
-        var turret = game.selection.turret;
-        var levels = turret.levels;
-        var costs = model.turrets.upgrades;
+        var model = new GameUnit(),
+            turret = game.selection.turret,
+            levels = turret.levels,
+            costs = model.turrets.upgrades;
 
         ["Damage", "Rate", "Range"].forEach(function(proper) {
             var id = proper.toLowerCase();
@@ -223,15 +228,14 @@ ui.action.refresh = function() {
 
         document.getElementById("control-manage-stats").innerHTML = turret.kills + " kills<br>" + (((turret.kills / game.kills) || 0) * 100).toFixed(2) + "% of &sum;";
 
-
-
         //TODO fix position
         var checkup = document.getElementById("status-bar");
+
         if (checkup == undefined) {
 
+            var cost = turret.cost,
+                statusName;
 
-            var cost = turret.cost;
-            var statusName;
             switch (cost) {
                 case 15:
                     statusName = "Laser";
@@ -247,9 +251,10 @@ ui.action.refresh = function() {
                     break;
             }
 
-            var canv = document.getElementById("pages-canvas");
-            var measurements = canv.getBoundingClientRect();
-            var statusBox = document.createElement("div");
+            var canvas = document.getElementById("pages-canvas"),
+                measurements = canvas.getBoundingClientRect(),
+                statusBox = document.createElement("div");
+
             $(statusBox).html("Turret type: " + statusName + "<br> Damage :" + turret.damage + "<br> Rate :" + turret.rate + "<br> Range :" + turret.range);
             $(statusBox).attr("class", "status-bar");
             $(statusBox).attr("id", "status-bar");
@@ -294,34 +299,33 @@ ui.action.deselect = function() {
 // Canvas
 ///////////////////////////////////////////////////////////////////////////////
 
-var canvas = document.getElementById("pages-canvas").getContext("2d");
-var creepImage = document.getElementById("creepImageId");
-var creepImg = document.getElementById("creep1b");
-var creep1b = document.getElementById("creep1b");
-var creep2b = document.getElementById("creep2b");
-var creep3b = document.getElementById("creep3b");
-var creep1g = document.getElementById("creep1g");
-var creep1g = document.getElementById("creep1g");
-var creep2g = document.getElementById("creep2g");
-var creep3g = document.getElementById("creep3g");
-var creep1r = document.getElementById("creep1r");
-var creep2r = document.getElementById("creep2r");
-var creep3r = document.getElementById("creep3r");
-var creep1y = document.getElementById("creep1y");
-var creep2y = document.getElementById("creep2y");
-var creep3y = document.getElementById("creep3y");
-var lightningImg = document.getElementById("lightning");
-var expl1 = document.getElementById("expl1");
-var expl2 = document.getElementById("expl2");
-
-var backgroundImage1 = document.getElementById("backgroundImageId1");
-var backgroundImage2 = document.getElementById("backgroundImageId2");
-var backgroundImage3 = document.getElementById("backgroundImageId3");
+var canvas = document.getElementById("pages-canvas").getContext("2d"),
+    creepImage = document.getElementById("creepImageId"),
+    creepImg = document.getElementById("creep1b"),
+    creep1b = document.getElementById("creep1b"),
+    creep2b = document.getElementById("creep2b"),
+    creep3b = document.getElementById("creep3b"),
+    creep1g = document.getElementById("creep1g"),
+    creep1g = document.getElementById("creep1g"),
+    creep2g = document.getElementById("creep2g"),
+    creep3g = document.getElementById("creep3g"),
+    creep1r = document.getElementById("creep1r"),
+    creep2r = document.getElementById("creep2r"),
+    creep3r = document.getElementById("creep3r"),
+    creep1y = document.getElementById("creep1y"),
+    creep2y = document.getElementById("creep2y"),
+    creep3y = document.getElementById("creep3y");
+    lightningImg = document.getElementById("lightning"),
+    expl1 = document.getElementById("expl1"),
+    expl2 = document.getElementById("expl2"),
+    backgroundImage1 = document.getElementById("backgroundImageId1"),
+    backgroundImage2 = document.getElementById("backgroundImageId2"),
+    backgroundImage3 = document.getElementById("backgroundImageId3"),
 
 //blasts
-var boom = [];
-var boom1 = [];
-var boom2 = [];
+    boom = [],
+    boom1 = [],
+    boom2 = [];
 
 //map path 
 var floorPatternMap1 = new Image();
@@ -333,13 +337,15 @@ floorPatternMap2.src = 'images/labirint/map2-space-floor.jpg';
 var floorPatternMap3 = new Image();
 floorPatternMap3.src = 'images/labirint/map3-desert-floor.jpg';
 
+var tx;
+var ty;
 document.getElementById("pages-canvas").addEventListener("mousemove", function(evt) {
     var selection = game.selection;
     var turret = selection.turret;
 
     if (selection && selection.status !== "selected") {
-        var tx = Math.ceil((evt.pageX - this.offsetLeft) / 5);
-        var ty = Math.ceil((evt.pageY - this.offsetTop) / 5);
+        tx = Math.ceil((evt.pageX - this.offsetLeft) / 5);
+        ty = Math.ceil((evt.pageY - this.offsetTop) / 5);
 
         turret.x = (tx * 5) - 2.5;
         turret.y = (ty * 5) - 2.5;
@@ -357,19 +363,24 @@ document.getElementById("pages-canvas").addEventListener("mousemove", function(e
 }, false);
 
 document.getElementById("pages-canvas").addEventListener("click", function(evt) {
-    var selection = game.selection;
-    var turret = selection.turret;
-    var tile = game.tiles[Math.ceil((evt.pageX - this.offsetLeft) / 5) + "," + Math.ceil((evt.pageY - this.offsetTop) / 5)];
+    var selection = game.selection,
+        turret = selection.turret,
+        tile = game.tiles[Math.ceil((evt.pageX - this.offsetLeft) / 5) + "," + Math.ceil((evt.pageY - this.offsetTop) / 5)],
+        tx,
+        ty,
+        i,
+        ii;
 
     if (selection.status === "moving") {
         if (selection.placeable && game.cash - 90 >= 0) {
             game.cash -= 90;
             game.turrets[turret.id] = turret;
 
-            var tx = (turret.x + 2.5) / 5,
-                ty = (turret.y + 2.5) / 5;
-            for (var i = 5; i--;) {
-                for (var ii = 5; ii--;) {
+            tx = (turret.x + 2.5) / 5;
+            ty = (turret.y + 2.5) / 5;
+
+            for (i = 5; i--;) {
+                for (ii = 5; ii--;) {
                     game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = turret;
                 }
             }
@@ -384,10 +395,11 @@ document.getElementById("pages-canvas").addEventListener("click", function(evt) 
             game.spent += turret.cost;
             game.turrets.push(turret);
 
-            var tx = (turret.x + 2.5) / 5,
-                ty = (turret.y + 2.5) / 5;
-            for (var i = 5; i--;) {
-                for (var ii = 5; ii--;) {
+            tx = (turret.x + 2.5) / 5;
+            ty = (turret.y + 2.5) / 5;
+
+            for (i = 5; i--;) {
+                for (ii = 5; ii--;) {
                     game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = turret;
                 }
             }
@@ -483,8 +495,8 @@ document.getElementById("control-pause").addEventListener("click", function(evt)
 
 ui.bind("click", document.getElementById("pages-start-maps").children, function(evt) {
     //var model = new Model();
-    var model = new GameUnit();
-    var name = this.textContent;
+    var model = new GameUnit(),
+        name = this.textContent;
     game.map = model.maps[name];
     game.map.name = name;
 
@@ -496,31 +508,33 @@ ui.bind("click", document.getElementById("pages-start-maps").children, function(
     }).forEach(function(cur, i, a) {
         var next = a[i + 1] || cur,
             dx = next.x - cur.x,
-            dy = next.y - cur.y;
+            dy = next.y - cur.y,
+            m,
+            b;
 
         if (Math.abs(dx) > Math.abs(dy)) {
             cur.x += dx < 0 ? 21 : -16;
-            var m = dy / dx,
+                m = dy / dx;
                 b = cur.y - m * cur.x;
             dx = dx < 0 ? -1 : 1;
 
             while (cur.x !== next.x) {
                 cur.x += dx;
 
-                for (var i = -3; i <= 4; i++) {
+                for (i = -3; i <= 4; i++) {
                     game.tiles[Math.round(cur.x / 5) + "," + ((Math.round(m * cur.x + b) / 5) + i)] = true;
                 }
             }
         } else if (dy !== 0) {
             cur.y += dy < 0 ? 21 : -16;
-            var m = dx / dy,
+                m = dx / dy;
                 b = cur.x - m * cur.y;
             dy = dy < 0 ? -1 : 1;
 
             while (cur.y !== next.y) {
                 cur.y += dy;
 
-                for (var i = -3; i <= 4; i++) {
+                for (i = -3; i <= 4; i++) {
                     game.tiles[((Math.round(m * cur.y + b) / 5) + i) + "," + Math.round(cur.y / 5)] = true;
                 }
             }
@@ -570,7 +584,7 @@ $(document ).ready(function() {
 
 $(document ).ready(function() {
     $('#control-timer').click(function(){
-        $(this).fadeTo('fast',0).fadeTo('fast',1).fadeTo('fast',0).fadeTo('fast',1)
+        $(this).fadeTo('fast',0).fadeTo('fast',1).fadeTo('fast',0).fadeTo('fast',1);
     });
 });
 
@@ -581,8 +595,8 @@ logo = document.getElementById('logo').cloneNode(true);
 var init = function () {
     current_frame = 0;
     total_frames = 120;
-    path = new Array();
-    length = new Array();
+    path = [];
+    length = [];
     for (var i = 0; i < 6; i++) {
         path[i] = document.getElementById('i' + i);
         l = path[i].getTotalLength();
@@ -591,8 +605,7 @@ var init = function () {
         path[i].style.strokeDashoffset = l;
     }
     handle = 0;
-}
-
+};
 
 var draw = function () {
     var progress = current_frame / total_frames;

@@ -27,7 +27,15 @@ var game = {
     tiles: {},
 
     tick: function() {
-        var i;
+        var i,
+            j,
+            map,
+            start,
+            createPattern,
+            len,
+            selection,
+            turret,
+            creepImg;
         ///////////////////////////////////////////////////////////////////////////////
         // fps
         ///////////////////////////////////////////////////////////////////////////////
@@ -95,8 +103,8 @@ var game = {
 
             canvas.drawImage(backgroundImage1, 0, 0, 800, 500);
 
-            var map = game.map.slice(1),
-                start = game.map[0];
+            map = game.map.slice(1);
+            start = game.map[0];
 
             canvas.beginPath();
             canvas.moveTo(start.x, start.y);
@@ -106,15 +114,14 @@ var game = {
             canvas.stroke();
             canvas.lineWidth = 50;
 
-            var pat = canvas.createPattern(floorPatternMap1, "repeat");
-            canvas.strokeStyle = pat;
-
+            createPattern = canvas.createPattern(floorPatternMap1, "repeat");
+            canvas.strokeStyle = createPattern;
 
         } else if (game.map.name == 'Backtrack') {
             canvas.drawImage(backgroundImage2, 0, 0, 800, 500);
 
-            var map = game.map.slice(1),
-                start = game.map[0];
+            map = game.map.slice(1);
+            start = game.map[0];
 
             canvas.beginPath();
             canvas.moveTo(start.x, start.y);
@@ -124,14 +131,14 @@ var game = {
             canvas.stroke();
             canvas.lineWidth = 50;
 
-            var pat = canvas.createPattern(floorPatternMap2, "repeat");
-            canvas.strokeStyle = pat;
+            createPattern = canvas.createPattern(floorPatternMap2, "repeat");
+            canvas.strokeStyle = createPattern;
 
         } else if (game.map.name == 'Dash') {
             canvas.drawImage(backgroundImage3, 0, 0, 800, 500);
 
-            var map = game.map.slice(1),
-                start = game.map[0];
+            map = game.map.slice(1);
+            start = game.map[0];
 
             canvas.beginPath();
             canvas.moveTo(start.x, start.y);
@@ -141,8 +148,8 @@ var game = {
             canvas.stroke();
             canvas.lineWidth = 50;
 
-            var pat = canvas.createPattern(floorPatternMap3, "repeat");
-            canvas.strokeStyle = pat;
+            createPattern = canvas.createPattern(floorPatternMap3, "repeat");
+            canvas.strokeStyle = createPattern;
         }
 
         canvas.beginPath();
@@ -168,9 +175,9 @@ var game = {
 
             if (creep.hp <= 0) {
                 if (_hp > 0) {
-                    burning.kills++;
+                    burning.kills+=1;
                 }
-                game.kills++;
+                game.kills+=1;
                 game.cash += creep.cash;
                 //create a blast
                 boom.push({
@@ -194,15 +201,16 @@ var game = {
                 if (--creep.slowfor <= 0) {
                     creep.speed = 1;
                 }
-                var waypoint = game.map[creep.nextpoint];
-                var hue = (creep.speed < 1 || burning) ? (burning ? (creep.speed < 1 ? 300 : 33) : 240) : 0;
-                var sat = 100 * (creep.hp / creep._hp);
+                var waypoint = game.map[creep.nextpoint],
+                    hue = (creep.speed < 1 || burning) ? (burning ? (creep.speed < 1 ? 300 : 33) : 240) : 0,
+                    sat = 100 * (creep.hp / creep._hp);
 
                 if (MoveObject(creep, {
                         x: waypoint.x + 18 + creep.offset,
                         y: waypoint.y + 18 + creep.offset
                     }, creep.speed)) {
                     creep.nextpoint += 1;
+
                     if (game.map[creep.nextpoint] !== undefined) {
                         currY = game.map[creep.nextpoint].y;
                         currX = game.map[creep.nextpoint].x;
@@ -228,8 +236,6 @@ var game = {
                         creep.creepFrame = 0;
                     }
                 }
-
-                var creepImg;
 
                 switch (creep.color) {
                     case 0:
@@ -286,13 +292,10 @@ var game = {
                 
             }
         });
-        var creepImg;
-
         /// blasts
 
         if (boom.length > 0) {
-            var j,
-                len = boom.length;
+            len = boom.length;
 
             for (j = 0; j < len; j += 1) {
 
@@ -319,8 +322,7 @@ var game = {
         //missle
 
         if (boom1.length > 0) {
-            var j,
-                len = boom1.length;
+            len = boom1.length;
 
             for (j = 0; j < len; j += 1) {
 
@@ -339,8 +341,7 @@ var game = {
         //mortar
 
         if (boom2.length > 0) {
-            var j,
-                len = boom2.length;
+            len = boom2.length;
 
             for (j = 0; j < len; j += 1) {
 
@@ -375,8 +376,9 @@ var game = {
             canvas.drawImage(turret.img, turret.x - 12.5, turret.y - 12.5);
         });
 
-        var selection = game.selection;
-        var turret = selection.turret;
+        selection = game.selection;
+        turret = selection.turret;
+
         if (selection) {
             canvas.beginPath();
             canvas.fillStyle = selection.status === "selected" || selection.placeable ? "rgba(255, 255, 255, .3)" : "rgba(255, 0, 0, .3)";
@@ -396,8 +398,9 @@ var game = {
             }
         });
 
-        game.ticks++;
+        game.ticks+=1;
     },
+
     start: function() {
         game._ticks = game.ticks;
         game._tick = Date.now();
@@ -405,10 +408,12 @@ var game = {
         game.paused = false;
         game.tick();
     },
+
     pause: function() {
         window.clearInterval(game.ticker);
         game.paused = true;
     },
+
     end: function() {
         game.pause();
         document.removeEventListener("keydown", ui.handleshortcuts, false);
