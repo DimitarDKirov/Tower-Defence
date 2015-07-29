@@ -280,7 +280,8 @@ h2{
 /* Control panel
 /*****************************************************************************/
 .status-bar{
-    background-image: url("images/menu/stats-background.png");
+    /*background-image: url("images/menu/stats-background.png");*/
+    background-color :black;
     height: 75px;
     width:75px;
     color:white;
@@ -346,7 +347,8 @@ h2{
 
 
 #control-timer {
-    background-image: url("images/menu/radioActive.png");
+    /*background-image: url("images/menu/radioActive.png");*/
+    background-color: blue;
     background-size:60%;
     background-repeat: no-repeat;
     display: block;
@@ -358,7 +360,8 @@ h2{
 
 
 #control-fast {
-    background-image: url("images/menu/handleDown.png");
+    /*background-image: url("images/menu/handleDown.png");*/
+    background-color: red;
     background-size: 100%;
     background-repeat: no-repeat;
     display: block;
@@ -367,7 +370,8 @@ h2{
     width: 40px;
 }
 .control-fast-up{
-    background-image: url("images/menu/handleUp.png")!important;
+    /*background-image: url("images/menu/handleUp.png")!important;*/
+    background-color: green!important;
 }
 #control-right-2 {
     border: solid #CCC;

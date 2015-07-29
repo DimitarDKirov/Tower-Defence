@@ -111,7 +111,6 @@ ui.action.scores = function() {
 };
 
 ui.action.build = function(type) {
-    //var model = new Model();
     var model = new GameUnit();
     var tdata = model.turrets[type];
     var turret = {
@@ -141,7 +140,6 @@ ui.action.build = function(type) {
 };
 
 ui.action.upgrade = function(stat) {
-    //var model = new Model();
     var model = new GameUnit();
     var turret = game.selection.turret;
     var levels = turret.levels;
@@ -241,10 +239,10 @@ ui.action.refresh = function() {
                 case 25:
                     statusName = "Missile";
                     break;
-                case 25:
+                case 40:
                     statusName = "Tazer";
                     break;
-                case 25:
+                case 60:
                     statusName = "Mortar";
                     break;
             }
@@ -257,7 +255,7 @@ ui.action.refresh = function() {
             $(statusBox).attr("id", "status-bar");
             $(statusBox).css({
                 top: measurements.top + turret.y - 50,
-                left: measurements.left + turret.y - 30,
+                left: measurements.left + turret.x - 90,
                 position: 'absolute'
             });
             document.body.appendChild(statusBox);
