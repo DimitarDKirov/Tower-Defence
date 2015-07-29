@@ -3,29 +3,30 @@
 function IsInRange(targetPoint, sourcePoint, radius) {
     var distance = (sourcePoint.x - targetPoint.x) * (sourcePoint.x - targetPoint.x) + (sourcePoint.y - targetPoint.y) * (sourcePoint.y - targetPoint.y);
     return distance < radius * radius;
-};
+}
 
 function MoveObject(object, target, speed) {
-    var distancex = target.x - object.x;
-    var distancey = target.y - object.y;
-    var angle = Math.atan2(distancey, distancex);
+    var distancex = target.x - object.x,
+        distancey = target.y - object.y,
+        angle = Math.atan2(distancey, distancex);
 
     object.x += speed * Math.cos(angle);
     object.y += speed * Math.sin(angle);
 
     return Math.abs(distancex) + Math.abs(distancey) < 2;
-};
+}
 
 function GetRandom(maxNumber){
 	return Math.floor(Math.random() * (maxNumber + 1));
 }
+
 ///////////////////////////////////////////////////////////////////////////////
 // Elements
 ///////////////////////////////////////////////////////////////////////////////
 
 function Element(id){
     return document.getElementById(id);
-};
+}
 
 window.ui = {
     timer: document.getElementById("control-timer"),
@@ -66,6 +67,7 @@ window.ui = {
         document.getElementById("control-" + name).style.display = "block";
     }
 };
+
 $('#loopy').click(function () {
     $(this).parents('html').addClass('loopy');
 });
@@ -78,17 +80,16 @@ $('#dash').click(function () {
     $(this).parents('html').addClass('dash');
 });
 
-var about = document.getElementById("about");
-var aboutRecipient = document.getElementById("about-text");
-var hotkeys = document.getElementById("hotkeys");
-var hotkeysRecipient = document.getElementById("hotkeys-text");
-var authors = document.getElementById("authors");
-var authorsRecipient = document.getElementById("authors-text");
-var credits = document.getElementById("credits");
-var creditsRecipient = document.getElementById("credits-text");
-var instructions = document.getElementById("instructions");
-var instructionsRecipient = document.getElementById("instructions-text");
-
+var about = document.getElementById("about"),
+    aboutRecipient = document.getElementById("about-text"),
+    hotkeys = document.getElementById("hotkeys"),
+    hotkeysRecipient = document.getElementById("hotkeys-text"),
+    authors = document.getElementById("authors"),
+    authorsRecipient = document.getElementById("authors-text"),
+    credits = document.getElementById("credits"),
+    creditsRecipient = document.getElementById("credits-text"),
+    instructions = document.getElementById("instructions"),
+    instructionsRecipient = document.getElementById("instructions-text");
 
 about.addEventListener("click",function(){
     aboutRecipient.style.display = 'block';
@@ -97,6 +98,7 @@ about.addEventListener("click",function(){
     creditsRecipient.style.display = 'none';
     instructionsRecipient.style.display = 'none';
 },false );
+
 aboutRecipient.addEventListener("click",function(){
     aboutRecipient.style.display = 'none';
 },false );
@@ -108,6 +110,7 @@ hotkeys.addEventListener("click",function(){
     creditsRecipient.style.display = 'none';
     instructionsRecipient.style.display = 'none';
 },false );
+
 hotkeysRecipient.addEventListener("click",function(){
     hotkeysRecipient.style.display = 'none';
 },false );
@@ -120,10 +123,10 @@ authors.addEventListener("click",function(){
     creditsRecipient.style.display = 'none';
     instructionsRecipient.style.display = 'none';
 },false );
+
 authorsRecipient.addEventListener("click",function(){
     authorsRecipient.style.display = 'none';
 },false );
-
 
 credits.addEventListener("click",function(){
     var recipient = document.getElementById("credits-text");
@@ -133,10 +136,10 @@ credits.addEventListener("click",function(){
     hotkeysRecipient.style.display = 'none';
     instructionsRecipient.style.display = 'none';
 },false );
+
 creditsRecipient.addEventListener("click",function(){
     creditsRecipient.style.display = 'none';
 },false );
-
 
 instructions.addEventListener("click",function(){
     var recipient = document.getElementById("instructions-text");
@@ -146,6 +149,7 @@ instructions.addEventListener("click",function(){
     creditsRecipient.style.display = 'none';
     hotkeysRecipient.style.display = 'none';
 },false );
+
 instructionsRecipient.addEventListener("click",function(){
     instructionsRecipient.style.display = 'none';
 },false );
