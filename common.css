@@ -133,7 +133,7 @@ ul {
 #pages-start {
     display: block;
     height: 450px;
-    padding: 0 50px 100px 50px;
+    padding: 0 50px 105px 50px;
     width: 700px;
     color: white;
 	background: url("images/wallpapers/start.jpg") no-repeat center -158px #000;
@@ -384,8 +384,7 @@ h2{
 	display: none;
 }
 html {
-	background: url(images/wallpapers/stars.jpg) no-repeat center;
-	background-size: cover;
+	background: url(images/wallpapers/stars.jpg) no-repeat center #000;
 	text-align: center;
 }
 .loopy {
