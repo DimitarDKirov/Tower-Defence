@@ -393,17 +393,17 @@ html {
 	text-align: center;
 }
 .loopy {
-	background: url(images/wallpapers/loopy.jpg) no-repeat center;
+	background: url(images/wallpapers/loopy.jpg) no-repeat center #000;
 	background-size: cover;
 }
 
 .backtrack {
-	background: url(images/wallpapers/space.jpg) no-repeat center;
+	background: url(images/wallpapers/space.jpg) no-repeat center #000;
 	background-size: cover;
 }
 
 .dash {
-	background: url(images/wallpapers/dash3.jpg) no-repeat center;
+	background: url(images/wallpapers/dash3.jpg) no-repeat center #000;
 	background-size: cover;
 }
 #logo{
