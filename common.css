@@ -314,7 +314,13 @@ h2{
     float: left;
     text-align: center;
     width: 90px;
+    font-family: Tahoma, sans-serif;
 }
+#control-turrets > img {
+    width:25px;
+    height:25px;
+}
+
 #control-manage > a, #control-manage-stats {
     border: 1px solid #00F;
     float: left;
@@ -335,19 +341,25 @@ h2{
 #control-right-1, #control-right-2, #control-right-3 {
     float: left;
 }
+
 #control-right-1{
     width: 100px;
     display: flex;
 }
+
+
 #control-timer {
-    background-image: url("images/menu/offfff.png");
-    background-size: 100%;
+    background-image: url("images/menu/radioActive.png");
+    background-size:60%;
     background-repeat: no-repeat;
     display: block;
+    left:20px;
     height: 40px;
     margin-bottom: 2px;
     width: 65px;
 }
+
+
 #control-fast {
     background-image: url("images/menu/handleDown.png");
     background-size: 100%;
