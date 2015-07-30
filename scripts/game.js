@@ -29,15 +29,15 @@ var game = {
     tick: function() {
         var i,
             j,
-            map,
-            start,
-            createPattern,
             len,
             selection,
             turret,
             creepImg,
             currentPositionX,
-            currentPositionY;
+            currentPositionY,
+            towerDestroyer,
+            creep,
+            currCreepCount = 0;
             
         ///////////////////////////////////////////////////////////////////////////////
         // fps
@@ -72,9 +72,12 @@ var game = {
 
             game.incommingCreepsCount += 2;
             game.creepsOffsetPosition += 2;
-
+            
+                
             for (i = 1; i <= game.incommingCreepsCount; i+=1) {
-                game.creeps.push({
+                currCreepCount += 1;
+                
+                creep = {
                     x: -(i * 46) - 10,
                     y: game.map[0].y,
                     offset: GetRandom(9),
@@ -88,9 +91,39 @@ var game = {
                     burning: false,
                     color: Math.ceil(GetRandom(3)),
                     cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
-                });
-            }
+                };
 
+                towerDestroyer = {
+                    x: -(i * 46) - 10,
+                    y: game.map[0].y,
+                    offset: GetRandom(9),
+                    nextPoint: 0,
+                    creepFrame: 0,
+                    speed: 1,
+                    rotation: 0,
+                    slowfor: 0,
+                    hp: game.hp + 10,
+                    _hp: game.hp + 10,
+                    burning: false,
+                    color: Math.ceil(GetRandom(3)),
+                    cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
+                    id: 'tower-destroyer'
+                }
+                
+                if (game.wave % 5 !== 0) {
+                    game.creeps.push(creep);
+                }
+                else{
+                    if (currCreepCount < game.incommingCreepsCount) {
+                        game.creeps.push(creep);
+                    }
+                    else{
+                        game.creeps.push(towerDestroyer);
+                    }
+                }
+            }
+            
+            currCreepCount = 0;
             game._wave = game.ticks;
         }
 
@@ -111,7 +144,6 @@ var game = {
 
             if (burning) {
                 creep.hp -= 30;
-
             }
 
             if (creep.hp <= 0) {
@@ -179,18 +211,18 @@ var game = {
                 }
 
                 switch (creep.color) {
-                    case 0:
-                        if (game.map.name == 'Dash') {
-                            creepImg = creep3y;
+                    case 0:{
+                        if (game.map.name == 'Dash') {                            
+                                creepImg = creep3y;
                         }
                         else if (game.map.name == 'Loopy') {
-                            creepImg = creep2y;
+                                creepImg = creep2y;
                         }
                         else {
                             creepImg = creep1y;
                         }
-                        break;
-                    case 1:
+                    }break;
+                    case 1:{
                         if (game.map.name == 'Dash') {
                             creepImg = creep3b;
                         }
@@ -200,8 +232,8 @@ var game = {
                         else {
                             creepImg = creep1b;
                         }
-                        break;
-                    case 2:
+                    }break;
+                    case 2:{
                         if (game.map.name == 'Dash') {
                             creepImg = creep3g;
                         }
@@ -211,8 +243,8 @@ var game = {
                         else {
                             creepImg = creep1g;
                         }
-                        break;
-                    default:
+                    }break;
+                    default:{
                         if (game.map.name == 'Dash') {
                             creepImg = creep3r;
                         }
@@ -222,15 +254,38 @@ var game = {
                         else {
                             creepImg = creep1r;
                         }
-                        break;
+                    }break;
                 }
 
-                canvas.save();
-                canvas.translate(creep.x - 23, creep.y - 23);
-                canvas.rotate(creep.rotation);
-                canvas.drawImage(creepImg, creep.creepFrame * 46, 0, 46, 46, -23, -23, 46, 46);
-                canvas.restore();
-                
+                if (creep.id === 'tower-destroyer') {
+                    switch(creep.creepFrame){
+                        case 1:{
+                            creepImg = towerDestroyer2;
+                        }break;
+                        case 2:{
+                            creepImg = towerDestroyer3;
+                        }break;
+                        case 3:{
+                            creepImg = towerDestroyer4;
+                        }break;
+                        default:{
+                            creepImg = towerDestroyer1;
+                        }
+                    }
+                    
+                    canvas.save();
+                    canvas.translate(creep.x - 23, creep.y - 23);
+                    canvas.rotate(creep.rotation);
+                    canvas.drawImage(creepImg, 0, 0, 60, 60, -23, -23, 60, 60);
+                    canvas.restore();
+                }
+                else{
+                    canvas.save();
+                    canvas.translate(creep.x - 23, creep.y - 23);
+                    canvas.rotate(creep.rotation);
+                    canvas.drawImage(creepImg, creep.creepFrame * 46, 0, 46, 46, -23, -23, 46, 46);
+                    canvas.restore();
+                }          
             }
         });
         /// blasts
