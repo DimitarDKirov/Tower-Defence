@@ -148,13 +148,14 @@ ul {
 }
 
 h2{
-   font-size:120%;
+   font-size:140%;
+   color:#CCCCCC;
 }
 #pages-start-maps > a {
     display: block;
     margin-bottom: 20px;
     text-align: center;
-    color:white;
+    color:#CCCCCC;
 }
 #pages-start-maps > a > img {
     -moz-box-shadow: 0 0 5px #000;
@@ -216,10 +217,10 @@ h2{
  }
  #pages-start-info dl {
 	display: block;
-	overflow: hidden
+	overflow: hidden;
  }
   #pages-start-info dt {
-	color: #118ec1;
+	color: #CCCCCC;
  }
 #pages-start-info div {
 margin: -5px 10px 5px 10px;
@@ -238,6 +239,7 @@ background: rgba(180,254,254,0.1);
 #about-text,#authors-text,#hotkeys-text,#credits-text,#instructions-text{
     display:none;
     text-align: center;
+    color: #CCCCCC;
 }
 
 #credit-list {

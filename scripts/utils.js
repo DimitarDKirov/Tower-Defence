@@ -144,6 +144,17 @@ $('#dash').click(function () {
     $(this).parents('html').addClass('dash');
 });
 
+var about =$("#about"),
+	aboutRecipient = $("about-text"),
+	hotkeys = document.getElementById("hotkeys"),
+    hotkeysRecipient = $("#hotkeys-text"),
+    authors = $("#authors"),
+    authorsRecipient = $("#authors-text"),
+    credits = $("#credits"),
+    creditsRecipient = $("#credits-text"),
+    instructions = $("#instructions"),
+    instructionsRecipient = $("#instructions-text");
+
 var about = document.getElementById("about"),
     aboutRecipient = document.getElementById("about-text"),
     hotkeys = document.getElementById("hotkeys"),
@@ -155,66 +166,63 @@ var about = document.getElementById("about"),
     instructions = document.getElementById("instructions"),
     instructionsRecipient = document.getElementById("instructions-text");
 
-about.addEventListener("click",function(){
-    aboutRecipient.style.display = 'block';
-    hotkeysRecipient.style.display = 'none';
-    authorsRecipient.style.display = 'none';
-    creditsRecipient.style.display = 'none';
-    instructionsRecipient.style.display = 'none';
-},false );
+$(about).on('click',function(){
+	$(aboutRecipient).css("display", "block");
+	$(hotkeysRecipient,authorsRecipient,creditsRecipient,instructionsRecipient).each(function(){
+	   $(this).css("display", "none");
+	})
+});
 
-aboutRecipient.addEventListener("click",function(){
-    aboutRecipient.style.display = 'none';
-},false );
+$(aboutRecipient).on('click',function(){
+	$(this).css("display", "none");
+});
 
-hotkeys.addEventListener("click",function(){
-    hotkeysRecipient.style.display = 'block';
-    aboutRecipient.style.display = 'none';
-    authorsRecipient.style.display = 'none';
-    creditsRecipient.style.display = 'none';
-    instructionsRecipient.style.display = 'none';
-},false );
+$(hotkeys).on('click',function(){
+	$(hotkeysRecipient).css("display", "block")
+	$(aboutRecipient,authorsRecipient,creditsRecipient,instructionsRecipient).each(function(){
+	   $(this).css("display", "none");
+	})
+});
 
-hotkeysRecipient.addEventListener("click",function(){
-    hotkeysRecipient.style.display = 'none';
-},false );
+$(hotkeysRecipient).on('click',function(){
+	$(this).css("display", "none");
+});
 
-authors.addEventListener("click",function(){
-    var recipient = document.getElementById("authors-text");
-    authorsRecipient.style.display = 'block';
-    aboutRecipient.style.display = 'none';
-    hotkeysRecipient.style.display = 'none';
-    creditsRecipient.style.display = 'none';
-    instructionsRecipient.style.display = 'none';
-},false );
+$(authors).on('click',function(){
+	$(authorsRecipient).css("display", "block")
+	$(aboutRecipient,hotkeysRecipient,creditsRecipient,instructionsRecipient).each(function(){
+	   $(this).css("display", "none");
+	})
+});
 
-authorsRecipient.addEventListener("click",function(){
-    authorsRecipient.style.display = 'none';
-},false );
+$(authorsRecipient).on('click',function(){
+	$(this).css("display", "none");
+});
 
-credits.addEventListener("click",function(){
-    var recipient = document.getElementById("credits-text");
-    creditsRecipient.style.display = 'block';
-    aboutRecipient.style.display = 'none';
-    authorsRecipient.style.display = 'none';
-    hotkeysRecipient.style.display = 'none';
-    instructionsRecipient.style.display = 'none';
-},false );
+$(credits).on('click',function(){
+	$(creditsRecipient).css("display", "block")
+	$(aboutRecipient,hotkeysRecipient,authorsRecipient,instructionsRecipient).each(function(){
+	   $(this).css("display", "none");
+	})
+});
 
-creditsRecipient.addEventListener("click",function(){
-    creditsRecipient.style.display = 'none';
-},false );
+$(creditsRecipient).on('click',function(){
+	$(this).css("display", "none");
+});
 
-instructions.addEventListener("click",function(){
-    var recipient = document.getElementById("instructions-text");
-    instructionsRecipient.style.display = 'block';
-    aboutRecipient.style.display = 'none';
-    authorsRecipient.style.display = 'none';
-    creditsRecipient.style.display = 'none';
-    hotkeysRecipient.style.display = 'none';
-},false );
+$(instructions).on('click',function(){
+	$(instructionsRecipient).css("display", "block")
+	$(aboutRecipient,hotkeysRecipient,authorsRecipient,creditsRecipient).each(function(){
+	   $(this).css("display", "none");
+	})
+});
 
-instructionsRecipient.addEventListener("click",function(){
-    instructionsRecipient.style.display = 'none';
-},false );
+$(instructionsRecipient).on('click',function(){
+	$(this).css("display", "none");
+});
+
+
+
+
+
 
