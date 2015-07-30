@@ -120,7 +120,7 @@ var ui = (function(){
                 }
             }
 
-            panel("turrets");
+            Panel("turrets");
             game.selection = false;
             delete game.turrets[turret.id];
             action.refresh();
@@ -216,7 +216,7 @@ var ui = (function(){
             }
 
             game.selection = false;
-            panel("turrets");
+            Panel("turrets");
         }
     };
 
@@ -352,7 +352,7 @@ var ui = (function(){
         cash: cash,
         lives: lives,
         wave: wave,
-        fps: wave,
+        fps: fps,
         nav: nav,
         action: action,
         bind: Bind,
