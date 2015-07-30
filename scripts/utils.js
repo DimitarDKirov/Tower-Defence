@@ -92,45 +92,45 @@ function Element(id){
     return document.getElementById(id);
 }
 
-ui = {
-    timer: document.getElementById("control-timer"),
-    cash: document.getElementById("control-cash"),
-    lives: document.getElementById("control-lives"),
-    wave: document.getElementById("control-wave"),
-    fps: document.getElementById("control-fps"),
+// ui = {
+//     timer: document.getElementById("control-timer"),
+//     cash: document.getElementById("control-cash"),
+//     lives: document.getElementById("control-lives"),
+//     wave: document.getElementById("control-wave"),
+//     fps: document.getElementById("control-fps"),
 
-    nav: ["start"],
-    action: {},
+//     nav: ["start"],
+//     action: {},
 
-    bind: function(evt, elems, fn) {
-        Array.prototype.slice.call(elems).forEach(function(elem) {
-            elem.addEventListener(evt, fn, false);
-        });
-    },
-    page: function(name) {
-        if (name) {
-            ui.nav.unshift(name);
-        } else {
-            ui.page(ui.nav[1]);
-            return;
-        }
+//     bind: function(evt, elems, fn) {
+//         Array.prototype.slice.call(elems).forEach(function(elem) {
+//             elem.addEventListener(evt, fn, false);
+//         });
+//     },
+//     page: function(name) {
+//         if (name) {
+//             ui.nav.unshift(name);
+//         } else {
+//             ui.page(ui.nav[1]);
+//             return;
+//         }
 
-        Array.prototype.slice.call(document.getElementById("pages").children).forEach(function(elem) {
-            if (elem.id !== "pages-overlay") {
-                elem.style.display = "none";
-            }
-        });
-        document.getElementById("pages-" + name).style.display = "block";
+//         Array.prototype.slice.call(document.getElementById("pages").children).forEach(function(elem) {
+//             if (elem.id !== "pages-overlay") {
+//                 elem.style.display = "none";
+//             }
+//         });
+//         document.getElementById("pages-" + name).style.display = "block";
 
-    },
-    panel: function(name) {
-        Array.prototype.slice.call(document.getElementById("control-left").children).forEach(function(elem) {
-            elem.style.display = "none";
-        });
+//     },
+//     panel: function(name) {
+//         Array.prototype.slice.call(document.getElementById("control-left").children).forEach(function(elem) {
+//             elem.style.display = "none";
+//         });
 
-        document.getElementById("control-" + name).style.display = "block";
-    }
-};
+//         document.getElementById("control-" + name).style.display = "block";
+//     }
+// };
 
 $('#loopy').click(function () {
     $(this).parents('html').addClass('loopy');
