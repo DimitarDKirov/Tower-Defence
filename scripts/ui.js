@@ -494,6 +494,7 @@ document.getElementById("pages-canvas").addEventListener("click", function (evt)
             ui.action.refresh();
         }
     } else if (typeof tile === "object") {
+    	ui.action.deselect();
         game.selection = {
             status: "selected",
             turret: tile
@@ -548,15 +549,24 @@ document.getElementById("control-fast").addEventListener("click", function (evt)
 }, false);
 
 document.getElementById("control-pause").addEventListener("click", function (evt) {
-    this.textContent = game.paused ? (game.start(), "Pause") : (game.pause(), "Start");
-    $(this).toggleClass('control-unpause');
     var circle, triangle, child,
-        svgBase = document.getElementById('svg-conrainer');
-    baseHeight = canvas.canvas.height,
-    baseWidth = canvas.canvas.width,
-    radius = 100,
-    svgNS = 'http://www.w3.org/2000/svg';
+        svgBase = document.getElementById('svg-conrainer'),
+    	baseHeight = canvas.canvas.height,
+    	baseWidth = canvas.canvas.width,
+    	radius = 100,
+    	svgNS = 'http://www.w3.org/2000/svg';
     if (game.paused) {
+    	game.start();
+    	this.textContent = "Pause";
+        child = svgBase.firstChild;
+        while (child) {
+            svgBase.removeChild(child);
+            child = svgBase.firstChild;
+        }
+        svgBase.style.display = 'none';
+    } else {
+    	game.pause();
+        this.textContent = "Start";
         svgBase.style.display = 'block';
         circle = document.createElementNS(svgNS, 'circle');
         circle.setAttribute('cx', baseWidth / 2);
@@ -572,14 +582,8 @@ document.getElementById("control-pause").addEventListener("click", function (evt
         document.querySelector('path').addEventListener('click', function () {
             document.getElementById("control-pause").click();
         });
-    } else {
-        child = svgBase.firstChild;
-        while (child) {
-            svgBase.removeChild(child);
-            child = svgBase.firstChild
-        }
-        svgBase.style.display = 'none';
     }
+    $(this).toggleClass('control-unpause');
 }, false);
 
 
