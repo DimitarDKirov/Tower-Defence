@@ -34,7 +34,10 @@ var game = {
             turret,
             creepImg,
             currentPositionX,
-            currentPositionY;
+            currentPositionY,
+            towerDestroyer,
+            creep,
+            currCreepCount = 0;
             
         ///////////////////////////////////////////////////////////////////////////////
         // fps
