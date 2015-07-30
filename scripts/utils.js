@@ -144,7 +144,18 @@ $('#dash').click(function () {
     $(this).parents('html').addClass('dash');
 });
 
-var about =$("#about"),
+
+$('#pages-start-info h2').click(function () {
+    if ($(this).next().is(":visible")) {
+        $(this).next().slideUp("slow");
+    }
+    else {
+        $('#pages-start-info > div').slideUp("slow");
+        $(this).next().slideDown("slow");
+    }
+
+});
+/*var about =$("#about"),
 	aboutRecipient = $("about-text"),
 	hotkeys = document.getElementById("hotkeys"),
     hotkeysRecipient = $("#hotkeys-text"),
@@ -219,7 +230,7 @@ $(instructions).on('click',function(){
 
 $(instructionsRecipient).on('click',function(){
 	$(this).css("display", "none");
-});
+});*/
 
 
 
