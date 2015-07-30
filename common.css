@@ -368,7 +368,7 @@ background: rgba(180,254,254,0.1);
     margin: 5px;
     text-align: center;
     vertical-align: middle;
-    width: 75px;
+    width: 65px;
     color:white !important;
 }
 #control-manage-stats {
@@ -391,7 +391,7 @@ background: rgba(180,254,254,0.1);
 }
 
 #control-right-2{
-    width:153px;
+    width:145px;
     background-image: url("images/menu/textbackground.png");
     background-size:100%;
     background-repeat: no-repeat;
