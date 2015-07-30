@@ -29,9 +29,6 @@ var game = {
     tick: function() {
         var i,
             j,
-            map,
-            start,
-            createPattern,
             len,
             selection,
             turret,
