@@ -73,7 +73,11 @@ var game = {
             game.incommingCreepsCount += 2;
             game.creepsOffsetPosition += 2;
             
-            creep = {
+                
+            for (i = 1; i <= game.incommingCreepsCount; i+=1) {
+                currCreepCount += 1;
+                
+                creep = {
                     x: -(i * 46) - 10,
                     y: game.map[0].y,
                     offset: GetRandom(9),
@@ -88,7 +92,7 @@ var game = {
                     color: Math.ceil(GetRandom(3)),
                     cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
                 };
-                
+
                 towerDestroyer = {
                     x: -(i * 46) - 10,
                     y: game.map[0].y,
@@ -105,9 +109,6 @@ var game = {
                     cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
                     id: 'tower-destroyer'
                 }
-                
-            for (i = 1; i <= game.incommingCreepsCount; i+=1) {
-                currCreepCount += 1;
                 
                 if (game.wave % 5 !== 0) {
                     game.creeps.push(creep);
@@ -256,12 +257,35 @@ var game = {
                     }break;
                 }
 
-                canvas.save();
-                canvas.translate(creep.x - 23, creep.y - 23);
-                canvas.rotate(creep.rotation);
-                canvas.drawImage(creepImg, creep.creepFrame * 46, 0, 46, 46, -23, -23, 46, 46);
-                canvas.restore();
-                
+                if (creep.id === 'tower-destroyer') {
+                    switch(creep.creepFrame){
+                        case 1:{
+                            creepImg = towerDestroyer2;
+                        }break;
+                        case 2:{
+                            creepImg = towerDestroyer3;
+                        }break;
+                        case 3:{
+                            creepImg = towerDestroyer4;
+                        }break;
+                        default:{
+                            creepImg = towerDestroyer1;
+                        }
+                    }
+                    
+                    canvas.save();
+                    canvas.translate(creep.x - 23, creep.y - 23);
+                    canvas.rotate(creep.rotation);
+                    canvas.drawImage(creepImg, 0, 0, 60, 60, -23, -23, 60, 60);
+                    canvas.restore();
+                }
+                else{
+                    canvas.save();
+                    canvas.translate(creep.x - 23, creep.y - 23);
+                    canvas.rotate(creep.rotation);
+                    canvas.drawImage(creepImg, creep.creepFrame * 46, 0, 46, 46, -23, -23, 46, 46);
+                    canvas.restore();
+                }          
             }
         });
         /// blasts
