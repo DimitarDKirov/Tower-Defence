@@ -69,7 +69,10 @@ Git repo: <a href="https://github.com/DimitarDKirov/Tower-Defence.git" title="gi
 * **Иван Иван** - Matrix
     * a
 * **Ангел Ангелов** - angel.angelov.7146557
-    * a
+    * Refactoring - hoisting variables declaration and correct naming for variables.
+    * Shooting effects from turrets and explosions.
+    * Changed some game balance like slowing factor, cash generation and added more levels for upgrades.
+
 * **Мирослав Христов** - mirkatabg
     * Implementation of **special creep** logic and animating it with canvas.
     * Fixing the position of status-bar when selecting turret and make it *responsive.
