@@ -105,24 +105,24 @@ var game = {
                     cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
                     id: 'tower-destroyer'
                 }
+                
             for (i = 1; i <= game.incommingCreepsCount; i+=1) {
-                game.creeps.push({
-                    x: -(i * 46) - 10,
-                    y: game.map[0].y,
-                    offset: GetRandom(9),
-                    nextPoint: 0,
-                    creepFrame: 0,
-                    speed: 1,
-                    rotation: 0,
-                    slowfor: 0,
-                    hp: game.hp,
-                    _hp: game.hp,
-                    burning: false,
-                    color: Math.ceil(GetRandom(3)),
-                    cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
-                });
+                currCreepCount += 1;
+                
+                if (game.wave % 5 !== 0) {
+                    game.creeps.push(creep);
+                }
+                else{
+                    if (currCreepCount < game.incommingCreepsCount) {
+                        game.creeps.push(creep);
+                    }
+                    else{
+                        game.creeps.push(towerDestroyer);
+                    }
+                }
             }
-
+            
+            currCreepCount = 0;
             game._wave = game.ticks;
         }
 
@@ -143,7 +143,6 @@ var game = {
 
             if (burning) {
                 creep.hp -= 30;
-
             }
 
             if (creep.hp <= 0) {
@@ -211,18 +210,18 @@ var game = {
                 }
 
                 switch (creep.color) {
-                    case 0:
-                        if (game.map.name == 'Dash') {
-                            creepImg = creep3y;
+                    case 0:{
+                        if (game.map.name == 'Dash') {                            
+                                creepImg = creep3y;
                         }
                         else if (game.map.name == 'Loopy') {
-                            creepImg = creep2y;
+                                creepImg = creep2y;
                         }
                         else {
                             creepImg = creep1y;
                         }
-                        break;
-                    case 1:
+                    }break;
+                    case 1:{
                         if (game.map.name == 'Dash') {
                             creepImg = creep3b;
                         }
@@ -232,8 +231,8 @@ var game = {
                         else {
                             creepImg = creep1b;
                         }
-                        break;
-                    case 2:
+                    }break;
+                    case 2:{
                         if (game.map.name == 'Dash') {
                             creepImg = creep3g;
                         }
@@ -243,8 +242,8 @@ var game = {
                         else {
                             creepImg = creep1g;
                         }
-                        break;
-                    default:
+                    }break;
+                    default:{
                         if (game.map.name == 'Dash') {
                             creepImg = creep3r;
                         }
@@ -254,7 +253,7 @@ var game = {
                         else {
                             creepImg = creep1r;
                         }
-                        break;
+                    }break;
                 }
 
                 canvas.save();
