@@ -143,7 +143,7 @@ var ui = (function(){
                 });
 
                 document.getElementById("control-manage-sell").innerHTML = "Sell<br>$" + Math.round(turret.cost * 0.7);
-                document.getElementById("control-manage-stats").innerHTML = turret.kills + " kills<br>" + (((turret.kills / game.kills) || 0) * 100).toFixed(2) + "% of &sum;";
+                document.getElementById("control-manage-stats").innerHTML = turret.kills + " kills<br>" + (((turret.kills / game.kills) || 0) * 100).toFixed(2) + "% of "+game.kills +" total";
 
                 var checkup = document.getElementById("status-bar");
                 if (checkup == undefined) {
