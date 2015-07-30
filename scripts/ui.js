@@ -1,17 +1,17 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Global
 ///////////////////////////////////////////////////////////////////////////////
-document.addEventListener("dragstart", function(evt) {
+document.addEventListener("dragstart", function (evt) {
     if (evt.target.tagName === "IMG") {
         evt.preventDefault();
     }
 }, false);
 
-ui.bind("click", document.querySelectorAll("[data-page]"), function(evt) {
+ui.bind("click", document.querySelectorAll("[data-page]"), function (evt) {
     ui.page(this.getAttribute("data-page"));
 });
 
-ui.handleshortcuts = function(evt) {
+ui.handleshortcuts = function (evt) {
     if (!game.paused) {
         switch (evt.keyCode) {
             case 49:
@@ -84,7 +84,7 @@ ui.handleshortcuts = function(evt) {
     }
 };
 
-ui.handleunload = function(e) {
+ui.handleunload = function (e) {
     return "A game is currently running, are you sure you want to close it?";
 };
 
@@ -92,26 +92,26 @@ ui.handleunload = function(e) {
 // Actions
 ///////////////////////////////////////////////////////////////////////////////
 
-ui.action.scores = function() {
+ui.action.scores = function () {
     var list = JSON.parse(localStorage.scores || "{}"),
-    map,
-    out;
+        map,
+        out;
 
     for (map in list) {
         out = "";
 
-        list[map].forEach(function(r) {
+        list[map].forEach(function (r) {
             out += '<li>' +
-                '<a>' + new Date(r.date).toDateString() + '</a> ' +
-                r.score + ' ☠' + r.kills + ' $' + r.spent +
-                '</li>';
+            '<a>' + new Date(r.date).toDateString() + '</a> ' +
+            r.score + ' ☠' + r.kills + ' $' + r.spent +
+            '</li>';
         });
 
         document.getElementById("pages-scores-local-" + map.toLowerCase()).innerHTML = out;
     }
 };
 
-ui.action.build = function(type) {
+ui.action.build = function (type) {
     var model = new GameUnit();
     var tdata = model.turrets[type];
     var turret = {
@@ -140,7 +140,7 @@ ui.action.build = function(type) {
     } : false;
 };
 
-ui.action.upgrade = function(stat) {
+ui.action.upgrade = function (stat) {
     var model = new GameUnit(),
         turret = game.selection.turret,
         levels = turret.levels,
@@ -148,7 +148,7 @@ ui.action.upgrade = function(stat) {
         cost = model.turrets.upgrades[level];
 
     if (game.selection.status === "selected" && cost && game.cash - cost >= 0) {
-        levels[stat] ++;
+        levels[stat]++;
         turret[stat] = turret.upgrades[level][stat];
         levels.full = levels.damage === 10 && levels.rate === 10 && levels.range === 10;
         turret.cost += cost;
@@ -158,7 +158,7 @@ ui.action.upgrade = function(stat) {
     }
 };
 
-ui.action.move = function() {
+ui.action.move = function () {
     if (game.selection.status === "selected" && game.cash - 90 >= 0) {
         var turret = game.selection.turret,
             tx = (turret._x + 2.5) / 5,
@@ -175,7 +175,7 @@ ui.action.move = function() {
         turret._x = turret.x;
         turret._y = turret.y;
 
-        
+
         for (i = 5; i--;) {
             for (ii = 5; ii--;) {
                 game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
@@ -186,7 +186,7 @@ ui.action.move = function() {
     }
 };
 
-ui.action.sell = function() {
+ui.action.sell = function () {
     var turret = game.selection.turret,
         value = Math.round(turret.cost * 0.7),
         tx = (turret.x + 2.5) / 5,
@@ -207,7 +207,7 @@ ui.action.sell = function() {
     ui.action.refresh();
 };
 
-ui.action.refresh = function() {
+ui.action.refresh = function () {
     ui.cash.textContent = game.cash;
 
     if (game.selection) {
@@ -217,7 +217,7 @@ ui.action.refresh = function() {
             levels = turret.levels,
             costs = model.turrets.upgrades;
 
-        ["Damage", "Rate", "Range"].forEach(function(proper) {
+        ["Damage", "Rate", "Range"].forEach(function (proper) {
             var id = proper.toLowerCase();
             var level = levels[id];
             var cost = costs[level] || "";
@@ -234,7 +234,7 @@ ui.action.refresh = function() {
 
             var type = turret.type,
                 statusName;
-                
+
             switch (type) {
                 case 1:
                     statusName = "Laser";
@@ -256,14 +256,14 @@ ui.action.refresh = function() {
                 startX = canvas.offsetLeft,
                 topOffset = startY + turret.y - 75,
                 leftOffset = startX + turret.x + 25;
-                
-                if (topOffset < startY) {
-                    topOffset = startY + turret.y;
-                }
-                
-                if (leftOffset > canvas.width) {
-                    leftOffset = startX + turret.x - 80;
-                }
+
+            if (topOffset < startY) {
+                topOffset = startY + turret.y;
+            }
+
+            if (leftOffset > canvas.width) {
+                leftOffset = startX + turret.x - 80;
+            }
 
             $(statusBox).html("Turret type: " + statusName + "<br> Damage :" + turret.damage + "<br> Rate :" + turret.rate + "<br> Range :" + turret.range);
             $(statusBox).attr("class", "status-bar");
@@ -278,10 +278,10 @@ ui.action.refresh = function() {
     }
 };
 
-ui.action.deselect = function() {
+ui.action.deselect = function () {
 
     var removee = document.getElementById("status-bar");
-    if (removee != undefined){
+    if (removee != undefined) {
         removee.remove();
     }
     if (game.selection.status === "moving") {
@@ -324,7 +324,11 @@ var canvas = document.getElementById("pages-canvas").getContext("2d"),
     creep3r = document.getElementById("creep3r"),
     creep1y = document.getElementById("creep1y"),
     creep2y = document.getElementById("creep2y"),
-    creep3y = document.getElementById("creep3y");
+    creep3y = document.getElementById("creep3y"),
+    towerDestroyer1 = document.getElementById('tower-destroyer-1'),
+    towerDestroyer2 = document.getElementById('tower-destroyer-2'),
+    towerDestroyer3 = document.getElementById('tower-destroyer-3'),
+    towerDestroyer4 = document.getElementById('tower-destroyer-4'),
     lightningImg = document.getElementById("lightning"),
     expl1 = document.getElementById("expl1"),
     expl2 = document.getElementById("expl2"),
@@ -332,7 +336,7 @@ var canvas = document.getElementById("pages-canvas").getContext("2d"),
     backgroundImage2 = document.getElementById("backgroundImageId2"),
     backgroundImage3 = document.getElementById("backgroundImageId3"),
 
-//blasts
+    //blasts
     boom = [],
     boom1 = [],
     boom2 = [];
@@ -349,7 +353,7 @@ floorPatternMap3.src = 'images/labirint/map3-desert-floor.jpg';
 
 var tx;
 var ty;
-document.getElementById("pages-canvas").addEventListener("mousemove", function(evt) {
+document.getElementById("pages-canvas").addEventListener("mousemove", function (evt) {
     var selection = game.selection;
     var turret = selection.turret;
 
@@ -372,7 +376,7 @@ document.getElementById("pages-canvas").addEventListener("mousemove", function(e
     }
 }, false);
 
-document.getElementById("pages-canvas").addEventListener("click", function(evt) {
+document.getElementById("pages-canvas").addEventListener("click", function (evt) {
     var selection = game.selection,
         turret = selection.turret,
         tile = game.tiles[Math.ceil((evt.pageX - this.offsetLeft) / 5) + "," + Math.ceil((evt.pageY - this.offsetTop) / 5)],
@@ -435,20 +439,20 @@ document.getElementById("pages-canvas").addEventListener("click", function(evt) 
 // Control panel
 ///////////////////////////////////////////////////////////////////////////////
 
-document.getElementById("control").addEventListener("click", function(evt) {
+document.getElementById("control").addEventListener("click", function (evt) {
     if (evt.target.id === "control") {
         ui.action.deselect();
     }
 }, false);
 
-ui.bind("click", document.getElementById("control-turrets").children, function(evt) {
+ui.bind("click", document.getElementById("control-turrets").children, function (evt) {
     if (!game.paused) {
-        $(this).fadeTo('fast',0).fadeTo('fast',1).fadeTo('fast',0).fadeTo('fast',1);
+        $(this).fadeTo('fast', 0).fadeTo('fast', 1).fadeTo('fast', 0).fadeTo('fast', 1);
         ui.action.build(this.getAttribute("data-name"));
     }
 });
 
-ui.bind("click", document.getElementById("control-manage").getElementsByTagName("a"), function(evt) {
+ui.bind("click", document.getElementById("control-manage").getElementsByTagName("a"), function (evt) {
     var action = evt.target.id.split("-")[2];
 
     if (!game.paused) {
@@ -456,13 +460,13 @@ ui.bind("click", document.getElementById("control-manage").getElementsByTagName(
     }
 });
 
-document.getElementById("control-timer").addEventListener("click", function(evt) {
+document.getElementById("control-timer").addEventListener("click", function (evt) {
     if (!game.paused) {
         game._wave = game.ticks - 1200;
     }
 }, false);
 
-document.getElementById("control-fast").addEventListener("click", function(evt) {
+document.getElementById("control-fast").addEventListener("click", function (evt) {
     if (!game.paused) {
         game.fast = !game.fast;
         //this.style.backgroundColor = (game.fast = !game.fast) ? "#000000" : "#000000";
@@ -471,38 +475,38 @@ document.getElementById("control-fast").addEventListener("click", function(evt) 
     }
 }, false);
 
-document.getElementById("control-pause").addEventListener("click", function(evt) {
+document.getElementById("control-pause").addEventListener("click", function (evt) {
     this.textContent = game.paused ? (game.start(), "Pause") : (game.pause(), "Start");
     $(this).toggleClass('control-unpause');
-	var circle, triangle, child,
-		svgBase= document.getElementById('svg-conrainer');
-        baseHeight=canvas.canvas.height,
-        baseWidth=canvas.canvas.width,
-        radius=100,
-		svgNS = 'http://www.w3.org/2000/svg';
-    if(game.paused){
-        svgBase.style.display='block';
+    var circle, triangle, child,
+        svgBase = document.getElementById('svg-conrainer');
+    baseHeight = canvas.canvas.height,
+    baseWidth = canvas.canvas.width,
+    radius = 100,
+    svgNS = 'http://www.w3.org/2000/svg';
+    if (game.paused) {
+        svgBase.style.display = 'block';
         circle = document.createElementNS(svgNS, 'circle');
-        circle.setAttribute('cx',baseWidth/2);
-        circle.setAttribute('cy',baseHeight/2);
-        circle.setAttribute('r',radius);
-        circle.setAttribute('id','pauseCircle');
+        circle.setAttribute('cx', baseWidth / 2);
+        circle.setAttribute('cy', baseHeight / 2);
+        circle.setAttribute('r', radius);
+        circle.setAttribute('id', 'pauseCircle');
         svgBase.appendChild(circle);
         triangle = document.createElementNS(svgNS, 'path');
-        triangle.setAttribute('d','M '+(baseWidth/2-radius/2)+','+(baseHeight/2-radius/2)+' v '+radius+' l '+(radius+20)+ ' '+(-radius/2)+' z');
+        triangle.setAttribute('d', 'M ' + (baseWidth / 2 - radius / 2) + ',' + (baseHeight / 2 - radius / 2) + ' v ' + radius + ' l ' + (radius + 20) + ' ' + (-radius / 2) + ' z');
 
-        triangle.setAttribute('id','arrow');
+        triangle.setAttribute('id', 'arrow');
         svgBase.appendChild(triangle);
-        document.querySelector('path').addEventListener('click',function(){
+        document.querySelector('path').addEventListener('click', function () {
             document.getElementById("control-pause").click();
-        });        
-    }else{
-        child=svgBase.firstChild;
-        while(child){
+        });
+    } else {
+        child = svgBase.firstChild;
+        while (child) {
             svgBase.removeChild(child);
-            child=svgBase.firstChild
+            child = svgBase.firstChild
         }
-        svgBase.style.display='none';
+        svgBase.style.display = 'none';
     }
 }, false);
 
@@ -511,19 +515,19 @@ document.getElementById("control-pause").addEventListener("click", function(evt)
 // Init
 ///////////////////////////////////////////////////////////////////////////////
 
-ui.bind("click", document.getElementById("pages-start-maps").children, function(evt) {
+ui.bind("click", document.getElementById("pages-start-maps").children, function (evt) {
     //var model = new Model();
     var model = new GameUnit(),
         name = this.textContent;
     game.map = model.maps[name];
     game.map.name = name;
 
-    game.map.map(function(p) {
+    game.map.map(function (p) {
         return {
             x: p.x,
             y: p.y
         };
-    }).forEach(function(cur, i, a) {
+    }).forEach(function (cur, i, a) {
         var next = a[i + 1] || cur,
             dx = next.x - cur.x,
             dy = next.y - cur.y,
@@ -532,8 +536,8 @@ ui.bind("click", document.getElementById("pages-start-maps").children, function(
 
         if (Math.abs(dx) > Math.abs(dy)) {
             cur.x += dx < 0 ? 21 : -16;
-                m = dy / dx;
-                b = cur.y - m * cur.x;
+            m = dy / dx;
+            b = cur.y - m * cur.x;
             dx = dx < 0 ? -1 : 1;
 
             while (cur.x !== next.x) {
@@ -545,8 +549,8 @@ ui.bind("click", document.getElementById("pages-start-maps").children, function(
             }
         } else if (dy !== 0) {
             cur.y += dy < 0 ? 21 : -16;
-                m = dx / dy;
-                b = cur.x - m * cur.y;
+            m = dx / dy;
+            b = cur.x - m * cur.y;
             dy = dy < 0 ? -1 : 1;
 
             while (cur.y !== next.y) {
@@ -568,14 +572,14 @@ ui.bind("click", document.getElementById("pages-start-maps").children, function(
 
 });
 
-ui.handletweets = function(data) {
+ui.handletweets = function (data) {
     var maps = {
         loopy: document.getElementById("pages-scores-twitter-loopy"),
         backtrack: document.getElementById("pages-scores-twitter-backtrack"),
         dash: document.getElementById("pages-scores-twitter-dash")
     };
 
-    data.results.forEach(function(tweet) {
+    data.results.forEach(function (tweet) {
         var m = tweet.text.match(/I scored (\d+) \((\d+) kills, \$(\d+) spent\) on (Loopy|Backtrack|Dash) in #canvastd/i);
 
         if (m) {
@@ -594,15 +598,15 @@ ui.handletweets = function(data) {
 
 ui.action.scores();
 
-$(document ).ready(function() {
-    $('#control-fast').click(function(){
-       $(this).toggleClass('control-fast-up');
+$(document).ready(function () {
+    $('#control-fast').click(function () {
+        $(this).toggleClass('control-fast-up');
     });
 });
 
-$(document ).ready(function() {
-    $('#control-timer').click(function(){
-        $(this).fadeTo('fast',0).fadeTo('fast',1).fadeTo('fast',0).fadeTo('fast',1);
+$(document).ready(function () {
+    $('#control-timer').click(function () {
+        $(this).fadeTo('fast', 0).fadeTo('fast', 1).fadeTo('fast', 0).fadeTo('fast', 1);
     });
 });
 
@@ -649,7 +653,7 @@ var rerun = function () {
     draw();
 };
 
-function drawgameOver () {
+function drawgameOver() {
     var canvasGameOver = document.getElementById("gameOver");
     var ctx = canvasGameOver.getContext("2d");
     ctx.font = "40px Nosifer";
