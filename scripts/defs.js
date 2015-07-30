@@ -456,7 +456,7 @@ var Mortar = (function(){
     Mortar.prototype.shoot = function(creeps){
         var creep = creeps[0],
             turret = this,
-            target = {x: creep.x / 1, y: creep.y / 1},
+            target = {x: creep.x + 10 / 1, y: creep.y + 10 / 1},
             shell = {x: turret.x / 1, y: turret.y / 1},
             radius = 25;    
 
@@ -486,7 +486,7 @@ var Mortar = (function(){
                             canvas.beginPath();
                             boom2.push({
                                 x: target.x,
-                                y: target.y,
+                                y: target.y - 30,
                                 frame: 0
                             });
 
@@ -499,7 +499,7 @@ var Mortar = (function(){
 
                     canvas.beginPath();
                     smallRocket = document.getElementById("bomb");
-                    canvas.drawImage(smallRocket, shell.x - 3, shell.y - 3);
+                    canvas.drawImage(smallRocket, shell.x - 10, shell.y - 30);
                     canvas.fill();
                     
                 }
