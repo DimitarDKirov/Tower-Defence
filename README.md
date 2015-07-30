@@ -1,68 +1,81 @@
-# Tower-Defence
-JS UI and DOM online team Papaya teamwork
+#JS UI and DOM Online Team "Papaya"
+Team work of Papaya for JS UI and DOM Telerik Academy 2015
 
-#Project Description
+## Our project is Tower-Defence game
 
-Implement a client-side JavaScript application using the HTML graphic APIs – canvas and SVG.
+### Team Members
+* Александър Павлов -   Alexio86             
+* Ангел Ангелов -       angel.angelov.7146557
+* Аспарух Христов -     puhabg               
+* Божана Нешева  -      bnesheva             
+* Борис Кафалиев -      Wolf.Eye             
+* Димитър Киров -       dimkirov             
+* Емилия Механджиева -  emimehandjieva       
+* Иван Иван -           Matrix               
+* Мирослав Христов -    mirkatabg            
+    
+### Project Description
 
-The project can be a game, web statistics or anything else. Sample applications:
-*   Chess
-*   Backgammon
-*   Any jumping game – Super Mario, Bomberman or else
-*   Statistics application – app showing different charts, based on received data
-*   Minesweeper
-*   Solitaire
-*   Bridge-Belote
-*   Paint-like application – drawing shapes, lines, etc
+The purpose of the project is to implement a online Tower-Defence game.
 
-##General Requirements
-Please define and implement the following assets in your project:
-*   Use the HTML5 canvas
-    *   Or a Canvas framework like KineticJS, paper.js or other
-*   Use SVG
-    *   Or a SVG framework like Raphael JS or other
-*   Create animations
-    *   Either for the canvas, SVG or both
-*   The application must work in the latest versions of the browsers: Google Chrome, Mozilla Firefox, Internet Explorer 10/11, Opera and Apple Safar
+When a player opens the index.html page he sees user interface (the menu), from witch he/she can intaract with the application using point device such as mouse or touchpad.
+Things that a player can do in the menu:
+    * Choose level. Currently there are three levels
+    * Why this game was created - About tab.
+    * Instructions which gives the user the idea of how to play.
+    * Authors - list of the developers names.
+    * Credits
+    * Hot keys
+    
+After choosing a level the player can build and upgrade turrets (which costs money and increases score) to kill creeps (which generates money and increases score). 
+He/She can experiment with the turrets each has a special ability when fully upgraded.
+The objective is to stop the incoming creep waves from going thru the labyrinth.
+Also the towers can be saled for less money then the original price  or moved for money.
 
-##Additional Requirements
-Follow the best practices for producing high-quality code: 
-*   **Correct naming**
-*   **Data encapsulation**
-    *   Use OOP and modules
-*   **Strong cohesion** and **loose coupling**
-*   Use **GIT** as a source control system
-*   Host it on <a href="http://github.com" title="http://github.com" target="_blank">http://github.com</a>
+### Source code
+Git repo: <a href="http://github.com" title="git repo" target="_blank">a link</a>
 
-##Optional Requirements    
-If you have a chance, time and a suitable situation, you might add some of the following to your project:
-*   Use DOM manipulations like native DOM API and/or jQuery
-*   Unit and integration testing
-*   Backward compatibility (make the application usable on browsers like IE8, IE7 and IE6)
+### Progreass of requirements
+#### General Requirements
+* Use the HTML5 canvas
+* Use SVG
+* Create Animations for canvas and SVG
 
-##Non-required Work
-*   Completely finished project is not obligatory required. It will not be a big problem if your project is not completely finished or is not working greatly
-    *   This team work project is for educational purpose
-    *   Its main purpose it to experience using graphics, DOM manipulation and OOP in a real-world-like project and to get some experience in team working and team collaboration with a source control system.
-*   Implementation of server-side logic with ASP.NET, PHP, Java or Node.js
+#### Additional Requirements
+* Correct naming
+* Data encapsulation
+* Use OOP and modules
+* Strong cohesion
+* Use GIT as a source control system
 
-##Deliverables
-Put the following in a ZIP archive and submit it (each team member submits the same file):
-*   The **complete source code**
-*   **Brief documentation** of your project (2-3 pages). It should provide the following information (in brief):
-    *   **Team name** and **list of team members**
-    *   Project purpose – **what problem do you solve?**
-    *   The **URL of your Git repository**
-    *   Any other information (optionally)
-*   Optionally provide a presentation designed for the project defense
+#### Optional Requirements
+* Use DOM manipulations like native DOM API and/or jQuery
 
-##Public Project Defense
-Each team will have to deliver a public defense of its work to the other students and trainers. You will have only 10 minutes for the following:
-*   Demonstrate the application (very shortly)
-*   Show the source code
-*   Show the commits logs to confirm that team member have contributed.
-*   Optionally you might prepare a presentation (3-4 slides)
-Please be **strict in timing!** Be well prepared for presenting maximum of your work for minimum time. Bring your own laptop. Test it preliminary with the multimedia projector. Open the project assets beforehand to save time. You have 10 minutes, no more
+#### Contributors
+* **Емилия Механджиева** - emimehandjieva
+    * a
+* **Димитър Киров** - dimkirov
+    * Create Turret class and inherit turret types.
+    * Pack UI functionality as a module.
+    * Pack game unit as a module.
+    * Refactoring.
+    * Added SVG figure on pause screen.
+* **Божана Нешева**  - bnesheva
+    * Implementation of canvas sprite animation for creep objects, randomization of creep sprite images, customizing creep images for each map.
+    * Adding objects for animated blasts and explosions for each turret type.
+    * Customized wallpapers for each map, swithed with DOM manipulation with jQuery.
+    * Implementation of SVG pseudo-loader animation for the Welcome screen, combined with CSS animation with cross-browser support.
+    * Text in Canvas for GameOver screen.
+* **Иван Иван** - Matrix
+    * a
+* **Ангел Ангелов** - angel.angelov.7146557
+    * a
+* **Мирослав Христов** - mirkatabg
+    * Implementation of **special creep** logic and animating it with canvas.
+    * Fixing the position of status-bar when selecting turret and make it *responsive.
+    * Refactoring and code ordering.
+    * Documentation: Creating TODO and README.
 
-##Give Feedback about Your Teammates
-You will be invited to provide feedback about all your teammates, their attitude to this project, their technical skills, their team working skills, their contribution to the project, etc. The feedback is important part of the project evaluation so take it seriously and be honest
+#### Notes
+* Александър Павлов - Alexio86
+    * The idea for the team project's game was his and he helped with some source code, before the repository was created. 
