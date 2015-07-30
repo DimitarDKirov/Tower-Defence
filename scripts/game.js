@@ -276,7 +276,7 @@ var game = {
                     canvas.save();
                     canvas.translate(creep.x - 23, creep.y - 23);
                     canvas.rotate(creep.rotation);
-                    canvas.drawImage(creepImg, 0, 0, 60, 60, -23, -23, 60, 60);
+                    canvas.drawImage(creepImg, 0, 0, 60, 60, -30, -30, 60, 60);
                     canvas.restore();
                 }
                 else{
