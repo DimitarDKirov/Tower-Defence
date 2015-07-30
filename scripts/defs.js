@@ -53,7 +53,7 @@ var GameUnit=(function(){
 }());
 
 var Turret = (function() {
-    function Turret(cost, damage, rate, range, upgrades) {
+    function Turret(cost, damage, rate, range, type, upgrades) {
         if (typeof(cost) !== 'number') {
             throw new Error('Invalid turret cost');
         }
@@ -66,13 +66,17 @@ var Turret = (function() {
         if (typeof(range) !== 'number') {
             throw new Error('Invalid turret range');
         }
+        if (typeof(type) !== 'number') {
+            throw new Error('Invalid turret type');
+        }
         if (!Array.isArray(upgrades)) {
-            throw new Error('Turrer upgrade rates should be in an array');
+            throw new Error('Turret upgrade rates should be in an array');
         }
         this.cost = cost;
         this.damage = damage;
         this.rate = rate;
         this.range = range;
+        this.type = type;
         this.upgrades = upgrades;
     }
 
@@ -89,6 +93,7 @@ var Laser = (function() {
         DAMAGE = 10,
         RATE = 40,
         RANGE = 80,
+        TYPE = 1,
         UPGRADES = [
             {damage: 15, rate: 38, range: 85},
         	{damage: 25, rate: 36, range: 90},
@@ -129,7 +134,7 @@ var Laser = (function() {
             {damage: 1800, rate: 16, range: 190},
             {damage: 2100, rate: 14, range: 200},
         ];*/
-        Turret.call(this, COST, DAMAGE, RATE, RANGE, UPGRADES);
+        Turret.call(this, COST, DAMAGE, RATE, RANGE, TYPE, UPGRADES);
     }
 
     Laser.prototype = Object.create(Turret);
@@ -185,6 +190,7 @@ var Missile=(function(){
         	DAMAGE = 15,
         	RATE = 60,
         	RANGE = 120,
+            TYPE = 2,
         	UPGRADES = [
         		{damage: 20, rate: 57, range: 125},
         		{damage: 30, rate: 54, range: 130},
@@ -223,7 +229,7 @@ var Missile=(function(){
         	{damage: 1200, rate: 28, range: 230},
         	{damage: 1400, rate: 26, range: 240},
     	];*/
-    	Turret.call(this,COST, DAMAGE, RATE, RANGE, UPGRADES);
+    	Turret.call(this,COST, DAMAGE, RATE, RANGE, TYPE, UPGRADES);
     	this.cell=0;
 	}
 	Missile.prototype = Object.create(Turret);
@@ -309,6 +315,7 @@ var Tazer = (function(){
 		DAMAGE = 1,
 		RATE = 40,
 		RANGE = 60,
+        TYPE = 3,
 		UPGRADES = [
 			{damage: 5, rate: 38, range: 62},
         	{damage: 10, rate: 36, range: 64},
@@ -348,7 +355,7 @@ var Tazer = (function(){
         //{damage: 900, rate: 20, range: 120},
         //{damage: 1000, rate: 18, range: 125}
     //];
-    	Turret.call(this, COST, DAMAGE, RATE, RANGE, UPGRADES);
+    	Turret.call(this, COST, DAMAGE, RATE, RANGE, TYPE, UPGRADES);
 	}
 
 	Tazer.prototype = Object.create(Turret);
@@ -398,6 +405,7 @@ var Mortar = (function(){
         DAMAGE = 50,
         RATE = 120,
         RANGE = 200,
+        TYPE = 4,
         UPGRADES = [
         	{damage: 75, rate: 115, range: 205},
         	{damage: 100, rate: 110, range: 210},
@@ -439,7 +447,7 @@ var Mortar = (function(){
         //{damage: 3000, rate: 45, range: 280},
 	//];
 
-		Turret.call(this, COST, DAMAGE, RATE, RANGE, UPGRADES);
+		Turret.call(this, COST, DAMAGE, RATE, RANGE, TYPE, UPGRADES);
 	}
 
 	Mortar.prototype = Object.create(Turret);

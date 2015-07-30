@@ -232,20 +232,20 @@ ui.action.refresh = function() {
 
         if (checkup == undefined) {
 
-            var cost = turret.cost,
+            var type = turret.type,
                 statusName;
-
-            switch (cost) {
-                case 15:
+                
+            switch (type) {
+                case 1:
                     statusName = "Laser";
                     break;
-                case 25:
+                case 2:
                     statusName = "Missile";
                     break;
-                case 40:
+                case 3:
                     statusName = "Tazer";
                     break;
-                case 60:
+                case 4:
                     statusName = "Mortar";
                     break;
             }
