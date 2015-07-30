@@ -72,7 +72,39 @@ var game = {
 
             game.incommingCreepsCount += 2;
             game.creepsOffsetPosition += 2;
-
+            
+            creep = {
+                    x: -(i * 46) - 10,
+                    y: game.map[0].y,
+                    offset: GetRandom(9),
+                    nextPoint: 0,
+                    creepFrame: 0,
+                    speed: 1,
+                    rotation: 0,
+                    slowfor: 0,
+                    hp: game.hp,
+                    _hp: game.hp,
+                    burning: false,
+                    color: Math.ceil(GetRandom(3)),
+                    cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
+                };
+                
+                towerDestroyer = {
+                    x: -(i * 46) - 10,
+                    y: game.map[0].y,
+                    offset: GetRandom(9),
+                    nextPoint: 0,
+                    creepFrame: 0,
+                    speed: 1,
+                    rotation: 0,
+                    slowfor: 0,
+                    hp: game.hp + 10,
+                    _hp: game.hp + 10,
+                    burning: false,
+                    color: Math.ceil(GetRandom(3)),
+                    cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
+                    id: 'tower-destroyer'
+                }
             for (i = 1; i <= game.incommingCreepsCount; i+=1) {
                 game.creeps.push({
                     x: -(i * 46) - 10,
