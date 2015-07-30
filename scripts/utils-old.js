@@ -92,7 +92,7 @@ function Element(id){
     return document.getElementById(id);
 }
 
-ui = {
+window.ui = {
     timer: document.getElementById("control-timer"),
     cash: document.getElementById("control-cash"),
     lives: document.getElementById("control-lives"),

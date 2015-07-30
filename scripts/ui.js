@@ -1,3 +1,373 @@
+var ui = (function(){
+    var timer = document.getElementById("control-timer");
+    var cash = document.getElementById("control-cash");
+    var lives = document.getElementById("control-lives");
+    var wave = document.getElementById("control-wave");
+    var fps = document.getElementById("control-fps");
+    var nav = ["start"];
+
+    ///////////////////////////////////////////////////////////////////////////////
+    // Actions
+    ///////////////////////////////////////////////////////////////////////////////
+
+    var action = {
+        scores: function () {
+            var list = JSON.parse(localStorage.scores || "{}"),
+                map,
+                out;
+
+            for (map in list) {
+                out = "";
+
+                list[map].forEach(function (r) {
+                    out += '<li>' +
+                    '<a>' + new Date(r.date).toDateString() + '</a> ' +
+                    r.score + ' ☠' + r.kills + ' $' + r.spent +
+                    '</li>';
+                });
+
+                document.getElementById("pages-scores-local-" + map.toLowerCase()).innerHTML = out;
+            }
+        },
+
+        build: function (type) {
+            var model = new GameUnit(),
+                tdata = model.turrets[type],
+                turret = {
+                    x: -1000,
+                    y: -1000,
+                    levels: {
+                        range: 0,
+                        rate: 0,
+                        damage: 0,
+                        full: false
+                    },
+                    kills: 0,
+                    lastshot: 0,
+                    img: document.querySelector("#control-turrets [data-name=" + type + "] img"),
+                    id: game.turrets.length
+                };
+
+            for (var k in tdata) {
+                turret[k] = tdata[k];
+            }
+
+            game.selection = game.cash - tdata.cost >= 0 ? {
+                status: "placing",
+                turret: turret,
+                placeable: false
+            } : false;
+        },
+
+        upgrade: function (stat) {
+            var model = new GameUnit(),
+                turret = game.selection.turret,
+                levels = turret.levels,
+                level = levels[stat],
+                cost = model.turrets.upgrades[level];
+
+            if (game.selection.status === "selected" && cost && game.cash - cost >= 0) {
+                levels[stat]++;
+                turret[stat] = turret.upgrades[level][stat];
+                levels.full = levels.damage === 10 && levels.rate === 10 && levels.range === 10;
+                turret.cost += cost;
+                game.cash -= cost;
+                game.spent += cost;
+                action.refresh();
+            }
+        },
+
+        move: function () {
+            if (game.selection.status === "selected" && game.cash - 90 >= 0) {
+                var turret = game.selection.turret,
+                    tx = (turret._x + 2.5) / 5,
+                    ty = (turret._y + 2.5) / 5,
+                    i,
+                    ii;
+
+                game.selection = {
+                    status: "moving",
+                    turret: turret,
+                    placeable: true
+                };
+
+                turret._x = turret.x;
+                turret._y = turret.y;
+
+
+                for (i = 5; i--;) {
+                    for (ii = 5; ii--;) {
+                        game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
+                    }
+                }
+
+                delete game.turrets[turret.id];
+            }
+        },
+
+        sell: function () {
+            var turret = game.selection.turret,
+                value = Math.round(turret.cost * 0.7),
+                tx = (turret.x + 2.5) / 5,
+                ty = (turret.y + 2.5) / 5;
+
+            game.cash += value;
+            game.spent -= value;
+
+            for (var i = 5; i--;) {
+                for (var ii = 5; ii--;) {
+                    game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
+                }
+            }
+
+            panel("turrets");
+            game.selection = false;
+            delete game.turrets[turret.id];
+            action.refresh();
+        },
+
+        refresh: function () {
+            cash.textContent = game.cash;
+            if (game.selection) {
+                //var model = new Model();
+                var model = new GameUnit(),
+                    turret = game.selection.turret,
+                    levels = turret.levels,
+                    costs = model.turrets.upgrades;
+
+                ["Damage", "Rate", "Range"].forEach(function (proper) {
+                    var id = proper.toLowerCase();
+                    var level = levels[id];
+                    var cost = costs[level] || "";
+                    document.getElementById("control-manage-" + id).innerHTML = proper + " (" + level + ")<br>" + (cost && "$" + cost);
+                });
+
+                document.getElementById("control-manage-sell").innerHTML = "Sell<br>$" + Math.round(turret.cost * 0.7);
+                document.getElementById("control-manage-stats").innerHTML = turret.kills + " kills<br>" + (((turret.kills / game.kills) || 0) * 100).toFixed(2) + "% of &sum;";
+
+                var checkup = document.getElementById("status-bar");
+                if (checkup == undefined) {
+
+                    var type = turret.type,
+                        statusName;
+
+                    switch (type) {
+                        case 1:
+                            statusName = "Laser";
+                            break;
+                        case 2:
+                            statusName = "Missile";
+                            break;
+                        case 3:
+                            statusName = "Tazer";
+                            break;
+                        case 4:
+                            statusName = "Mortar";
+                            break;
+                    }
+
+                    var canvas = document.getElementById("pages-canvas"),
+                        statusBox = document.createElement("div"),
+                        startY = canvas.offsetTop,
+                        startX = canvas.offsetLeft,
+                        topOffset = startY + turret.y - 75,
+                        leftOffset = startX + turret.x + 25;
+
+                    if (topOffset < startY) {
+                        topOffset = startY + turret.y;
+                    }
+
+                    if (leftOffset > canvas.width) {
+                        leftOffset = startX + turret.x - 80;
+                    }
+
+                    $(statusBox).html("Turret type: " + statusName + "<br> Damage :" + turret.damage + "<br> Rate :" + turret.rate + "<br> Range :" + turret.range);
+                    $(statusBox).attr("class", "status-bar");
+                    $(statusBox).attr("id", "status-bar");
+                    $(statusBox).css({
+                        top: topOffset,
+                        left: leftOffset,
+                        position: 'absolute'
+                    });
+                    document.body.appendChild(statusBox);
+                }
+            }
+        },
+
+        deselect: function () {
+            var removee = document.getElementById("status-bar");
+            if (removee != undefined) {
+                removee.remove();
+            }
+            if (game.selection.status === "moving") {
+                var turret = game.selection.turret;
+                game.turrets[turret.id] = turret;
+
+                turret.x = turret._x;
+                turret.y = turret._y;
+
+                var tx = (turret.x + 2.5) / 5,
+                    ty = (turret.y + 2.5) / 5;
+                for (var i = 5; i--;) {
+                    for (var ii = 5; ii--;) {
+                        game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = turret;
+                    }
+                }
+            }
+
+            game.selection = false;
+            panel("turrets");
+        }
+    };
+
+    function Bind(evt, elems, fn) {
+        Array.prototype.slice.call(elems).forEach(function(elem) {
+            elem.addEventListener(evt, fn, false);
+        });
+    };
+    function Page(name) {
+        if (name) {
+            nav.unshift(name);
+        } else {
+            page(nav[1]);
+            return;
+        }
+
+        Array.prototype.slice.call(document.getElementById("pages").children).forEach(function(elem) {
+            if (elem.id !== "pages-overlay") {
+                elem.style.display = "none";
+            }
+        });
+        document.getElementById("pages-" + name).style.display = "block";
+
+    };
+    function Panel(name) {
+        Array.prototype.slice.call(document.getElementById("control-left").children).forEach(function(elem) {
+            elem.style.display = "none";
+        });
+
+        document.getElementById("control-" + name).style.display = "block";
+    };
+    function HandleShortcuts(evt) {
+        if (!game.paused) {
+            switch (evt.keyCode) {
+                case 49:
+                    {
+                        if (game.selection) {
+                            action.upgrade("damage");
+                        } else {
+                            action.build("Laser");
+                        }
+                        break;
+                    }
+                case 50:
+                    {
+                        if (game.selection) {
+                            action.upgrade("rate");
+                        } else {
+                            action.build("Missile");
+                        }
+                        break;
+                    }
+                case 51:
+                    {
+                        if (game.selection) {
+                            action.upgrade("range");
+                        } else {
+                            action.build("Tazer");
+                        }
+                        break;
+                    }
+                case 52:
+                    {
+                        if (game.selection) {
+                            action.move();
+                        } else {
+                            action.build("Mortar");
+                        }
+                        break;
+                    }
+                case 56:
+                    {
+                        if (evt.shiftKey && game.selection) {
+                            action.sell();
+                        }
+                        break;
+                    }
+                case 187:
+                    {
+                        document.getElementById("control-fast").click();
+                        break;
+                    }
+                case 27:
+                    {
+                        if (game.selection) {
+                            action.deselect();
+                        } else {
+                            document.getElementById("control-pause").click();
+                        }
+                        break;
+                    }
+                case 13:
+                    {
+                        game._wave = game.ticks - 1200;
+                        break;
+                    }
+            }
+        } else {
+            if (evt.keyCode === 27) {
+                document.getElementById("control-pause").click();
+            }
+        }
+    };
+    function HandleUnload (e) {
+        return "A game is currently running, are you sure you want to close it?";
+    };
+    function HandleTweets (data) {
+        var maps = {
+            loopy: document.getElementById("pages-scores-twitter-loopy"),
+            backtrack: document.getElementById("pages-scores-twitter-backtrack"),
+            dash: document.getElementById("pages-scores-twitter-dash")
+        };
+
+        data.results.forEach(function (tweet) {
+            var m = tweet.text.match(/I scored (\d+) \((\d+) kills, \$(\d+) spent\) on (Loopy|Backtrack|Dash) in #canvastd/i);
+
+            if (m) {
+                var map = maps[m[4].toLowerCase()];
+
+                if (m[1] == m[2] * m[3] && map.children.length < 31) {
+                    var url = "https://twitter.com/" + tweet.from_user + "/status/" + tweet.id_str,
+                        title = "@" + tweet.from_user + " on " + tweet.created_at,
+                        a = '<a href="' + url + '" title="' + title + '" target="_blank">@' + tweet.from_user + '</a> ';
+
+                    map.innerHTML += '<li>' + a + m[1] + ' ☠' + m[2] + ' $' + m[3] + '</li>';
+                }
+            }
+        });
+    };
+
+    return {
+        timer: timer,
+        cash: cash,
+        lives: lives,
+        wave: wave,
+        fps: wave,
+        nav: nav,
+        action: action,
+        bind: Bind,
+        page: Page,
+        panel: Panel,
+        handleshortcuts: HandleShortcuts,
+        handleunload: HandleUnload,
+        handletweets: HandleTweets
+    };
+}());
+
+ui.bind("click", document.querySelectorAll("[data-page]"), function (evt) {
+    ui.page(this.getAttribute("data-page"));
+});
+
 ///////////////////////////////////////////////////////////////////////////////
 // Global
 ///////////////////////////////////////////////////////////////////////////////
@@ -6,304 +376,6 @@ document.addEventListener("dragstart", function (evt) {
         evt.preventDefault();
     }
 }, false);
-
-ui.bind("click", document.querySelectorAll("[data-page]"), function (evt) {
-    ui.page(this.getAttribute("data-page"));
-});
-
-ui.handleshortcuts = function (evt) {
-    if (!game.paused) {
-        switch (evt.keyCode) {
-            case 49:
-                {
-                    if (game.selection) {
-                        ui.action.upgrade("damage");
-                    } else {
-                        ui.action.build("Laser");
-                    }
-                    break;
-                }
-            case 50:
-                {
-                    if (game.selection) {
-                        ui.action.upgrade("rate");
-                    } else {
-                        ui.action.build("Missile");
-                    }
-                    break;
-                }
-            case 51:
-                {
-                    if (game.selection) {
-                        ui.action.upgrade("range");
-                    } else {
-                        ui.action.build("Tazer");
-                    }
-                    break;
-                }
-            case 52:
-                {
-                    if (game.selection) {
-                        ui.action.move();
-                    } else {
-                        ui.action.build("Mortar");
-                    }
-                    break;
-                }
-            case 56:
-                {
-                    if (evt.shiftKey && game.selection) {
-                        ui.action.sell();
-                    }
-                    break;
-                }
-            case 187:
-                {
-                    document.getElementById("control-fast").click();
-                    break;
-                }
-            case 27:
-                {
-                    if (game.selection) {
-                        ui.action.deselect();
-                    } else {
-                        document.getElementById("control-pause").click();
-                    }
-                    break;
-                }
-            case 13:
-                {
-                    game._wave = game.ticks - 1200;
-                    break;
-                }
-        }
-    } else {
-        if (evt.keyCode === 27) {
-            document.getElementById("control-pause").click();
-        }
-    }
-};
-
-ui.handleunload = function (e) {
-    return "A game is currently running, are you sure you want to close it?";
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// Actions
-///////////////////////////////////////////////////////////////////////////////
-
-ui.action.scores = function () {
-    var list = JSON.parse(localStorage.scores || "{}"),
-        map,
-        out;
-
-    for (map in list) {
-        out = "";
-
-        list[map].forEach(function (r) {
-            out += '<li>' +
-            '<a>' + new Date(r.date).toDateString() + '</a> ' +
-            r.score + ' ☠' + r.kills + ' $' + r.spent +
-            '</li>';
-        });
-
-        document.getElementById("pages-scores-local-" + map.toLowerCase()).innerHTML = out;
-    }
-};
-
-ui.action.build = function (type) {
-    var model = new GameUnit();
-    var tdata = model.turrets[type];
-    var turret = {
-        x: -1000,
-        y: -1000,
-        levels: {
-            range: 0,
-            rate: 0,
-            damage: 0,
-            full: false
-        },
-        kills: 0,
-        lastshot: 0,
-        img: document.querySelector("#control-turrets [data-name=" + type + "] img"),
-        id: game.turrets.length
-    };
-
-    for (var k in tdata) {
-        turret[k] = tdata[k];
-    }
-
-    game.selection = game.cash - tdata.cost >= 0 ? {
-        status: "placing",
-        turret: turret,
-        placeable: false
-    } : false;
-};
-
-ui.action.upgrade = function (stat) {
-    var model = new GameUnit(),
-        turret = game.selection.turret,
-        levels = turret.levels,
-        level = levels[stat],
-        cost = model.turrets.upgrades[level];
-
-    if (game.selection.status === "selected" && cost && game.cash - cost >= 0) {
-        levels[stat]++;
-        turret[stat] = turret.upgrades[level][stat];
-        levels.full = levels.damage === 10 && levels.rate === 10 && levels.range === 10;
-        turret.cost += cost;
-        game.cash -= cost;
-        game.spent += cost;
-        ui.action.refresh();
-    }
-};
-
-ui.action.move = function () {
-    if (game.selection.status === "selected" && game.cash - 90 >= 0) {
-        var turret = game.selection.turret,
-            tx = (turret._x + 2.5) / 5,
-            ty = (turret._y + 2.5) / 5,
-            i,
-            ii;
-
-        game.selection = {
-            status: "moving",
-            turret: turret,
-            placeable: true
-        };
-
-        turret._x = turret.x;
-        turret._y = turret.y;
-
-
-        for (i = 5; i--;) {
-            for (ii = 5; ii--;) {
-                game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
-            }
-        }
-
-        delete game.turrets[turret.id];
-    }
-};
-
-ui.action.sell = function () {
-    var turret = game.selection.turret,
-        value = Math.round(turret.cost * 0.7),
-        tx = (turret.x + 2.5) / 5,
-        ty = (turret.y + 2.5) / 5;
-
-    game.cash += value;
-    game.spent -= value;
-
-    for (var i = 5; i--;) {
-        for (var ii = 5; ii--;) {
-            game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
-        }
-    }
-
-    ui.panel("turrets");
-    game.selection = false;
-    delete game.turrets[turret.id];
-    ui.action.refresh();
-};
-
-ui.action.refresh = function () {
-    ui.cash.textContent = game.cash;
-
-    if (game.selection) {
-        //var model = new Model();
-        var model = new GameUnit(),
-            turret = game.selection.turret,
-            levels = turret.levels,
-            costs = model.turrets.upgrades;
-
-        ["Damage", "Rate", "Range"].forEach(function (proper) {
-            var id = proper.toLowerCase();
-            var level = levels[id];
-            var cost = costs[level] || "";
-            document.getElementById("control-manage-" + id).innerHTML = proper + " (" + level + ")<br>" + (cost && "$" + cost);
-        });
-
-        document.getElementById("control-manage-sell").innerHTML = "Sell<br>$" + Math.round(turret.cost * 0.7);
-
-        document.getElementById("control-manage-stats").innerHTML = turret.kills + " kills<br>" + (((turret.kills / game.kills) || 0) * 100).toFixed(2) + "% of &sum;";
-
-        var checkup = document.getElementById("status-bar");
-
-        if (checkup == undefined) {
-
-            var type = turret.type,
-                statusName;
-
-            switch (type) {
-                case 1:
-                    statusName = "Laser";
-                    break;
-                case 2:
-                    statusName = "Missile";
-                    break;
-                case 3:
-                    statusName = "Tazer";
-                    break;
-                case 4:
-                    statusName = "Mortar";
-                    break;
-            }
-
-            var canvas = document.getElementById("pages-canvas"),
-                statusBox = document.createElement("div"),
-                startY = canvas.offsetTop,
-                startX = canvas.offsetLeft,
-                topOffset = startY + turret.y - 75,
-                leftOffset = startX + turret.x + 25;
-
-            if (topOffset < startY) {
-                topOffset = startY + turret.y;
-            }
-
-            if (leftOffset > canvas.width) {
-                leftOffset = startX + turret.x - 80;
-            }
-
-            $(statusBox).html("Turret type: " + statusName + "<br> Damage :" + turret.damage + "<br> Rate :" + turret.rate + "<br> Range :" + turret.range);
-            $(statusBox).attr("class", "status-bar");
-            $(statusBox).attr("id", "status-bar");
-            $(statusBox).css({
-                top: topOffset,
-                left: leftOffset,
-                position: 'absolute'
-            });
-            document.body.appendChild(statusBox);
-        }
-    }
-};
-
-ui.action.deselect = function () {
-
-    var removee = document.getElementById("status-bar");
-    if (removee != undefined) {
-        removee.remove();
-    }
-    if (game.selection.status === "moving") {
-        var turret = game.selection.turret;
-        game.turrets[turret.id] = turret;
-
-        turret.x = turret._x;
-        turret.y = turret._y;
-
-        var tx = (turret.x + 2.5) / 5,
-            ty = (turret.y + 2.5) / 5;
-        for (var i = 5; i--;) {
-            for (var ii = 5; ii--;) {
-                game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = turret;
-            }
-        }
-    }
-
-    game.selection = false;
-    ui.panel("turrets");
-};
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // Canvas
@@ -572,29 +644,7 @@ ui.bind("click", document.getElementById("pages-start-maps").children, function 
 
 });
 
-ui.handletweets = function (data) {
-    var maps = {
-        loopy: document.getElementById("pages-scores-twitter-loopy"),
-        backtrack: document.getElementById("pages-scores-twitter-backtrack"),
-        dash: document.getElementById("pages-scores-twitter-dash")
-    };
 
-    data.results.forEach(function (tweet) {
-        var m = tweet.text.match(/I scored (\d+) \((\d+) kills, \$(\d+) spent\) on (Loopy|Backtrack|Dash) in #canvastd/i);
-
-        if (m) {
-            var map = maps[m[4].toLowerCase()];
-
-            if (m[1] == m[2] * m[3] && map.children.length < 31) {
-                var url = "https://twitter.com/" + tweet.from_user + "/status/" + tweet.id_str,
-                    title = "@" + tweet.from_user + " on " + tweet.created_at,
-                    a = '<a href="' + url + '" title="' + title + '" target="_blank">@' + tweet.from_user + '</a> ';
-
-                map.innerHTML += '<li>' + a + m[1] + ' ☠' + m[2] + ' $' + m[3] + '</li>';
-            }
-        }
-    });
-};
 
 ui.action.scores();
 
