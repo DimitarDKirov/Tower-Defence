@@ -1,12 +1,12 @@
 # TODO list - Tower Defence - Javascript UI and DOM
 
-1. Create animations
-	* Animations for the enemies and there distruciton.
+1. Create animations 
+	* Animations for the creeps and there distruciton. // Bozhana
 		* when enemy take some damage and is not destroyed change of its appearance should occur.
 		* when it is destroyed there must be an small explosion.
 		* _optional - when special slowing tower hits an enemy this should stop it or slow down.
 	* Animations for the towers.
-		* rotating
+		* rotating // Alexio
 		* shooting
 			* rockets - may be in deferent colors and size.
 			* laser - may be in deferent width and color
@@ -26,7 +26,8 @@
 		* other.
 	
 2. Styling
-	* window - the game stage (the canvas) can be centered using (css or inline styles which doesn't scale the canvas).
+	* window - the game stage (the canvas) can be centered using (css or inline styles which doesn't scale the canvas). 
+	* background //Matrix.
 	* menu - welcome screen
 		* should be appropriate for the game environment (cosmos).
 	* menu - in game menu.
