@@ -485,8 +485,8 @@ var Mortar = (function(){
                         what: function () {
                             canvas.beginPath();
                             boom2.push({
-                                x: target.x,
-                                y: target.y - 30,
+                                x: target.x -30,
+                                y: target.y - 20,
                                 frame: 0
                             });
 
@@ -499,7 +499,7 @@ var Mortar = (function(){
 
                     canvas.beginPath();
                     smallRocket = document.getElementById("bomb");
-                    canvas.drawImage(smallRocket, shell.x - 10, shell.y - 30);
+                    canvas.drawImage(smallRocket, shell.x - 30, shell.y - 20);
                     canvas.fill();
                     
                 }
