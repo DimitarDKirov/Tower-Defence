@@ -33,7 +33,7 @@ The objective is to stop the incoming creep waves from going thru the labyrinth.
 Also the towers can be saled for less money then the original price  or moved for money.
 
 ### Source code
-Git repo: <a href="http://github.com" title="git repo" target="_blank">a link</a>
+Git repo: <a href="https://github.com/DimitarDKirov/Tower-Defence.git" title="git repo" target="_blank">a link</a>
 
 ### Progreass of requirements
 #### General Requirements
