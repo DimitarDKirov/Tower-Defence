@@ -53,11 +53,11 @@ Git repo: <a href="https://github.com/DimitarDKirov/Tower-Defence.git" title="gi
 
 #### Contributors
 * **Емилия Механджиева** - emimehandjieva
-    *OOP transformation in former def class
-    *Customized start page content and partial features
-    *Implementation of jQuery in game menu design
-    *Adding a context menu for selected turret
-    *Code cleanup- removing unnecessary code, comments, renanimg variables, etc
+    * OOP transformation in former def class
+    * Customized start page content and partial features
+    * Implementation of jQuery in game menu design
+    * Adding a context menu for selected turret
+    * Code cleanup- removing unnecessary code, comments, renanimg variables, etc
 * **Димитър Киров** - dimkirov
     * Create Turret class and inherit turret types.
     * Pack UI functionality as a module.
@@ -71,11 +71,11 @@ Git repo: <a href="https://github.com/DimitarDKirov/Tower-Defence.git" title="gi
     * Implementation of SVG pseudo-loader animation for the Welcome screen, combined with CSS animation with cross-browser support.
     * Text in Canvas for GameOver screen.
 * **Иван Иван** - Matrix
-    *implementing images for creeps and turrets in Canvas
-    *creating and customizing map images for each map
-    *number of creeps in a wave increase added (with the purpouse of improving game balance)
-    *initial project management and team work organization
-    *initial documentation
+    * implementing images for creeps and turrets in Canvas
+    * creating and customizing map images for each map
+    * number of creeps in a wave increase added (with the purpouse of improving game balance)
+    * initial project management and team work organization
+    * initial documentation
 * **Ангел Ангелов** - angel.angelov.7146557
     * Refactoring - hoisting variables declaration and correct naming for variables.
     * Shooting effects from turrets and explosions.
