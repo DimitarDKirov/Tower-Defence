@@ -92,24 +92,34 @@ var game = {
                     color: Math.ceil(GetRandom(3)),
                     cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
                 };
-
-                towerDestroyer = {
-                    x: -(i * 46) - 10,
-                    y: game.map[0].y,
-                    offset: GetRandom(9),
-                    nextPoint: 0,
-                    creepFrame: 0,
-                    speed: 1,
-                    rotation: 0,
-                    slowfor: 0,
-                    hp: game.hp + 10,
-                    _hp: game.hp + 10,
-                    burning: false,
-                    color: Math.ceil(GetRandom(3)),
-                    cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
-                    id: 'tower-destroyer'
-                }
                 
+                var tdX = -(i * 46) - 10,
+                    tdY = game.map[0].y,
+                    tdHp = game.hp + 10,
+                    td_Hp = game.hp + 10,
+                    tdCash = Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1; 
+                    
+                towerDestroyer = Object.create(TowerDestroyer)
+                                .init(tdX,tdY,tdHp,td_Hp,tdCash);
+                
+                // towerDestroyerObj = {
+                //     x: -(i * 46) - 10,
+                //     y: game.map[0].y,
+                //     offset: GetRandom(9),
+                //     nextPoint: 0,
+                //     creepFrame: 0,
+                //     speed: 1,
+                //     rotation: 0,
+                //     slowfor: 0,
+                //     hp: game.hp + 10,
+                //     _hp: game.hp + 10,
+                //     burning: false,
+                //     color: Math.ceil(GetRandom(3)),
+                //     cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
+                //     type: 'tower-destroyer',
+                //     range: 30,
+                //}
+
                 if (game.wave % 5 !== 0) {
                     game.creeps.push(creep);
                 }
@@ -201,7 +211,7 @@ var game = {
                         creep.rotation = 0;
                     }
                 }
-                
+
                 if (game.ticks % 5 === 0) {
                     if (creep.creepFrame >= 0 && creep.creepFrame < 6) {
                         creep.creepFrame++;
@@ -257,7 +267,7 @@ var game = {
                     }break;
                 }
 
-                if (creep.id === 'tower-destroyer') {
+                if (creep.type === 'tower-destroyer') {
                     switch(creep.creepFrame){
                         case 1:{
                             creepImg = towerDestroyer2;
