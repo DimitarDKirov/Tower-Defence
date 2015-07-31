@@ -407,7 +407,7 @@ var canvas = document.getElementById("pages-canvas").getContext("2d"),
     backgroundImage1 = document.getElementById("backgroundImageId1"),
     backgroundImage2 = document.getElementById("backgroundImageId2"),
     backgroundImage3 = document.getElementById("backgroundImageId3"),
-
+    
     //blasts
     boom = [],
     boom1 = [],
