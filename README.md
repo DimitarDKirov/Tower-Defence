@@ -4,9 +4,9 @@ Team work of Papaya for JS UI and DOM Telerik Academy 2015
 ## Our project is Tower-Defence game
 
 ### Team Members
-* Александър Павлов -   Alexio86             
+* Александър Павлов -   Alexio86 (no commits).          
 * Ангел Ангелов -       angel.angelov.7146557
-* Аспарух Христов -     puhabg               
+* Аспарух Христов -     puhabg (no commits).            
 * Божана Нешева  -      bnesheva             
 * Борис Кафалиев -      Wolf.Eye             
 * Димитър Киров -       dimkirov             
