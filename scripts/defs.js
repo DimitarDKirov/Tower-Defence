@@ -106,6 +106,19 @@ var TowerDestroyer = (function () {
         range: {
             value: 30,
             writable: true  
+        },
+        shoot:{
+            value: function(turrets){
+                
+                if (Array.isArray(turrets)) {
+                    turrets.forEeach(function(turret){
+                        
+                    })
+                }
+                else{
+                    throw new Error('turrets must be an array with turrets');
+                }
+            }
         }
     })
 

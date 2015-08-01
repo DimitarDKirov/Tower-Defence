@@ -219,7 +219,7 @@ var game = {
                         creep.creepFrame = 0;
                     }
                 }
-
+                
                 switch (creep.color) {
                     case 0:{
                         if (game.map.name == 'Dash') {                            
