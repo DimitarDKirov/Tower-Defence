@@ -181,7 +181,7 @@ var ui = (function(){
                         leftOffset = startX + turret.x - 80;
                     }
 
-                    $(statusBox).html("Turret type: " + statusName + "<br> Damage :" + turret.damage + "<br> Rate :" + turret.rate + "<br> Range :" + turret.range);
+                    $(statusBox).html("Turret type: " + statusName + "<br> Damage :" + turret.damage + "<br> Rate :" + turret.rate + "<br> Range :" + turret.range + "<br> HP :" + turret.hp);
                     $(statusBox).attr("class", "status-bar");
                     $(statusBox).attr("id", "status-bar");
                     $(statusBox).css({

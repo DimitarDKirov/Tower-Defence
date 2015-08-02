@@ -11,6 +11,7 @@ var game = {
     _wave: 0,
 
     creeps: [],
+    destroyers: [],
     hp: 1,
     hpinc: 1.3,
     lives: 10,
@@ -26,7 +27,7 @@ var game = {
 
     tiles: {},
 
-    tick: function() {
+    tick: function () {
         var i,
             j,
             len,
@@ -72,11 +73,11 @@ var game = {
 
             game.incommingCreepsCount += 2;
             game.creepsOffsetPosition += 2;
-            
-                
-            for (i = 1; i <= game.incommingCreepsCount; i+=1) {
+
+
+            for (i = 1; i <= game.incommingCreepsCount; i += 1) {
                 currCreepCount += 1;
-                
+
                 creep = {
                     x: -(i * 46) - 10,
                     y: game.map[0].y,
@@ -92,15 +93,7 @@ var game = {
                     color: Math.ceil(GetRandom(3)),
                     cash: Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1,
                 };
-                
-                var tdX = -(i * 46) - 10,
-                    tdY = game.map[0].y,
-                    tdHp = game.hp + 10,
-                    td_Hp = game.hp + 10,
-                    tdCash = Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1; 
-                    
-                towerDestroyer = Object.create(TowerDestroyer)
-                                .init(tdX,tdY,tdHp,td_Hp,tdCash);
+
                 
                 // towerDestroyerObj = {
                 //     x: -(i * 46) - 10,
@@ -123,16 +116,26 @@ var game = {
                 if (game.wave % 5 !== 0) {
                     game.creeps.push(creep);
                 }
-                else{
-                    if (currCreepCount < game.incommingCreepsCount) {
+                else {
+                    if (currCreepCount < game.incommingCreepsCount - 1) {
                         game.creeps.push(creep);
                     }
-                    else{
+                    else {
+                        var tdX = -(i * 46) - 10,
+                            tdY = game.map[0].y,
+                            tdHp = game.hp * (game.hpinc + 0.08),
+                            td_Hp = game.hp * (game.hpinc + 0.08),
+                            tdCash = Math.round(game.wave * 0.3) >= 1 ? Math.round(game.wave * 0.3) : 1;
+
+                        towerDestroyer = Object.create(TowerDestroyer)
+                            .init(tdX, tdY, tdHp, td_Hp, tdCash);
+                            
                         game.creeps.push(towerDestroyer);
+                        game.destroyers.push(towerDestroyer);
                     }
                 }
             }
-            
+
             currCreepCount = 0;
             game._wave = game.ticks;
         }
@@ -148,7 +151,7 @@ var game = {
         ///////////////////////////////////////////////////////////////////////////////
 
 
-        game.creeps.forEach(function(creep, i, a) {
+        game.creeps.forEach(function (creep, i, a) {
             var _hp = creep.hp;
             var burning = creep.burning;
 
@@ -158,9 +161,9 @@ var game = {
 
             if (creep.hp <= 0) {
                 if (_hp > 0) {
-                    burning.kills+=1;
+                    burning.kills += 1;
                 }
-                game.kills+=1;
+                game.kills += 1;
                 game.cash += creep.cash;
                 //create a blast
                 boom.push({
@@ -175,7 +178,7 @@ var game = {
             } else if (creep.nextPoint === game.map.length) {
                 delete a[i];
 
-                ui.lives.textContent = game.lives-=1;
+                ui.lives.textContent = game.lives -= 1;
 
                 if (game.lives <= 0) {
                     game.end();
@@ -189,9 +192,9 @@ var game = {
                     sat = 100 * (creep.hp / creep._hp);
 
                 if (MoveObject(creep, {
-                        x: waypoint.x + 18 + creep.offset,
-                        y: waypoint.y + 18 + creep.offset
-                    }, creep.speed)) {
+                    x: waypoint.x + 18 + creep.offset,
+                    y: waypoint.y + 18 + creep.offset
+                }, creep.speed)) {
                     creep.nextPoint += 1;
 
                     if (game.map[creep.nextPoint] !== undefined) {
@@ -219,20 +222,20 @@ var game = {
                         creep.creepFrame = 0;
                     }
                 }
-                
+
                 switch (creep.color) {
-                    case 0:{
-                        if (game.map.name == 'Dash') {                            
-                                creepImg = creep3y;
+                    case 0: {
+                        if (game.map.name == 'Dash') {
+                            creepImg = creep3y;
                         }
                         else if (game.map.name == 'Loopy') {
-                                creepImg = creep2y;
+                            creepImg = creep2y;
                         }
                         else {
                             creepImg = creep1y;
                         }
-                    }break;
-                    case 1:{
+                    } break;
+                    case 1: {
                         if (game.map.name == 'Dash') {
                             creepImg = creep3b;
                         }
@@ -242,8 +245,8 @@ var game = {
                         else {
                             creepImg = creep1b;
                         }
-                    }break;
-                    case 2:{
+                    } break;
+                    case 2: {
                         if (game.map.name == 'Dash') {
                             creepImg = creep3g;
                         }
@@ -253,8 +256,8 @@ var game = {
                         else {
                             creepImg = creep1g;
                         }
-                    }break;
-                    default:{
+                    } break;
+                    default: {
                         if (game.map.name == 'Dash') {
                             creepImg = creep3r;
                         }
@@ -264,38 +267,38 @@ var game = {
                         else {
                             creepImg = creep1r;
                         }
-                    }break;
+                    } break;
                 }
 
                 if (creep.type === 'tower-destroyer') {
-                    switch(creep.creepFrame){
-                        case 1:{
+                    switch (creep.creepFrame) {
+                        case 1: {
                             creepImg = towerDestroyer2;
-                        }break;
-                        case 2:{
+                        } break;
+                        case 2: {
                             creepImg = towerDestroyer3;
-                        }break;
-                        case 3:{
+                        } break;
+                        case 3: {
                             creepImg = towerDestroyer4;
-                        }break;
-                        default:{
+                        } break;
+                        default: {
                             creepImg = towerDestroyer1;
                         }
                     }
-                    
+
                     canvas.save();
                     canvas.translate(creep.x - 23, creep.y - 23);
                     canvas.rotate(creep.rotation);
                     canvas.drawImage(creepImg, 0, 0, 64, 64, -32, -32, 64, 64);
                     canvas.restore();
                 }
-                else{
+                else {
                     canvas.save();
                     canvas.translate(creep.x - 23, creep.y - 23);
                     canvas.rotate(creep.rotation);
                     canvas.drawImage(creepImg, creep.creepFrame * 46, 0, 46, 46, -23, -23, 46, 46);
                     canvas.restore();
-                }          
+                }
             }
         });
         /// blasts
@@ -367,9 +370,9 @@ var game = {
         // turrets
         ///////////////////////////////////////////////////////////////////////////////
 
-        game.turrets.forEach(function(turret) {
+        game.turrets.forEach(function (turret) {
             if (turret.lastshot + turret.rate <= game.ticks) {
-                var creeps = game.creeps.filter(function(creep) {
+                var creeps = game.creeps.filter(function (creep) {
                     return IsInRange(creep, turret, turret.range);
                 });
 
@@ -394,20 +397,29 @@ var game = {
             canvas.drawImage(turret.img, turret.x - 12.5, turret.y - 12.5);
         }
 
+
+        //towerDestroyer
+
+        game.destroyers.forEach(function (destroyer) {
+            if (destroyer.lastshot + destroyer.rate <= game.ticks) {
+                destroyer.shoot(game.turrets);
+                destroyer.lastshot = game.ticks;
+            }
+        })
         ///////////////////////////////////////////////////////////////////////////////
         // finish
         ///////////////////////////////////////////////////////////////////////////////
         
-        game.run.forEach(function(something, i, a) {
+        game.run.forEach(function (something, i, a) {
             if (something.what() === false || --something.until === 0) {
                 delete a[i];
             }
         });
 
-        game.ticks+=1;
+        game.ticks += 1;
     },
 
-    start: function() {
+    start: function () {
         game._ticks = game.ticks;
         game._tick = Date.now();
         game.ticker = window.setInterval(game.tick, 1000 / (game.fast ? 180 : 60));
@@ -415,12 +427,12 @@ var game = {
         game.tick();
     },
 
-    pause: function() {
+    pause: function () {
         window.clearInterval(game.ticker);
         game.paused = true;
     },
 
-    end: function() {
+    end: function () {
         game.pause();
         document.removeEventListener("keydown", ui.handleshortcuts, false);
         window.removeEventListener("beforeunload", ui.handleunload, false);
@@ -441,7 +453,7 @@ var game = {
                 spent: spent,
                 date: Date.now()
             });
-            topmap.sort(function(a, b) {
+            topmap.sort(function (a, b) {
                 return b.score - a.score;
             });
             localStorage.scores = JSON.stringify(top);
@@ -451,7 +463,7 @@ var game = {
         document.getElementById("control-score-text").textContent = text;
         document.getElementById("control-score-tweet").setAttribute("href",
             "https://twitter.com/?status=" + window.encodeURIComponent("I scored " + text + " on " + map + " in #canvastd http://canvas-td.tkaz.ec/"));
-        
+
         ui.panel("score");
         document.getElementById("pages-overlay").style.display = "block";
     }

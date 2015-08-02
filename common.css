@@ -324,7 +324,7 @@ background: rgba(180,254,254,0.1);
 /*****************************************************************************/
 .status-bar{
     background-image: url("images/menu/stats-background.png");
-    height: 75px;
+    height: 80px;
     width:75px;
     color:white;
     font-family: 'Forum', cursive;

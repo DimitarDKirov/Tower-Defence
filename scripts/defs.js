@@ -53,23 +53,25 @@ var GameUnit = (function () {
 } ());
 
 var TowerDestroyer = (function () {
-    var towerDestroyer = Object.create({});
+    var id = 0,
+        towerDestroyer = Object.create({});
 
     Object.defineProperties(towerDestroyer, {
         init: {
-            value: function (x, y, hp, _hp , cash) {
+            value: function (x, y, hp, _hp, cash) {
+                this.id = id += 1;
                 this.x = x;
                 this.y = y;
                 this.hp = hp;
                 this._hp = _hp;
                 this.cash = cash;
-                
+
                 return this;
             }
         },
         type: {
             value: 'tower-destroyer',
-            writable: true  
+            writable: true
         },
         offset: {
             value: GetRandom(9),
@@ -77,15 +79,15 @@ var TowerDestroyer = (function () {
         },
         nextPoint: {
             value: 0,
-            writable: true       
+            writable: true
         },
         creepFrame: {
             value: 0,
-            writable: true  
+            writable: true
         },
         speed: {
             value: 1,
-            writable: true 
+            writable: true
         },
         rotation: {
             value: 0,
@@ -97,26 +99,112 @@ var TowerDestroyer = (function () {
         },
         burning: {
             value: false,
-            writable: true  
+            writable: true
         },
         color: {
             value: Math.ceil(GetRandom(3)),
             writable: true,
         },
         range: {
-            value: 30,
-            writable: true  
+            value: 100,
+            writable: true
         },
-        shoot:{
-            value: function(turrets){
-                
+        lastshot: {
+            value: 0,
+            writable: true
+        },
+        rate: {
+            value: 28,
+            writable: true
+        },
+        damage: {
+            value: 10,
+            writable: true
+        },
+        getTurretInRange: {
+            value: function (turrets) {
+                var turretIndex = -1,
+                    isTurretInRange = false,
+                    self = this;
+
                 if (Array.isArray(turrets)) {
-                    turrets.forEeach(function(turret){
-                        
+                    isTurretInRange = turrets.some(function (turret, index) {
+                        if (IsInRange(turret, self, self.range)) {
+                            turretIndex = index;
+                            isTurretInRange = true;
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
                     })
                 }
-                else{
+                else {
                     throw new Error('turrets must be an array with turrets');
+                }
+
+                if (isTurretInRange) {
+                    return turrets[turretIndex];
+                }
+                else {
+                    return false;
+                }
+            }
+        },
+        shoot: {
+            value: function (turrets) {
+
+                var turret = this.getTurretInRange(turrets),
+                    self = this,
+                    tx = (turret.x + 2.5) / 5,
+                    ty = (turret.y + 2.5) / 5;
+
+                if (!turret) {
+                    return null;
+                }
+                else {
+                    game.run.push({
+                        what: function () {
+
+                            canvas.beginPath();
+                            var flash = document.getElementById("flash");
+                            canvas.drawImage(flash, turret.x - 12.5, turret.y - 12.5);
+                            canvas.fill();
+
+                            canvas.lineCap = "round";
+                            canvas.lineWidth = 3;
+                            canvas.strokeStyle = "#ff0000";
+                            canvas.shadowColor = "#ff0000";
+                            canvas.save();
+                            canvas.shadowBlur = 20;
+                            canvas.beginPath();
+                            canvas.moveTo(self.x, self.y - 12.5);
+                            canvas.lineTo(turret.x, turret.y);
+                            canvas.stroke();
+                            canvas.shadowColor = 'rgba(0,0,0,0)';
+                            canvas.restore();
+                        },
+                        until: 6
+                    });
+
+                    turret.hp -= self.damage;
+
+                    if (turret.hp <= 0) {
+
+                        for (var i = 5; i--;) {
+                            for (var ii = 5; ii--;) {
+                                game.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
+                            }
+                        }
+
+                        Array.prototype.slice.call(document.getElementById("control-left").children).forEach(function (elem) {
+                            elem.style.display = "none";
+                        });
+
+                        game.selection = false;
+                        delete game.turrets[turret.id];
+                        ui.action.refresh();
+                    }
                 }
             }
         }
@@ -151,6 +239,7 @@ var Turret = (function () {
         this.range = range;
         this.type = type;
         this.upgrades = upgrades;
+        this.hp = 100;
     }
 
     Turret.prototype.shoot = function (creeps) {
@@ -220,6 +309,10 @@ var Laser = (function () {
 
         if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
             turret.kills += 1;
+            if (creep.type === 'tower-destroyer') {
+                var tdIndex = game.destroyers.indexOf(creep);
+                game.destroyers.splice(tdIndex, 1);
+            }
         }
 
         if (turret.levels.full && GetRandom(9) === 0) {
@@ -339,6 +432,10 @@ var Missile = (function () {
                                 var _hp = c.hp;
                                 if ((c.hp -= turret.damage) <= 0 && _hp > 0) {
                                     turret.kills += 1;
+                                    if (creep.type === 'tower-destroyer') {
+                                        var tdIndex = game.destroyers.indexOf(creep);
+                                        game.destroyers.splice(tdIndex, 1);
+                                    }
                                 }
                             }
                         });
@@ -362,6 +459,10 @@ var Missile = (function () {
                                 frame: 0
                             });
                             turret.kills += 1;
+                            if (creep.type === 'tower-destroyer') {
+                                var tdIndex = game.destroyers.indexOf(creep);
+                                game.destroyers.splice(tdIndex, 1);
+                            }
                         }
                     }
 
@@ -445,6 +546,10 @@ var Tazer = (function () {
 
         if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
             turret.kills += 1;
+            if (creep.type === 'tower-destroyer') {
+                var tdIndex = game.destroyers.indexOf(creep);
+                game.destroyers.splice(tdIndex, 1);
+            }
         }
 
         creep.speed = creep.speed > speed ? speed : creep.speed;
@@ -546,6 +651,10 @@ var Mortar = (function () {
 
                             if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
                                 turret.kills += 1;
+                                if (creep.type === 'tower-destroyer') {
+                                    var tdIndex = game.destroyers.indexOf(creep);
+                                    game.destroyers.splice(tdIndex, 1);
+                                }
                             }
 
                             if (turret.levels.full && !creep.burning) {
